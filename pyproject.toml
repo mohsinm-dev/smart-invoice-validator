@@ -1,0 +1,16 @@
+[project]
+name = "smart-invoice-platform"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "dotenv>=0.9.9",
+    "py-zerox>=0.0.7",
+    "python-magic>=0.4.27",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.6",
+]
