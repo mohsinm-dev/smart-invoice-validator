@@ -17,6 +17,7 @@ export function ContractSection() {
     services: []
   })
   const [isLoading, setIsLoading] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
 
   // Load contracts on component mount
   useEffect(() => {
@@ -37,18 +38,28 @@ export function ContractSection() {
     const file = acceptedFiles[0]
     if (!file) return
 
-    // TODO: Implement file upload if your API supports it
-    toast.error('Contract file upload not implemented yet')
+    setIsUploading(true)
+    try {
+      const contract = await api.contracts.uploadFile(file)
+      setContracts([...contracts, contract])
+      toast.success('Contract uploaded successfully')
+    } catch (error) {
+      toast.error('Failed to upload contract')
+      console.error('Error uploading contract:', error)
+    } finally {
+      setIsUploading(false)
+    }
   }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
       'application/pdf': ['.pdf'],
-      'image/jpeg': ['.jpg', '.jpeg'],
-      'image/png': ['.png']
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
     },
-    maxFiles: 1
+    maxFiles: 1,
+    disabled: isUploading
   })
 
   const addService = () => {
@@ -119,6 +130,8 @@ export function ContractSection() {
         <div
           {...getRootProps()}
           className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+            isUploading ? 'opacity-50 pointer-events-none' : ''
+          } ${
             isDragActive
               ? 'border-indigo-600 bg-indigo-50'
               : 'border-gray-300 hover:border-indigo-600 hover:bg-gray-50'
@@ -129,10 +142,12 @@ export function ContractSection() {
           <p className="text-gray-600">
             {isDragActive
               ? 'Drop the file here'
+              : isUploading
+              ? 'Uploading...'
               : 'Drag & drop a contract file, or click to select'}
           </p>
           <p className="text-sm text-gray-500 mt-2">
-            Supported formats: PDF, JPEG, PNG
+            Supported formats: PDF, DOC, DOCX
           </p>
         </div>
       ) : (

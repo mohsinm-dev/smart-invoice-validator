@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     # Gemini AI settings
     GEMINI_API_KEY: str
     GEMINI_MODEL: str = "gemini-2.0-flash"
+    CONFIDENCE_THRESHOLD: float = 0.7
     
     # Logging settings
     LOG_LEVEL: str = "INFO"

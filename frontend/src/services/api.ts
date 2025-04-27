@@ -1,4 +1,5 @@
-// API URL handling - we're using Next.js rewrites, so use relative URLs
+// API URL handling - direct API URL for debugging
+const API_URL = 'http://localhost:8000';
 const API_V1 = '/api/v1';
 
 // Types
@@ -56,94 +57,192 @@ export interface ComparisonResult {
   overall_match: boolean;
 }
 
+// Helper function to handle errors
+const handleResponse = async (response: Response) => {
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('API Error:', response.status, errorText);
+    throw new Error(`API request failed with status ${response.status}: ${errorText}`);
+  }
+  return response.json();
+};
+
+// Debug function
+const debugFetch = async (url: string, options?: RequestInit) => {
+  console.log(`Fetching ${url}`, options);
+  try {
+    const response = await fetch(url, options);
+    console.log(`Response for ${url}:`, response.status);
+    return response;
+  } catch (error) {
+    console.error(`Fetch error for ${url}:`, error);
+    throw error;
+  }
+};
+
 // API services
 export const api = {
   // Contract endpoints
   contracts: {
     getAll: async (): Promise<Contract[]> => {
-      const response = await fetch(`${API_V1}/contracts/`);
-      if (!response.ok) {
+      try {
+        // Try direct API first for debugging
+        const directUrl = `${API_URL}${API_V1}/contracts/`;
+        console.log("Trying direct API URL:", directUrl);
+        const directResponse = await debugFetch(directUrl);
+        
+        if (directResponse.ok) {
+          return await directResponse.json();
+        }
+        
+        // Fall back to relative URL if direct fails
+        console.log("Direct API failed, trying relative URL");
+        const response = await debugFetch(`${API_V1}/contracts/`);
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in getAll contracts:', error);
         throw new Error('Failed to fetch contracts');
       }
-      return response.json();
     },
     
     getById: async (id: string): Promise<Contract> => {
-      const response = await fetch(`${API_V1}/contracts/${id}`);
-      if (!response.ok) {
+      try {
+        const response = await debugFetch(`${API_V1}/contracts/${id}`);
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in getById contract:', error);
         throw new Error('Failed to fetch contract');
       }
-      return response.json();
     },
     
     create: async (contractData: ContractCreate): Promise<Contract> => {
-      const response = await fetch(`${API_V1}/contracts/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contractData),
-      });
-      
-      if (!response.ok) {
+      try {
+        const response = await debugFetch(`${API_V1}/contracts/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(contractData),
+        });
+        
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in create contract:', error);
         throw new Error('Failed to create contract');
       }
-      
-      return response.json();
+    },
+    
+    uploadFile: async (file: File): Promise<Contract> => {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        // Extract text from filename to use as supplier name if possible
+        const filenameParts = file.name.split('.');
+        const possibleSupplierName = filenameParts[0].replace(/[_-]/g, ' ');
+        formData.append('supplier_name', possibleSupplierName);
+        
+        const response = await debugFetch(`${API_V1}/contracts/upload`, {
+          method: 'POST',
+          body: formData,
+        });
+        
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error uploading contract file:', error);
+        throw new Error('Failed to upload contract file');
+      }
     }
   },
   
   // Invoice endpoints
   invoices: {
     getAll: async (): Promise<any[]> => {
-      const response = await fetch(`${API_V1}/invoices/`);
-      if (!response.ok) {
+      try {
+        // Try direct API first for debugging
+        const directUrl = `${API_URL}${API_V1}/invoices/`;
+        console.log("Trying direct API URL:", directUrl);
+        const directResponse = await debugFetch(directUrl);
+        
+        if (directResponse.ok) {
+          return await directResponse.json();
+        }
+        
+        // Fall back to relative URL if direct fails
+        console.log("Direct API failed, trying relative URL");
+        const response = await debugFetch(`${API_V1}/invoices/`);
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in getAll invoices:', error);
         throw new Error('Failed to fetch invoices');
       }
-      return response.json();
     },
     
     getById: async (id: string): Promise<any> => {
-      const response = await fetch(`${API_V1}/invoices/${id}`);
-      if (!response.ok) {
+      try {
+        const response = await debugFetch(`${API_V1}/invoices/${id}`);
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in getById invoice:', error);
         throw new Error('Failed to fetch invoice');
       }
-      return response.json();
     },
     
     processInvoice: async (file: File): Promise<InvoiceData> => {
-      const formData = new FormData();
-      formData.append('file', file);
-      
-      const response = await fetch(`${API_V1}/invoices/process`, {
-        method: 'POST',
-        body: formData,
-      });
-      
-      if (!response.ok) {
+      try {
+        // Read the file as base64
+        const fileContent = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            // Extract the base64 content (remove data:application/pdf;base64, prefix)
+            const base64String = reader.result as string;
+            const base64Content = base64String.split(',')[1];
+            resolve(base64Content);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+        
+        // Get file type from the file extension
+        const fileType = file.name.split('.').pop()?.toLowerCase() || '';
+        
+        // Send request with base64 encoded content
+        const response = await debugFetch(`${API_V1}/invoices/process`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            file_content: fileContent,
+            file_type: fileType
+          }),
+        });
+        
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in processInvoice:', error);
         throw new Error('Failed to process invoice');
       }
-      
-      return response.json();
     },
     
     compareInvoice: async (contractId: string, invoiceData: InvoiceData): Promise<ComparisonResult> => {
-      const response = await fetch(`${API_V1}/invoices/compare`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contract_id: contractId,
-          invoice_data: invoiceData,
-        }),
-      });
-      
-      if (!response.ok) {
+      try {
+        const response = await debugFetch(`${API_V1}/invoices/compare`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contract_id: contractId,
+            invoice_data: invoiceData,
+          }),
+        });
+        
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in compareInvoice:', error);
         throw new Error('Failed to compare invoice');
       }
-      
-      return response.json();
     }
   }
 }; 

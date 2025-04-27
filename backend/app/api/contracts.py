@@ -1,12 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from typing import List
 from ..database import get_db
 from ..models import Contract
+from ..services.document_processor import DocumentProcessor
 from pydantic import BaseModel
 from datetime import datetime
 import uuid
 from loguru import logger
+import os
+from ..config import settings
+import json
 
 router = APIRouter(prefix="/contracts", tags=["contracts"])
 
@@ -63,4 +67,73 @@ async def create_contract(
         
     except Exception as e:
         logger.error(f"Error creating contract: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.post("/upload", response_model=ContractResponse, status_code=201)
+async def upload_contract(
+    file: UploadFile = File(...),
+    supplier_name: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    """Upload a contract file and process it."""
+    try:
+        # Save the file
+        file_ext = os.path.splitext(file.filename)[1].lower()
+        if file_ext not in settings.ALLOWED_EXTENSIONS:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"File type not allowed. Allowed types: {', '.join(settings.ALLOWED_EXTENSIONS)}"
+            )
+        
+        file_path = os.path.join(settings.UPLOAD_DIR, file.filename)
+        with open(file_path, "wb") as f:
+            content = await file.read()
+            f.write(content)
+        
+        # Process the contract file using DocumentProcessor
+        processor = DocumentProcessor()
+        extracted_data = processor.process_contract(content, file.filename)
+        
+        if "error" in extracted_data:
+            logger.error(f"Error processing contract: {extracted_data['error']}")
+            raise HTTPException(status_code=400, detail=extracted_data["error"])
+        
+        # Use extracted supplier name if provided, otherwise use the one from form
+        contract_supplier_name = extracted_data.get("supplier_name")
+        if contract_supplier_name and contract_supplier_name != "Unknown":
+            final_supplier_name = contract_supplier_name
+            logger.info(f"Using extracted supplier name: {final_supplier_name}")
+        else:
+            final_supplier_name = supplier_name
+            logger.info(f"Using supplied supplier name: {final_supplier_name}")
+        
+        # Use extracted services if available
+        services = extracted_data.get("services", [])
+        if not services:
+            logger.warning("No services extracted from contract, using defaults")
+            # Provide default services only if nothing was extracted
+            services = [
+                {"service_name": "Professional Services", "unit_price": 100.0},
+                {"service_name": "Consulting", "unit_price": 150.0}
+            ]
+        
+        # Log the extracted services for debugging
+        logger.info(f"Extracted services: {json.dumps(services)}")
+        
+        # Create a contract in the database
+        contract = Contract(
+            id=str(uuid.uuid4()),
+            supplier_name=final_supplier_name,
+            services=services
+        )
+        
+        db.add(contract)
+        db.commit()
+        db.refresh(contract)
+        
+        logger.info(f"Contract uploaded and processed: {contract.id}")
+        return contract
+        
+    except Exception as e:
+        logger.error(f"Error uploading contract: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e)) 
