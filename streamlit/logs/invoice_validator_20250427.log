@@ -1,0 +1,378 @@
+2025-04-27 17:31:28,923 - invoice_validator - INFO - app.py:16 - Initialized contracts list in session state
+2025-04-27 17:31:28,923 - invoice_validator - INFO - app.py:19 - Initialized invoices list in session state
+2025-04-27 17:31:28,923 - invoice_validator - INFO - app.py:22 - Initialized extracted_data dict in session state
+2025-04-27 17:31:28,923 - invoice_validator - INFO - app.py:340 - Starting Streamlit application
+2025-04-27 17:31:28,963 - invoice_validator - DEBUG - app.py:351 - Initializing Upload Contract tab
+2025-04-27 17:31:28,964 - invoice_validator - DEBUG - app.py:392 - Initializing Upload Invoices tab
+2025-04-27 17:31:28,964 - invoice_validator - DEBUG - app.py:440 - Initializing Compare Invoices tab
+2025-04-27 17:31:28,964 - invoice_validator - INFO - app.py:445 - Current state - Contracts: 0, Invoices: 0
+2025-04-27 17:31:34,328 - invoice_validator - INFO - app.py:340 - Starting Streamlit application
+2025-04-27 17:31:34,332 - invoice_validator - DEBUG - app.py:351 - Initializing Upload Contract tab
+2025-04-27 17:31:34,333 - invoice_validator - INFO - app.py:362 - Contract file uploaded: exempel 3.pdf
+2025-04-27 17:31:34,333 - invoice_validator - INFO - app.py:209 - Processing uploaded contract: exempel 3.pdf
+2025-04-27 17:31:34,334 - invoice_validator - INFO - document_processor.py:312 - Starting document data extraction
+2025-04-27 17:31:34,335 - invoice_validator - INFO - document_processor.py:267 - Converting document to image (extension: pdf)
+2025-04-27 17:31:34,335 - invoice_validator - DEBUG - document_processor.py:270 - Converting PDF to images
+2025-04-27 17:31:34,535 - invoice_validator - INFO - document_processor.py:279 - Single page PDF, returning first page
+2025-04-27 17:31:34,536 - invoice_validator - INFO - document_processor.py:195 - Starting invoice verification
+2025-04-27 17:31:34,536 - invoice_validator - DEBUG - document_processor.py:223 - Sending verification request to Gemini
+2025-04-27 17:31:38,206 - invoice_validator - DEBUG - document_processor.py:228 - Raw Gemini response: ```json
+{
+    "is_invoice": true,
+    "confidence": 0.99,
+    "reason": "The image clearly contains characteristics of an invoice such as invoice number, item listings with prices, supplier/vendor information, total amount, and tax information. The title \"Faktura\" also confirms that this is an invoice."
+}
+```
+2025-04-27 17:31:38,207 - invoice_validator - INFO - document_processor.py:257 - Invoice verification result: is_invoice=True, confidence=0.99
+2025-04-27 17:31:38,208 - invoice_validator - INFO - document_processor.py:323 - Document verified as invoice, proceeding with data extraction
+2025-04-27 17:31:38,208 - invoice_validator - DEBUG - document_processor.py:362 - Sending extraction request to Gemini
+2025-04-27 17:31:44,961 - invoice_validator - DEBUG - document_processor.py:368 - Raw Gemini response: ```json
+{
+    "invoice_number": "678",
+    "supplier_name": "Thomas & Kenth Bygg i Tierp AB",
+    "issue_date": "2017-04-27",
+    "due_date": "2017-05-27",
+    "items": [
+        {
+            "description": "ÄTA-arbeten",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": null
+        },
+        {
+            "description": "ÄTA nr 6",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": -6000.00
+        },
+        {
+            "description": "ÄTA nr 7",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 9900.00
+        },
+        {
+            "description": "ÄTA nr 8",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 26400.00
+        },
+        {
+            "description": "ÄTA nr 9",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 27750.00
+        },
+        {
+            "description": "ÄTA nr 11",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 650000.00
+        },
+        {
+            "description": "ÄTA nr 12",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 50000.00
+        }
+    ],
+    "subtotal": 758050.00,
+    "tax": 189512.50,
+    "total": 947563.00,
+    "raw_text": "TK-Bygg\nBox 9481522 TIERP\nThomas & Kenth Bygg i Tierp AB\nFakturadatum 2017-04-27\nFakturanummer 678\nKundnummer 6\nFakturaadress AB Sollentunahem\nFE 22\n838 80 Frösön\nFörfallodatum (30 dagar netto) 2017-05-27\nBankgiro 5705-8117\nATT BETALA SEK 947 563,00\nLeveransadress Kv Nattvakten\nProjekt nr: 038106\nEr referens CECSUH\nErt ordernr\nLeveransvillkor\nLeveranssätt\nVår referens Kenth Svensson\nDröjsmålsränta 8,00 %\nLeveransdatum 2017-04-27\nArtnr Benämning Avvik leveransdatum Antal Enh À-pris Summa\nOmbyggnad av lokaler till pensionat, Vespergränd 29\n(Kontraktssumma 7,222,000,- exkl moms)\nÄTA-arbeten\nÄTA nr 6 -6 000,00\nÄTA nr 7 9 900,00\nÄTA nr 8 26 400,00\nÄTA nr 9 27 750,00\nÄTA nr 11 650 000,00\nÄTA nr 12 50 000,00\nNetto 758 050,00\nMoms % Momsunderlag Moms\n25% 758 050,00 189 512,50\nMoms kr 189 512,50\nÖresavr 0,50\nATT BETALA 947 563,00\nBox 94 Bankgiro: 5705-8117 QR-kod för betalning\n815 22 Tierp VAT-nr: SE556652178601 Läs mer om QR-kod och hur\nTel: 0293-13900 Godkänd för F-skatt du kan använda den på\ntk.bygg@telia.com Företagets säte: Tierp www.usingqr.se\nwww.tkbygg.com eller kontakta din bank."
+}
+```
+2025-04-27 17:31:44,961 - invoice_validator - DEBUG - document_processor.py:377 - Parsing Gemini response
+2025-04-27 17:31:44,961 - invoice_validator - INFO - document_processor.py:409 - Successfully extracted and validated document data
+2025-04-27 17:31:44,961 - invoice_validator - DEBUG - document_processor.py:424 - Cleaning up image resources
+2025-04-27 17:31:44,963 - invoice_validator - INFO - app.py:246 - Stored extracted data for exempel 3.pdf
+2025-04-27 17:31:46,968 - invoice_validator - INFO - app.py:286 - Added contract to session state: ID=contract-1, Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:31:46,969 - invoice_validator - INFO - app.py:288 - Successfully processed contract
+2025-04-27 17:31:46,969 - invoice_validator - INFO - app.py:373 - Successfully processed contract
+2025-04-27 17:31:46,971 - invoice_validator - DEBUG - app.py:392 - Initializing Upload Invoices tab
+2025-04-27 17:31:46,972 - invoice_validator - DEBUG - app.py:440 - Initializing Compare Invoices tab
+2025-04-27 17:31:46,973 - invoice_validator - INFO - app.py:445 - Current state - Contracts: 1, Invoices: 0
+2025-04-27 17:31:46,973 - invoice_validator - INFO - app.py:447 - Contract 0: ID=contract-1, Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:31:46,973 - invoice_validator - DEBUG - app.py:457 - Contract display names: ['Thomas & Kenth Bygg i Tierp AB (ID: contract-1)']
+2025-04-27 17:31:46,975 - invoice_validator - DEBUG - app.py:468 - Selected contract: contract-1
+2025-04-27 17:32:08,947 - invoice_validator - INFO - app.py:340 - Starting Streamlit application
+2025-04-27 17:32:08,949 - invoice_validator - DEBUG - app.py:351 - Initializing Upload Contract tab
+2025-04-27 17:32:08,949 - invoice_validator - INFO - app.py:362 - Contract file uploaded: exempel 3.pdf
+2025-04-27 17:32:08,950 - invoice_validator - INFO - app.py:209 - Processing uploaded contract: exempel 3.pdf
+2025-04-27 17:32:08,950 - invoice_validator - INFO - app.py:214 - Using cached data for exempel 3.pdf
+2025-04-27 17:32:08,950 - invoice_validator - INFO - app.py:216 - Cached document details: Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:32:08,950 - invoice_validator - INFO - app.py:222 - Contract already exists: ID=contract-1
+2025-04-27 17:32:08,950 - invoice_validator - INFO - app.py:373 - Successfully processed contract
+2025-04-27 17:32:08,951 - invoice_validator - DEBUG - app.py:392 - Initializing Upload Invoices tab
+2025-04-27 17:32:08,952 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: exempel 3.pdf
+2025-04-27 17:32:08,952 - invoice_validator - INFO - app.py:146 - Processing uploaded file: exempel 3.pdf
+2025-04-27 17:32:08,953 - invoice_validator - INFO - document_processor.py:312 - Starting document data extraction
+2025-04-27 17:32:08,953 - invoice_validator - INFO - document_processor.py:267 - Converting document to image (extension: pdf)
+2025-04-27 17:32:08,953 - invoice_validator - DEBUG - document_processor.py:270 - Converting PDF to images
+2025-04-27 17:32:09,258 - invoice_validator - INFO - document_processor.py:279 - Single page PDF, returning first page
+2025-04-27 17:32:09,258 - invoice_validator - INFO - document_processor.py:195 - Starting invoice verification
+2025-04-27 17:32:09,258 - invoice_validator - DEBUG - document_processor.py:223 - Sending verification request to Gemini
+2025-04-27 17:32:11,584 - invoice_validator - DEBUG - document_processor.py:228 - Raw Gemini response: ```json
+{
+    "is_invoice": true,
+    "confidence": 0.99,
+    "reason": "The image contains invoice number, item listings with prices, supplier/vendor information, total amount, and tax information. Additionally, it is labeled 'Faktura', which translates to 'Invoice'."
+}
+```
+2025-04-27 17:32:11,584 - invoice_validator - INFO - document_processor.py:257 - Invoice verification result: is_invoice=True, confidence=0.99
+2025-04-27 17:32:11,584 - invoice_validator - INFO - document_processor.py:323 - Document verified as invoice, proceeding with data extraction
+2025-04-27 17:32:11,584 - invoice_validator - DEBUG - document_processor.py:362 - Sending extraction request to Gemini
+2025-04-27 17:32:18,369 - invoice_validator - INFO - app.py:16 - Initialized contracts list in session state
+2025-04-27 17:32:18,370 - invoice_validator - INFO - app.py:19 - Initialized invoices list in session state
+2025-04-27 17:32:18,370 - invoice_validator - INFO - app.py:22 - Initialized extracted_data dict in session state
+2025-04-27 17:32:18,370 - invoice_validator - INFO - app.py:340 - Starting Streamlit application
+2025-04-27 17:32:18,371 - invoice_validator - DEBUG - app.py:351 - Initializing Upload Contract tab
+2025-04-27 17:32:18,372 - invoice_validator - DEBUG - app.py:392 - Initializing Upload Invoices tab
+2025-04-27 17:32:18,372 - invoice_validator - DEBUG - app.py:440 - Initializing Compare Invoices tab
+2025-04-27 17:32:18,372 - invoice_validator - INFO - app.py:445 - Current state - Contracts: 0, Invoices: 0
+2025-04-27 17:32:18,398 - invoice_validator - DEBUG - document_processor.py:368 - Raw Gemini response: ```json
+{
+    "invoice_number": "678",
+    "supplier_name": "Thomas & Kenth Bygg i Tierp AB",
+    "issue_date": "2017-04-27",
+    "due_date": "2017-05-27",
+    "items": [
+        {
+            "description": "ÄTA-arbeten",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": null
+        },
+        {
+            "description": "ÄTA nr 6",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": -6000.00
+        },
+        {
+            "description": "ÄTA nr 7",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 9900.00
+        },
+        {
+            "description": "ÄTA nr 8",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 26400.00
+        },
+        {
+            "description": "ÄTA nr 9",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 27750.00
+        },
+        {
+            "description": "ÄTA nr 11",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 650000.00
+        },
+        {
+            "description": "ÄTA nr 12",
+            "quantity": null,
+            "unit_price": null,
+            "total_price": 50000.00
+        }
+    ],
+    "subtotal": 758050.00,
+    "tax": 189512.50,
+    "total": 947563.00,
+    "raw_text": "TK-Bygg\nBox 9481522 TIERP\n\nThomas & Kenth Bygg i Tierp AB\n\nFakturadatum 2017-04-27\nFakturanummer 678\nKundnummer 6\n\nFörfallodatum (30 dagar netto) 2017-05-27\nBankgiro 5705-8117\nATT BETALA SEK 947 563,00\n\nEr referens CECSUH\nErt ordernr\nLeveransvillkor\nLeveranssätt\n\nArtnr Benämning Avvik leveransdatum\n\nBox 94\n815 22 Tierp\nTel: 0293-13900\ntk.bygg@telia.com\nwww.tkbygg.com\nFakturaadress AB Sollentunahem\nFE 22\n838 80 Frösön\nLeveransadress Kv Nattvakten\nProjekt nr: 038106\nVår referens Kenth Svensson\nDröjsmålsränta 8,00 %\nLeveransdatum 2017-04-27\n\nAntal Enh À-pris Summa\nOmbyggnad av lokaler till pensionat, Vespergränd 29\n(Kontraktssumma 7,222,000,- exkl moms)\n\nÄTA-arbeten\nÄTA nr 6 -6 000,00\nÄTA nr 7 9 900,00\nÄTA nr 8 26 400,00\nÄTA nr 9 27 750,00\nÄTA nr 11 650 000,00\nÄTA nr 12 50 000,00\n\n\nNetto 758 050,00\nMoms % Momsunderlag Moms\n25% 758 050,00 189 512,50\nMoms kr 189 512,50\nÖresavr 0,50\nATT BETALA 947 563,00\n\nBankgiro: 5705-8117\nVAT-nr: SE556652178601\nGodkänd för F-skatt\nFöretagets säte: Tierp\nQR-kod för betalning\nLäs mer om QR-kod och hur\ndu kan använda den på\nwww.usingqr.se\neller kontakta din bank."
+}
+```
+2025-04-27 17:32:18,399 - invoice_validator - DEBUG - document_processor.py:377 - Parsing Gemini response
+2025-04-27 17:32:18,399 - invoice_validator - INFO - document_processor.py:409 - Successfully extracted and validated document data
+2025-04-27 17:32:18,399 - invoice_validator - DEBUG - document_processor.py:424 - Cleaning up image resources
+2025-04-27 17:32:18,399 - invoice_validator - INFO - app.py:180 - Stored extracted data for exempel 3.pdf
+2025-04-27 17:32:18,400 - invoice_validator - INFO - app.py:186 - Successfully processed document
+2025-04-27 17:32:20,406 - invoice_validator - INFO - app.py:425 - Successfully processed invoice
+2025-04-27 17:32:20,407 - invoice_validator - INFO - app.py:433 - Added invoice to session state: exempel 3.pdf
+2025-04-27 17:32:20,408 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:32:20,408 - invoice_validator - DEBUG - app.py:54 - Displaying 7 line items
+2025-04-27 17:32:20,624 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: Faktura (1).pdf
+2025-04-27 17:32:20,624 - invoice_validator - INFO - app.py:146 - Processing uploaded file: Faktura (1).pdf
+2025-04-27 17:32:20,624 - invoice_validator - INFO - document_processor.py:312 - Starting document data extraction
+2025-04-27 17:32:20,624 - invoice_validator - INFO - document_processor.py:267 - Converting document to image (extension: pdf)
+2025-04-27 17:32:20,624 - invoice_validator - DEBUG - document_processor.py:270 - Converting PDF to images
+2025-04-27 17:32:20,715 - invoice_validator - INFO - document_processor.py:283 - Stitching 2 pages together
+2025-04-27 17:32:20,721 - invoice_validator - DEBUG - document_processor.py:293 - Stitching page 1/2
+2025-04-27 17:32:20,726 - invoice_validator - DEBUG - document_processor.py:293 - Stitching page 2/2
+2025-04-27 17:32:20,733 - invoice_validator - INFO - document_processor.py:297 - Successfully stitched all pages
+2025-04-27 17:32:20,733 - invoice_validator - INFO - document_processor.py:195 - Starting invoice verification
+2025-04-27 17:32:20,733 - invoice_validator - DEBUG - document_processor.py:223 - Sending verification request to Gemini
+2025-04-27 17:32:23,555 - invoice_validator - DEBUG - document_processor.py:228 - Raw Gemini response: ```json
+{
+  "is_invoice": true,
+  "confidence": 0.98,
+  "reason": "The image contains all the characteristics of an invoice: It is titled \"Faktura\", lists invoice and customer numbers, provides supplier information (Stockholm Gas and Gasnätet Stockholm AB), itemized listings with quantities and prices (Gashandel and Gasnät), and includes a total amount due. It also includes tax information (moms)."
+}
+```
+2025-04-27 17:32:23,555 - invoice_validator - INFO - document_processor.py:257 - Invoice verification result: is_invoice=True, confidence=0.98
+2025-04-27 17:32:23,555 - invoice_validator - INFO - document_processor.py:323 - Document verified as invoice, proceeding with data extraction
+2025-04-27 17:32:23,555 - invoice_validator - DEBUG - document_processor.py:362 - Sending extraction request to Gemini
+2025-04-27 17:32:34,323 - invoice_validator - DEBUG - document_processor.py:368 - Raw Gemini response: ```json
+{
+    "invoice_number": "600107494327",
+    "supplier_name": "Stockholm Gas AB",
+    "issue_date": "2025-04-03",
+    "due_date": "2025-04-28",
+    "items": [
+        {
+            "description": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31\nFast avgift Gas",
+            "quantity": 1,
+            "unit_price": 108.00,
+            "total_price": 108.00
+        },
+        {
+            "description": "Gasnät (Spistariff 3 rum & kök) 2025-03-01-2025-03-31\nFast avgift Nät",
+            "quantity": 1,
+            "unit_price": 282.00,
+            "total_price": 282.00
+        }
+    ],
+    "subtotal": 312.36,
+    "tax": 78.00,
+    "total": 390.00,
+    "raw_text": "STOCK\nHOLM\nGAS\ngasnätet\nSTOCKHOLM AB\nStockholm Gas AB\nAtt: Dynava, Gamla Rådstugugatan 19, 602 24 Norrköping\nFaktura\nSid 1 (2)\nFakturadatum\n2025-04-03\nFaktura-/OCR-nummer 600107494327\nKundnummer\n71007605\nMohamed Messaoud\nPlåtslagarvägen 2, 1 Tr 1102\n168 31 Bromma\nKostnad för perioden 2025-03-01-2025-03-31\nAnläggningsinformation\nSe specifikation\nExkl moms\nMoms\nTotalt\nStockholm Gas AB\nSE556915369401\n86,40\n21,60\n108,00\nGashandel\nGasnätet Stockholm AB\n225,60\n56,40\n282,00\nGasnät\nÖvrigt\n0,36\n0,36\nOss tillhanda senast\nMomsgrundande\nMoms 25%\nEj momsgrundande Öresutjämning\nAtt betala\n2025-04-28\n312,36\n78.00\n-0,36\n390,00\nStockholm Gas AB momsreg.nr. SE556915369401, Råsundavägen 12 169 67 Solna, fakturerar för Stockholm Gas AB och Gasnätet\nStockholm AB momsreg.nr. SE556742750401 räkning. Gasnätet Stockholm AB:s fordran är överlåten till Stockholm Gas AB. Företagen har\nF-skattsedel. Dröjsmålsränta: referensränta + 8 procentenheter. Anmärkningar på fakturan ska göras inom 8 dagar.\nbankgirot\nINBETALNING/GIRERING AVI\nOCR\nUtdataleverantör: EVRY\nBankgiro\n5655-6806\nIBAN-kod\nSE 22 9500 0099 6042 0742 7966\nSwift-adress\nNDEASESS\nInbet avgift (ifylls av banken)\nBetalningsavsändare\nOss tillhanda senast\nMohamed Messaoud\n2025-04-28\nAtt betala\n390,00\nPlåtslagarvägen 2, 1 Tr 1102\nFaktura-/OCR-nummer\n600107494327\n168 31 Bromma\n(ange utan mellanslag vid internetbetalning)\nFrån bankgironr (vid girering)\nTill Bankgironr\nBetalningsmottagare\n5655-6806\nStockholm Gas AB\nVAR GOD GÖR INGA ÄNDRINGAR\nMEDDELANDEN KAN INTE LÄMNAS PÅ AVIN\nDEN AVLÄSES MASKINELLT\nReferensnr\nKronor\nöre\n#\n600107494327 #\n390 00\n5 >\n56556806#41#\nSid 2 (2)\nFakturadatum\n2025-04-03\nFaktura-/OCR-nummer 600107494327\nKundnummer\n71007605\nSpecifikation för: Plåtslagarvägen 2, 1 Tr 1102; 16831 Bromma; Sverige\nAnl id: 1836380\nOmrådesid: ZST\nKontraktsnr: 775134\nAntal\nÁ pris\nSumma\nGashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31\n1 Mån\n108,00 SEK\n108,00 SEK\nFast avgift Gas\nTotalt\n108,00 SEK\nÖvrigt\nDröjsmålsränta\n2025-03-31\nDatum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225\n0,36 SEK\nTotalt\n0,36 SEK\nSumma\n108,36 SEK\nSpecifikation för: Plåtslagarvägen 2, 1 Tr 1102 16831 Bromma\nAnl id: 1836380\nOmrådesid: ZST\nKontraktsnr: 773565\nAntal\nÁ pris\nSumma\nGasnät (Spistariff 3 rum & kök) 2025-03-01-2025-03-31\n1 Mån\n282.00 SEK\n282,00 SEK\nFast avgift Nät\nTotalt\n282,00 SEK\nSumma\n282,00 SEK\nDu är alltid välkommen att kontakta oss\nWebb\nKonsumenträtt, klagomål och tvistelösning\nFelanmälan\nstockholmgas.se eller\nkundservice@stockholmgas.se eller\n0771-41 01 00 dygnet runt\ngasnatetstockholm.se\ngasnatetstockholm.se/kundservice\nAktuella frågor och svar\nE-post\nKundservice och flyttanmälan\nstockholmgas.se/kundservice eller\nkundservice@stockholmgas.se eller\n0771-41 01 00, må-fr 8-16\ngasnatetstockholm.se/kundservice\nkundservice@gasnatetstockholm.se\nDu vet väl att gasen kan användas till mer än matlagning, läs mer och låt dig inspireras på stockholmgas.se\nMed vänliga hälsningar,\nStockholm Gas och Gasnätet Stockholm\nBG 130 OCR spec"
+}
+```
+2025-04-27 17:32:34,324 - invoice_validator - DEBUG - document_processor.py:377 - Parsing Gemini response
+2025-04-27 17:32:34,324 - invoice_validator - INFO - document_processor.py:409 - Successfully extracted and validated document data
+2025-04-27 17:32:34,324 - invoice_validator - DEBUG - document_processor.py:424 - Cleaning up image resources
+2025-04-27 17:32:34,327 - invoice_validator - INFO - app.py:180 - Stored extracted data for Faktura (1).pdf
+2025-04-27 17:32:34,329 - invoice_validator - INFO - app.py:186 - Successfully processed document
+2025-04-27 17:32:36,336 - invoice_validator - INFO - app.py:425 - Successfully processed invoice
+2025-04-27 17:32:36,338 - invoice_validator - INFO - app.py:433 - Added invoice to session state: Faktura (1).pdf
+2025-04-27 17:32:36,339 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:32:36,340 - invoice_validator - DEBUG - app.py:54 - Displaying 2 line items
+2025-04-27 17:32:36,345 - invoice_validator - DEBUG - app.py:440 - Initializing Compare Invoices tab
+2025-04-27 17:32:36,346 - invoice_validator - INFO - app.py:445 - Current state - Contracts: 1, Invoices: 2
+2025-04-27 17:32:36,346 - invoice_validator - INFO - app.py:447 - Contract 0: ID=contract-1, Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:32:36,346 - invoice_validator - DEBUG - app.py:457 - Contract display names: ['Thomas & Kenth Bygg i Tierp AB (ID: contract-1)']
+2025-04-27 17:32:36,348 - invoice_validator - DEBUG - app.py:468 - Selected contract: contract-1
+2025-04-27 17:32:36,348 - invoice_validator - DEBUG - app.py:477 - Invoice display names: ['exempel 3.pdf', 'Faktura (1).pdf']
+2025-04-27 17:32:36,349 - invoice_validator - DEBUG - app.py:488 - Selected invoice: exempel 3.pdf
+2025-04-27 17:32:54,017 - invoice_validator - INFO - app.py:340 - Starting Streamlit application
+2025-04-27 17:32:54,019 - invoice_validator - DEBUG - app.py:351 - Initializing Upload Contract tab
+2025-04-27 17:32:54,020 - invoice_validator - INFO - app.py:362 - Contract file uploaded: exempel 3.pdf
+2025-04-27 17:32:54,021 - invoice_validator - INFO - app.py:209 - Processing uploaded contract: exempel 3.pdf
+2025-04-27 17:32:54,021 - invoice_validator - INFO - app.py:214 - Using cached data for exempel 3.pdf
+2025-04-27 17:32:54,021 - invoice_validator - INFO - app.py:216 - Cached document details: Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:32:54,021 - invoice_validator - INFO - app.py:222 - Contract already exists: ID=contract-1
+2025-04-27 17:32:54,021 - invoice_validator - INFO - app.py:373 - Successfully processed contract
+2025-04-27 17:32:54,023 - invoice_validator - DEBUG - app.py:392 - Initializing Upload Invoices tab
+2025-04-27 17:32:54,025 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: exempel 3.pdf
+2025-04-27 17:32:54,026 - invoice_validator - INFO - app.py:413 - Invoice already exists: exempel 3.pdf
+2025-04-27 17:32:54,027 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:32:54,028 - invoice_validator - DEBUG - app.py:54 - Displaying 7 line items
+2025-04-27 17:32:54,034 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: Faktura (1).pdf
+2025-04-27 17:32:54,034 - invoice_validator - INFO - app.py:413 - Invoice already exists: Faktura (1).pdf
+2025-04-27 17:32:54,034 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:32:54,035 - invoice_validator - DEBUG - app.py:54 - Displaying 2 line items
+2025-04-27 17:32:54,037 - invoice_validator - DEBUG - app.py:440 - Initializing Compare Invoices tab
+2025-04-27 17:32:54,038 - invoice_validator - INFO - app.py:445 - Current state - Contracts: 1, Invoices: 2
+2025-04-27 17:32:54,039 - invoice_validator - INFO - app.py:447 - Contract 0: ID=contract-1, Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:32:54,039 - invoice_validator - DEBUG - app.py:457 - Contract display names: ['Thomas & Kenth Bygg i Tierp AB (ID: contract-1)']
+2025-04-27 17:32:54,040 - invoice_validator - DEBUG - app.py:468 - Selected contract: contract-1
+2025-04-27 17:32:54,040 - invoice_validator - DEBUG - app.py:477 - Invoice display names: ['exempel 3.pdf', 'Faktura (1).pdf']
+2025-04-27 17:32:54,041 - invoice_validator - DEBUG - app.py:488 - Selected invoice: Faktura (1).pdf
+2025-04-27 17:32:55,084 - invoice_validator - INFO - app.py:340 - Starting Streamlit application
+2025-04-27 17:32:55,085 - invoice_validator - DEBUG - app.py:351 - Initializing Upload Contract tab
+2025-04-27 17:32:55,086 - invoice_validator - INFO - app.py:362 - Contract file uploaded: exempel 3.pdf
+2025-04-27 17:32:55,086 - invoice_validator - INFO - app.py:209 - Processing uploaded contract: exempel 3.pdf
+2025-04-27 17:32:55,086 - invoice_validator - INFO - app.py:214 - Using cached data for exempel 3.pdf
+2025-04-27 17:32:55,086 - invoice_validator - INFO - app.py:216 - Cached document details: Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:32:55,086 - invoice_validator - INFO - app.py:222 - Contract already exists: ID=contract-1
+2025-04-27 17:32:55,086 - invoice_validator - INFO - app.py:373 - Successfully processed contract
+2025-04-27 17:32:55,087 - invoice_validator - DEBUG - app.py:392 - Initializing Upload Invoices tab
+2025-04-27 17:32:55,087 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: exempel 3.pdf
+2025-04-27 17:32:55,087 - invoice_validator - INFO - app.py:413 - Invoice already exists: exempel 3.pdf
+2025-04-27 17:32:55,087 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:32:55,088 - invoice_validator - DEBUG - app.py:54 - Displaying 7 line items
+2025-04-27 17:32:55,089 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: Faktura (1).pdf
+2025-04-27 17:32:55,089 - invoice_validator - INFO - app.py:413 - Invoice already exists: Faktura (1).pdf
+2025-04-27 17:32:55,089 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:32:55,089 - invoice_validator - DEBUG - app.py:54 - Displaying 2 line items
+2025-04-27 17:32:55,090 - invoice_validator - DEBUG - app.py:440 - Initializing Compare Invoices tab
+2025-04-27 17:32:55,090 - invoice_validator - INFO - app.py:445 - Current state - Contracts: 1, Invoices: 2
+2025-04-27 17:32:55,090 - invoice_validator - INFO - app.py:447 - Contract 0: ID=contract-1, Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:32:55,090 - invoice_validator - DEBUG - app.py:457 - Contract display names: ['Thomas & Kenth Bygg i Tierp AB (ID: contract-1)']
+2025-04-27 17:32:55,091 - invoice_validator - DEBUG - app.py:468 - Selected contract: contract-1
+2025-04-27 17:32:55,091 - invoice_validator - DEBUG - app.py:477 - Invoice display names: ['exempel 3.pdf', 'Faktura (1).pdf']
+2025-04-27 17:32:55,091 - invoice_validator - DEBUG - app.py:488 - Selected invoice: Faktura (1).pdf
+2025-04-27 17:32:55,091 - invoice_validator - INFO - app.py:492 - Starting document comparison
+2025-04-27 17:32:55,091 - invoice_validator - INFO - app.py:296 - Comparing contract contract-1 with invoice
+2025-04-27 17:32:55,092 - invoice_validator - INFO - document_processor.py:430 - Starting document comparison (Contract ID: contract-1)
+2025-04-27 17:32:55,092 - invoice_validator - DEBUG - document_processor.py:434 - Supplier name match: False
+2025-04-27 17:32:55,092 - invoice_validator - DEBUG - document_processor.py:444 - Checking service matches
+2025-04-27 17:32:55,092 - invoice_validator - WARNING - document_processor.py:448 - Service not in contract: Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31
+Fast avgift Gas
+2025-04-27 17:32:55,092 - invoice_validator - WARNING - document_processor.py:448 - Service not in contract: Gasnät (Spistariff 3 rum & kök) 2025-03-01-2025-03-31
+Fast avgift Nät
+2025-04-27 17:32:55,092 - invoice_validator - WARNING - document_processor.py:484 - Supplier name mismatch: Contract=Thomas & Kenth Bygg i Tierp AB, Invoice=Stockholm Gas AB
+2025-04-27 17:32:55,092 - invoice_validator - INFO - document_processor.py:498 - Comparison complete. Overall match: False
+2025-04-27 17:32:57,098 - invoice_validator - INFO - app.py:68 - Displaying comparison results
+2025-04-27 17:32:57,100 - invoice_validator - WARNING - app.py:96 - Some checks failed. Issues: 3
+2025-04-27 17:32:57,104 - invoice_validator - DEBUG - app.py:128 - Displaying 3 issues
+2025-04-27 17:34:01,833 - invoice_validator - INFO - app.py:340 - Starting Streamlit application
+2025-04-27 17:34:01,835 - invoice_validator - DEBUG - app.py:351 - Initializing Upload Contract tab
+2025-04-27 17:34:01,837 - invoice_validator - INFO - app.py:362 - Contract file uploaded: exempel 3.pdf
+2025-04-27 17:34:01,837 - invoice_validator - INFO - app.py:209 - Processing uploaded contract: exempel 3.pdf
+2025-04-27 17:34:01,837 - invoice_validator - INFO - app.py:214 - Using cached data for exempel 3.pdf
+2025-04-27 17:34:01,838 - invoice_validator - INFO - app.py:216 - Cached document details: Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:34:01,838 - invoice_validator - INFO - app.py:222 - Contract already exists: ID=contract-1
+2025-04-27 17:34:01,838 - invoice_validator - INFO - app.py:373 - Successfully processed contract
+2025-04-27 17:34:01,839 - invoice_validator - DEBUG - app.py:392 - Initializing Upload Invoices tab
+2025-04-27 17:34:01,840 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: exempel 3.pdf
+2025-04-27 17:34:01,840 - invoice_validator - INFO - app.py:413 - Invoice already exists: exempel 3.pdf
+2025-04-27 17:34:01,840 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:34:01,841 - invoice_validator - DEBUG - app.py:54 - Displaying 7 line items
+2025-04-27 17:34:01,842 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: Faktura (1).pdf
+2025-04-27 17:34:01,843 - invoice_validator - INFO - app.py:413 - Invoice already exists: Faktura (1).pdf
+2025-04-27 17:34:01,843 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:34:01,843 - invoice_validator - DEBUG - app.py:54 - Displaying 2 line items
+2025-04-27 17:34:01,845 - invoice_validator - DEBUG - app.py:440 - Initializing Compare Invoices tab
+2025-04-27 17:34:01,846 - invoice_validator - INFO - app.py:445 - Current state - Contracts: 1, Invoices: 2
+2025-04-27 17:34:01,847 - invoice_validator - INFO - app.py:447 - Contract 0: ID=contract-1, Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:34:01,847 - invoice_validator - DEBUG - app.py:457 - Contract display names: ['Thomas & Kenth Bygg i Tierp AB (ID: contract-1)']
+2025-04-27 17:34:01,848 - invoice_validator - DEBUG - app.py:468 - Selected contract: contract-1
+2025-04-27 17:34:01,848 - invoice_validator - DEBUG - app.py:477 - Invoice display names: ['exempel 3.pdf', 'Faktura (1).pdf']
+2025-04-27 17:34:01,848 - invoice_validator - DEBUG - app.py:488 - Selected invoice: exempel 3.pdf
+2025-04-27 17:34:04,071 - invoice_validator - INFO - app.py:340 - Starting Streamlit application
+2025-04-27 17:34:04,073 - invoice_validator - DEBUG - app.py:351 - Initializing Upload Contract tab
+2025-04-27 17:34:04,075 - invoice_validator - INFO - app.py:362 - Contract file uploaded: exempel 3.pdf
+2025-04-27 17:34:04,075 - invoice_validator - INFO - app.py:209 - Processing uploaded contract: exempel 3.pdf
+2025-04-27 17:34:04,075 - invoice_validator - INFO - app.py:214 - Using cached data for exempel 3.pdf
+2025-04-27 17:34:04,076 - invoice_validator - INFO - app.py:216 - Cached document details: Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:34:04,076 - invoice_validator - INFO - app.py:222 - Contract already exists: ID=contract-1
+2025-04-27 17:34:04,076 - invoice_validator - INFO - app.py:373 - Successfully processed contract
+2025-04-27 17:34:04,078 - invoice_validator - DEBUG - app.py:392 - Initializing Upload Invoices tab
+2025-04-27 17:34:04,079 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: exempel 3.pdf
+2025-04-27 17:34:04,079 - invoice_validator - INFO - app.py:413 - Invoice already exists: exempel 3.pdf
+2025-04-27 17:34:04,080 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:34:04,081 - invoice_validator - DEBUG - app.py:54 - Displaying 7 line items
+2025-04-27 17:34:04,083 - invoice_validator - INFO - app.py:405 - Invoice file uploaded: Faktura (1).pdf
+2025-04-27 17:34:04,084 - invoice_validator - INFO - app.py:413 - Invoice already exists: Faktura (1).pdf
+2025-04-27 17:34:04,084 - invoice_validator - INFO - app.py:41 - Displaying document information
+2025-04-27 17:34:04,085 - invoice_validator - DEBUG - app.py:54 - Displaying 2 line items
+2025-04-27 17:34:04,089 - invoice_validator - DEBUG - app.py:440 - Initializing Compare Invoices tab
+2025-04-27 17:34:04,090 - invoice_validator - INFO - app.py:445 - Current state - Contracts: 1, Invoices: 2
+2025-04-27 17:34:04,090 - invoice_validator - INFO - app.py:447 - Contract 0: ID=contract-1, Supplier=Thomas & Kenth Bygg i Tierp AB
+2025-04-27 17:34:04,090 - invoice_validator - DEBUG - app.py:457 - Contract display names: ['Thomas & Kenth Bygg i Tierp AB (ID: contract-1)']
+2025-04-27 17:34:04,091 - invoice_validator - DEBUG - app.py:468 - Selected contract: contract-1
+2025-04-27 17:34:04,091 - invoice_validator - DEBUG - app.py:477 - Invoice display names: ['exempel 3.pdf', 'Faktura (1).pdf']
+2025-04-27 17:34:04,092 - invoice_validator - DEBUG - app.py:488 - Selected invoice: exempel 3.pdf
+2025-04-27 17:34:04,093 - invoice_validator - INFO - app.py:492 - Starting document comparison
+2025-04-27 17:34:04,093 - invoice_validator - INFO - app.py:296 - Comparing contract contract-1 with invoice
+2025-04-27 17:34:04,095 - invoice_validator - INFO - document_processor.py:430 - Starting document comparison (Contract ID: contract-1)
+2025-04-27 17:34:04,095 - invoice_validator - DEBUG - document_processor.py:434 - Supplier name match: True
+2025-04-27 17:34:04,095 - invoice_validator - DEBUG - document_processor.py:444 - Checking service matches
+2025-04-27 17:34:04,095 - invoice_validator - INFO - document_processor.py:498 - Comparison complete. Overall match: True
+2025-04-27 17:34:06,101 - invoice_validator - INFO - app.py:68 - Displaying comparison results
+2025-04-27 17:34:06,102 - invoice_validator - INFO - app.py:93 - All checks passed
