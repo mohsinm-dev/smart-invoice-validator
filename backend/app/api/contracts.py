@@ -1,38 +1,66 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 from typing import List
+from ..database import get_db
+from ..models import Contract
+from pydantic import BaseModel
+from datetime import datetime
 import uuid
+from loguru import logger
 
-from app.models.contract import Contract
-from app.services.contract_service import save_contract, get_contract, get_all_contracts
+router = APIRouter(prefix="/contracts", tags=["contracts"])
 
-router = APIRouter()
+class Service(BaseModel):
+    service_name: str
+    unit_price: float
 
-@router.post("/", response_model=Contract, status_code=status.HTTP_201_CREATED)
-async def create_contract(contract: Contract):
-    """Create a new contract"""
-    if not contract.id:
-        contract.id = str(uuid.uuid4())
-    
-    result = await save_contract(contract)
-    if not result:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to save contract"
-        )
-    return contract
+class ContractCreate(BaseModel):
+    supplier_name: str
+    services: List[Service]
 
-@router.get("/", response_model=List[Contract])
-async def list_contracts():
-    """Get all contracts"""
-    return await get_all_contracts()
+class ContractResponse(BaseModel):
+    id: str
+    supplier_name: str
+    services: List[Service]
+    created_at: datetime
+    updated_at: datetime | None
 
-@router.get("/{contract_id}", response_model=Contract)
-async def get_contract_by_id(contract_id: str):
-    """Get a specific contract by ID"""
-    contract = await get_contract(contract_id)
+    class Config:
+        from_attributes = True
+
+@router.get("/", response_model=List[ContractResponse])
+async def get_contracts(db: Session = Depends(get_db)):
+    """Get all contracts."""
+    contracts = db.query(Contract).all()
+    return contracts
+
+@router.get("/{contract_id}", response_model=ContractResponse)
+async def get_contract(contract_id: str, db: Session = Depends(get_db)):
+    """Get a specific contract by ID."""
+    contract = db.query(Contract).filter(Contract.id == contract_id).first()
     if not contract:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Contract with ID {contract_id} not found"
-        )
+        raise HTTPException(status_code=404, detail="Contract not found")
     return contract
+
+@router.post("/", response_model=ContractResponse, status_code=201)
+async def create_contract(
+    contract_data: ContractCreate,
+    db: Session = Depends(get_db)
+):
+    """Create a new contract."""
+    try:
+        contract = Contract(
+            id=str(uuid.uuid4()),
+            supplier_name=contract_data.supplier_name,
+            services=[service.dict() for service in contract_data.services]
+        )
+        
+        db.add(contract)
+        db.commit()
+        db.refresh(contract)
+        
+        return contract
+        
+    except Exception as e:
+        logger.error(f"Error creating contract: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e)) 

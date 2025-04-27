@@ -1,366 +1,450 @@
-import io
+import os
 import json
-import tempfile
-from typing import List, Dict, Any, Optional, Tuple
-from pydantic import BaseModel, Field, validator
+from typing import Dict, Optional, List, Tuple, Any
+from datetime import date, datetime
 import google.generativeai as genai
-from PIL import Image
 from pdf2image import convert_from_bytes
+from PIL import Image
+from pathlib import Path
+import io
+from loguru import logger
+from ..config import settings
+from ..models import Contract, Invoice
 
-class VerificationResult(BaseModel):
-    """Model for document verification result."""
-    is_purchase_order: bool = Field(..., description="Whether the document is a purchase order")
-    confidence: float = Field(..., description="Confidence score (0-1)", ge=0, le=1)
-    reason: str = Field(..., description="Explanation for the verification result")
+# Configure Gemini
+genai.configure(api_key=settings.GEMINI_API_KEY)
+model = genai.GenerativeModel(settings.GEMINI_MODEL)
 
-class ItemId(BaseModel):
-    """Model for item ID."""
-    id: str = Field(..., description="Item identifier, can contain periods, hyphens, and spaces")
+class InvoiceItem:
+    def __init__(self, data: Dict):
+        if not isinstance(data, dict):
+            raise ValueError(f"Expected dict for InvoiceItem data, got {type(data)}")
+        
+        self.description = str(data.get("description", ""))
+        self.quantity = float(data.get("quantity", 0.0) or 0.0)
+        self.unit_price = float(data.get("unit_price", 0.0) or 0.0)
+        self.total_price = float(data.get("total_price", 0.0) or 0.0)
 
-    @validator('id')
-    def validate_id(cls, v):
-        """Validate that ID is not empty."""
-        if not v.strip():
-            raise ValueError('Item ID cannot be empty')
-        return v
+class ExtractedDocument:
+    def __init__(self, data: Dict):
+        if not isinstance(data, dict):
+            raise ValueError(f"Expected dict for ExtractedDocument data, got {type(data)}")
+            
+        self.invoice_number = str(data.get("invoice_number", "Unknown"))
+        self.supplier_name = str(data.get("supplier_name", "Unknown"))
+        self.raw_text = str(data.get("raw_text", ""))
+        
+        try:
+            self.issue_date = data.get("issue_date", date.today().isoformat())
+            if not self.issue_date:
+                self.issue_date = date.today().isoformat()
+        except Exception as e:
+            logger.warning(f"Invalid issue_date: {data.get('issue_date')}, using today's date")
+            self.issue_date = date.today().isoformat()
+            
+        self.due_date = data.get("due_date")
+        
+        try:
+            items_data = data.get("items", [])
+            if not isinstance(items_data, list):
+                logger.warning("Items data is not a list, using empty list")
+                items_data = []
+            
+            self.items = []
+            for item in items_data:
+                if isinstance(item, InvoiceItem):
+                    self.items.append(item)
+                elif isinstance(item, dict):
+                    self.items.append(InvoiceItem(item))
+                elif hasattr(item, '__dict__'):
+                    self.items.append(InvoiceItem(item.__dict__))
+                else:
+                    logger.warning(f"Invalid item type: {type(item)}, skipping")
+                    
+        except Exception as e:
+            logger.warning(f"Error processing items: {str(e)}, using empty list")
+            self.items = []
+        
+        try:
+            self.subtotal = float(data.get("subtotal", 0.0) or 0.0)
+        except (TypeError, ValueError):
+            logger.warning(f"Invalid subtotal value: {data.get('subtotal')}, using default 0.0")
+            self.subtotal = 0.0
+            
+        try:
+            self.tax = float(data.get("tax", 0.0) or 0.0)
+        except (TypeError, ValueError):
+            logger.warning(f"Invalid tax value: {data.get('tax')}, using default 0.0")
+            self.tax = 0.0
+            
+        try:
+            self.total = float(data.get("total", 0.0) or 0.0)
+        except (TypeError, ValueError):
+            logger.warning(f"Invalid total value: {data.get('total')}, using default 0.0")
+            self.total = 0.0
+            
+    def to_dict(self) -> Dict:
+        return {
+            "invoice_number": self.invoice_number,
+            "supplier_name": self.supplier_name,
+            "issue_date": self.issue_date,
+            "due_date": self.due_date,
+            "items": [
+                {
+                    "description": item.description,
+                    "quantity": item.quantity,
+                    "unit_price": item.unit_price,
+                    "total_price": item.total_price
+                }
+                for item in self.items
+            ],
+            "subtotal": self.subtotal,
+            "tax": self.tax,
+            "total": self.total,
+            "raw_text": self.raw_text
+        }
 
-class PurchaseOrderItem(BaseModel):
-    """Model for a single item in a purchase order."""
-    item: ItemId = Field(..., description="Item with its ID")
-    quantity: int = Field(..., description="Quantity of the item", ge=0)
-    rate: Optional[float] = Field(None, description="Rate per unit of the item", ge=0)
-
-    @validator('rate')
-    def validate_rate(cls, v):
-        """Validate that rate is either None or a positive float."""
-        if v is not None and v <= 0:
-            raise ValueError('Rate must be positive if provided')
-        return v
-
-class PurchaseOrderResponse(BaseModel):
-    """Model for the complete purchase order response."""
-    items: List[PurchaseOrderItem] = Field(..., description="List of items in the purchase order")
+class ComparisonResult:
+    def __init__(self, data: Dict):
+        if not isinstance(data, dict):
+            raise ValueError(f"Expected dict for ComparisonResult data, got {type(data)}")
+            
+        self.contract_id = data.get("contract_id", "")
+        self.invoice_data = data.get("invoice_data", {})
+        self.matches = {
+            "supplier_name": bool(data.get("matches", {}).get("supplier_name", False)),
+            "prices_match": bool(data.get("matches", {}).get("prices_match", False)),
+            "all_services_in_contract": bool(data.get("matches", {}).get("all_services_in_contract", False))
+        }
+        self.issues = data.get("issues", [])
+        self.overall_match = bool(data.get("overall_match", False))
 
 class DocumentProcessor:
-    def __init__(self, api_key: str, confidence_threshold: float = 0.7, model_name: Optional[str] = None):
-        """
-        Initialize the DocumentProcessor with Gemini API key.
-        
-        Args:
-            api_key (str): Google Gemini API key
-            confidence_threshold (float): Minimum confidence score to consider a document as a purchase order
-            model_name (str, optional): Name of the fine-tuned model to use. If None, uses the base model.
-            
-        Raises:
-            ValueError: If API key is invalid or empty
-        """
-        if not api_key or not isinstance(api_key, str):
-            raise ValueError("Invalid API key")
-            
-        if not 0 <= confidence_threshold <= 1:
-            raise ValueError("Confidence threshold must be between 0 and 1")
-            
-        self.confidence_threshold = confidence_threshold
-        genai.configure(api_key=api_key)
-        
-        # Initialize the model - use fine-tuned model if provided, otherwise use base model
-        self.model_name = model_name if model_name else 'gemini-2.0-flash'
-        self.model = genai.GenerativeModel(self.model_name)
-        
-        self.temp_dir = tempfile.mkdtemp()
-
-    def convert_to_image(self, document: io.BytesIO) -> Image.Image:
-        """
-        Convert a single PDF document (as BytesIO) to an image.
-        
-        Args:
-            document (io.BytesIO): BytesIO object containing the PDF data
-            
-        Returns:
-            Image.Image: Image of the document
-            
-        Raises:
-            ValueError: If document conversion fails
-            TypeError: If document is not a BytesIO object
-        """
-        if not isinstance(document, io.BytesIO):
-            raise TypeError("document must be a BytesIO object")
-        
-        try:
-            # Convert PDF to image
-            images = convert_from_bytes(document.read())
-            if not images:
-                raise ValueError("No pages found in PDF")
-            # For now, just return the first page
-            return images[0]
-            
-        except Exception as e:
-            raise ValueError(f"Error converting document to image: {str(e)}")
-
-    def verify_document(self, document: io.BytesIO) -> VerificationResult:
-        """
-        Verify if the document is a purchase order and return confidence score.
-        
-        Args:
-            document (io.BytesIO): Document in BytesIO format
-            
-        Returns:
-            VerificationResult: Result of the verification
-            
-        Raises:
-            ValueError: If verification fails
-            TypeError: If document is not a BytesIO object
-        """
-        
-        image = self.convert_to_image(document)
-        if not isinstance(image, Image.Image):
-            raise TypeError("image must be a PIL Image")
-            
+    @staticmethod
+    def verify_invoice(image: Image.Image) -> Tuple[bool, str]:
+        """Verify if the document is an invoice using Gemini."""
+        logger.info("Starting invoice verification")
         try:
             prompt = """
-            Analyze this image and determine if it is a purchase order.
+            Analyze this image and determine if it is an invoice.
             Consider the following characteristics:
-            1. Presence of purchase order number
+            1. Presence of invoice number
             2. Item listings with quantities and prices
-            3. Vendor/supplier information
-            5. Total amount
+            3. Supplier/vendor information
+            4. Total amount
+            5. Tax information
             
-            Return a JSON response with:
+            You must respond with ONLY a valid JSON object in this exact format:
             {
-                "is_purchase_order": boolean,
+                "is_invoice": true or false,
                 "confidence": number between 0 and 1,
                 "reason": "explanation of your decision"
             }
-            
-            Instructions:
-            1. Analyze the image and determine if it is a purchase order
-            2. If it is a purchase order, return True for is_purchase_order
-            3. If it is not a purchase order, return False for is_purchase_order
-            4. Return a confidence score between 0 and 1
-            5. Return an explanation for your decision
-            6. Just return the JSON response, do not include any other text or explanations
-            7. Do not include any tags like ```json or ``` in your response.
             """
             
-            response = self.model.generate_content([prompt, image])
+            response = model.generate_content([prompt, image])
             content = response.text.strip()
             
-            # Remove any markdown code block markers
             if content.startswith('```json'):
                 content = content[7:]
             if content.endswith('```'):
                 content = content[:-3]
             content = content.strip()
             
-            try:
-                result = json.loads(content)
-            except json.JSONDecodeError as e:
-                print(f"Raw response from Gemini: {content}")
-                raise ValueError(f"Invalid JSON response from Gemini: {str(e)}")
+            result = json.loads(content)
             
-            # Validate required fields
-            required_fields = ["is_purchase_order", "confidence", "reason"]
-            missing_fields = [field for field in required_fields if field not in result]
+            if not isinstance(result.get("is_invoice"), bool):
+                logger.error(f"Invalid is_invoice value: {result.get('is_invoice')}")
+                return False, "Invalid response from verification model"
+                
+            if not isinstance(result.get("confidence"), (int, float)) or not 0 <= result.get("confidence") <= 1:
+                logger.error(f"Invalid confidence score: {result.get('confidence')}")
+                return False, "Invalid confidence score"
+            
+            if not isinstance(result.get("reason"), str):
+                logger.error(f"Invalid reason type: {type(result.get('reason'))}")
+                return False, "Invalid response from verification model"
+            
+            logger.info(f"Invoice verification result: is_invoice={result['is_invoice']}, confidence={result['confidence']}")
+            return result["is_invoice"], result["reason"]
+            
+        except Exception as e:
+            logger.error(f"Error during invoice verification: {str(e)}", exc_info=True)
+            return False, f"Error during verification: {str(e)}"
+
+    @staticmethod
+    def convert_to_image(file_content: bytes, file_extension: str) -> Image.Image:
+        """Convert document to image and stitch if multiple pages."""
+        logger.info(f"Converting document to image (extension: {file_extension})")
+        try:
+            if file_extension.lower() == 'pdf':
+                images = convert_from_bytes(file_content)
+                if not images:
+                    raise ValueError("No pages found in PDF")
+                
+                if len(images) == 1:
+                    return images[0]
+                
+                total_height = sum(img.height for img in images)
+                max_width = max(img.width for img in images)
+                
+                stitched_image = Image.new('RGB', (max_width, total_height))
+                
+                y_offset = 0
+                for img in images:
+                    stitched_image.paste(img, (0, y_offset))
+                    y_offset += img.height
+                    
+                return stitched_image
+                
+            else:
+                return Image.open(io.BytesIO(file_content))
+                
+        except Exception as e:
+            logger.error(f"Error converting document to image: {str(e)}", exc_info=True)
+            raise ValueError(f"Error converting document to image: {str(e)}")
+
+    @staticmethod
+    def extract_document_data(file_content: bytes, file_extension: str) -> Optional[ExtractedDocument]:
+        """Extract structured data from a document using Gemini."""
+        logger.info("Starting document data extraction")
+        try:
+            image = DocumentProcessor.convert_to_image(file_content, file_extension)
+            
+            is_invoice, reason = DocumentProcessor.verify_invoice(image)
+            if not is_invoice:
+                logger.warning(f"Document verification failed: {reason}")
+                raise ValueError(f"Document is not an invoice: {reason}")
+            
+            prompt = """
+            Analyze this image and extract the following information from the document.
+            
+            You must respond with ONLY a valid JSON object in this exact format:
+            {
+                "invoice_number": "string",
+                "supplier_name": "string",
+                "issue_date": "YYYY-MM-DD",
+                "due_date": "YYYY-MM-DD or null",
+                "items": [
+                    {
+                        "description": "string",
+                        "quantity": number,
+                        "unit_price": number,
+                        "total_price": number
+                    }
+                ],
+                "subtotal": number,
+                "tax": number,
+                "total": number,
+                "raw_text": "string"
+            }
+            """
+            
+            response = model.generate_content([prompt, image])
+            content = response.text.strip()
+            
+            if content.startswith('```json'):
+                content = content[7:]
+            if content.endswith('```'):
+                content = content[:-3]
+            content = content.strip()
+            
+            data = json.loads(content)
+            
+            required_fields = ["invoice_number", "supplier_name", "issue_date", "items", "subtotal", "tax", "total", "raw_text"]
+            missing_fields = [field for field in required_fields if field not in data]
             if missing_fields:
                 raise ValueError(f"Missing required fields in response: {missing_fields}")
             
-            # Validate confidence is a number between 0 and 1
-            if not isinstance(result["confidence"], (int, float)) or not 0 <= result["confidence"] <= 1:
-                raise ValueError("Confidence must be a number between 0 and 1")
+            if not isinstance(data["items"], list):
+                raise ValueError("Items must be a list")
             
-            # Validate is_purchase_order is a boolean
-            if not isinstance(result["is_purchase_order"], bool):
-                raise ValueError("is_purchase_order must be a boolean")
+            for i, item in enumerate(data["items"]):
+                if not isinstance(item, dict):
+                    raise ValueError(f"Item at index {i} must be a dictionary")
+                
+                required_item_fields = ["description", "quantity", "unit_price", "total_price"]
+                missing_item_fields = [field for field in required_item_fields if field not in item]
+                if missing_item_fields:
+                    raise ValueError(f"Missing required fields in item {i}: {missing_item_fields}")
             
-            # Validate reason is a string
-            if not isinstance(result["reason"], str):
-                raise ValueError("reason must be a string")
-            
-            return VerificationResult(**result)
+            logger.info("Successfully extracted and validated document data")
+            return ExtractedDocument(data)
             
         except Exception as e:
-            print(f"Error in verification: {str(e)}")
-            # Return a default low-confidence result instead of raising an error
-            return VerificationResult(
-                is_purchase_order=False,
-                confidence=0.0,
-                reason=f"Verification failed: {str(e)}"
-            )
+            logger.error(f"Error processing document: {str(e)}", exc_info=True)
+            raise RuntimeError(f"Error processing document: {str(e)}")
+        finally:
+            if 'image' in locals():
+                image.close()
 
-    def extract_items(self, document: io.BytesIO) -> List[Dict[str, Any]]:
-        """
-        Extract items from the purchase order using Gemini model.
+    @staticmethod
+    def compare_documents(contract: Contract, invoice: ExtractedDocument) -> ComparisonResult:
+        """Compare an invoice with a contract and return the comparison results."""
+        logger.info(f"Starting document comparison (Contract ID: {contract.id})")
         
-        Args:
-            document (io.BytesIO): Document in BytesIO format
-            
-        Returns:
-            List[Dict[str, Any]]: Extracted and validated items
-            
-        Raises:
-            ValueError: If extraction or validation fails
-            TypeError: If document is not a BytesIO object
-        """
+        supplier_match = contract.supplier_name.lower() == invoice.supplier_name.lower()
         
-        image = self.convert_to_image(document)
+        contract_services = {service["description"].lower(): service["unit_price"] 
+                           for service in contract.services}
         
-        if not isinstance(image, Image.Image):
-            raise TypeError("image must be a PIL Image")
-            
+        all_services_in_contract = True
+        price_matches = True
+        issues = []
+        
+        for item in invoice.items:
+            service_name = item.description.lower()
+            if service_name not in contract_services:
+                all_services_in_contract = False
+                issues.append({
+                    "type": "service_not_in_contract",
+                    "service_name": item.description
+                })
+            else:
+                contract_price = contract_services[service_name]
+                invoice_price = item.unit_price
+                
+                if contract_price == 0:
+                    if invoice_price != 0:
+                        price_matches = False
+                        issues.append({
+                            "type": "price_mismatch",
+                            "service_name": item.description,
+                            "contract_value": contract_price,
+                            "invoice_value": invoice_price
+                        })
+                else:
+                    price_diff_percentage = abs(invoice_price - contract_price) / contract_price
+                    if price_diff_percentage > 0.01:  # 1% tolerance
+                        price_matches = False
+                        issues.append({
+                            "type": "price_mismatch",
+                            "service_name": item.description,
+                            "contract_value": contract_price,
+                            "invoice_value": invoice_price
+                        })
+        
+        if not supplier_match:
+            issues.append({
+                "type": "supplier_mismatch",
+                "contract_value": contract.supplier_name,
+                "invoice_value": invoice.supplier_name
+            })
+        
+        matches = {
+            "supplier_name": supplier_match,
+            "prices_match": price_matches,
+            "all_services_in_contract": all_services_in_contract
+        }
+        
+        overall_match = all([supplier_match, price_matches, all_services_in_contract])
+        logger.info(f"Comparison complete. Overall match: {overall_match}")
+        
+        return ComparisonResult({
+            "contract_id": contract.id,
+            "invoice_data": invoice.to_dict(),
+            "matches": matches,
+            "issues": issues,
+            "overall_match": overall_match
+        })
+
+    @staticmethod
+    async def process_invoice(file_content: bytes, file_type: str) -> Dict[str, Any]:
+        """Process an invoice file and extract relevant information."""
         try:
-            # Create the prompt
-            prompt = """
-            Input Image:
+            # Convert file content to text (placeholder - implement actual conversion)
+            text_content = "Sample invoice content"  # TODO: Implement actual conversion
             
-            Now, please analyze this purchase order and extract all items in the following format:
-            [
-                {
-                    "item": { "id": "string" },
-                    "quantity": number,
-                    "rate": number
-                }
-            ]
+            # Prepare prompt for Gemini
+            prompt = f"""
+            Analyze this invoice document and extract the following information in JSON format:
+            - invoice_number
+            - supplier_name
+            - issue_date (YYYY-MM-DD)
+            - due_date (YYYY-MM-DD, if available)
+            - items (list of objects with description, quantity, unit_price, total_price)
+            - subtotal (if available)
+            - tax (if available)
+            - total
             
-            Important:
-            1. Return ONLY a valid JSON array
-            2. Each item must have an id and quantity
-            3. Some IDs might contain multiple periods like 105415.1000.1000. Add the complete IDs with all the periods.
-            4. All IDs must be returned as strings (enclosed in quotes)
-            5. Do not include any additional text or explanations
-            6. In the quantity field, I want the unit quantity, so if the quantity is 2 and there are 100 units in the unit, then the quantity should be 200
-            7. Validate that the ID is complete and correct before including it
-            8. If no items are found, return an empty array: []
-            9. If quantity is not available, use 0 as the default value
-            10. If rate is not available, use null
-            
-            **Very Important:** Some entries in the item field there may have multiple numbers, so include only one per item entry.
+            Document content:
+            {text_content}
             """
             
-            # Generate content with the model
-            try:
-                response = self.model.generate_content([prompt, image])
-            except Exception as e:
-                raise ValueError(f"Error generating content with Gemini: {str(e)}")
+            # Get response from Gemini
+            response = model.generate_content(prompt)
+            extracted_data = json.loads(response.text)
             
-            # Parse and return items
-            try:
-                content = response.text.strip()
-                if content.startswith('```json'):
-                    content = content[7:]
-                if content.endswith('```'):
-                    content = content[:-3]
-                content = content.strip()
-                
-                # Parse JSON response
-                try:
-                    items = json.loads(content)
-                except json.JSONDecodeError as e:
-                    print(f"Raw response from Gemini: {content}")
-                    raise ValueError(f"Invalid JSON response from Gemini: {str(e)}")
-                
-                # Ensure items is a list
-                if not isinstance(items, list):
-                    items = [items] if items else []
-                
-                # Pre-process items before validation
-                processed_items = []
-                for item in items:
-                    try:
-                        # Skip if item is not a dictionary
-                        if not isinstance(item, dict):
-                            continue
-                            
-                        # Skip if item doesn't have required fields
-                        if 'item' not in item or not isinstance(item['item'], dict) or 'id' not in item['item']:
-                            continue
-                            
-                        # Create processed item with default values
-                        processed_item = {
-                            'item': {
-                                'id': str(item['item']['id']).strip()
-                            },
-                            'quantity': 0,
-                            'rate': None
-                        }
-                        
-                        # Handle quantity
-                        if 'quantity' in item:
-                            quantity = item['quantity']
-                            if isinstance(quantity, (int, float)):
-                                processed_item['quantity'] = int(quantity)
-                            elif isinstance(quantity, str):
-                                try:
-                                    processed_item['quantity'] = int(float(quantity))
-                                except (ValueError, TypeError):
-                                    pass
-                                    
-                        # Handle rate
-                        if 'rate' in item:
-                            rate = item['rate']
-                            if rate is not None:
-                                if isinstance(rate, (int, float)):
-                                    processed_item['rate'] = float(rate)
-                                elif isinstance(rate, str):
-                                    try:
-                                        processed_item['rate'] = float(rate)
-                                    except:
-                                        processed_item['rate'] = None
-                                # Ensure rate is positive
-                                if processed_item['rate'] is not None and processed_item['rate'] <= 0:
-                                    processed_item['rate'] = None
-                            else:
-                                processed_item['rate'] = None
-                                
-                        # Only add items with valid IDs
-                        if processed_item['item']['id']:
-                            processed_items.append(processed_item)
-                            
-                    except Exception as e:
-                        print(f"Error processing item: {str(e)}")
-                        continue
-                
-                return processed_items
-                
-            except Exception as e:
-                raise ValueError(f"Error parsing response: {str(e)}")
+            # Convert dates to datetime objects
+            extracted_data["issue_date"] = datetime.strptime(extracted_data["issue_date"], "%Y-%m-%d")
+            if extracted_data.get("due_date"):
+                extracted_data["due_date"] = datetime.strptime(extracted_data["due_date"], "%Y-%m-%d")
+            
+            return extracted_data
             
         except Exception as e:
-            raise ValueError(f"Error extracting items: {str(e)}")
+            logger.error(f"Error processing invoice: {str(e)}")
+            raise
 
-    def process_document(self, document: io.BytesIO) -> Tuple[Optional[List[Dict[str, Any]]], Optional[VerificationResult]]:
-        """
-        Process a single document and extract purchase order items.
-        
-        Args:
-            document (io.BytesIO): Document in BytesIO format
-            
-        Returns:
-            Tuple[Optional[List[Dict[str, Any]]], Optional[VerificationResult]]: 
-                - List of items if successful, None if there was an error
-                - Verification result if successful, None if there was an error
-        """
-        if not isinstance(document, io.BytesIO):
-            raise TypeError("document must be a BytesIO object")
-            
+    @staticmethod
+    async def compare_invoice_with_contract(
+        contract: Contract,
+        invoice_data: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Compare invoice data with contract terms."""
         try:
-            # Verify if it's a purchase order
-            verification = self.verify_document(document)
+            # Prepare contract data for comparison
+            contract_services = {service["service_name"]: service["unit_price"] 
+                              for service in contract.services}
             
-            # Only proceed with extraction if confidence is above threshold
-            if verification.is_purchase_order and verification.confidence >= self.confidence_threshold:
-                items = self.extract_items(document)
-                return items, verification
-            else:
-                return None, verification
+            # Initialize comparison results
+            matches = {
+                "supplier_name": contract.supplier_name == invoice_data["supplier_name"],
+                "prices_match": True,
+                "all_services_in_contract": True
+            }
+            
+            issues = []
+            
+            # Check supplier name match
+            if not matches["supplier_name"]:
+                issues.append({
+                    "type": "supplier_mismatch",
+                    "contract_value": contract.supplier_name,
+                    "invoice_value": invoice_data["supplier_name"]
+                })
+            
+            # Check each invoice item against contract
+            for item in invoice_data["items"]:
+                service_name = item["description"]
+                unit_price = item["unit_price"]
+                
+                if service_name not in contract_services:
+                    matches["all_services_in_contract"] = False
+                    issues.append({
+                        "type": "service_not_in_contract",
+                        "service_name": service_name
+                    })
+                elif contract_services[service_name] != unit_price:
+                    matches["prices_match"] = False
+                    issues.append({
+                        "type": "price_mismatch",
+                        "service_name": service_name,
+                        "contract_value": contract_services[service_name],
+                        "invoice_value": unit_price
+                    })
+            
+            # Calculate overall match
+            overall_match = all(matches.values())
+            
+            return {
+                "contract_id": contract.id,
+                "invoice_data": invoice_data,
+                "matches": matches,
+                "issues": issues,
+                "overall_match": overall_match
+            }
             
         except Exception as e:
-            print(f"Error processing document: {str(e)}")
-            return None, None
-
-    def __del__(self):
-        """Clean up temporary files when the object is destroyed."""
-        try:
-            import shutil
-            shutil.rmtree(self.temp_dir)
-        except:
-            pass 
+            logger.error(f"Error comparing invoice with contract: {str(e)}")
+            raise

@@ -1,41 +1,28 @@
-import { Link } from 'react-router-dom'
+import { FileText } from 'lucide-react'
 
-const Navbar = () => {
+export function Navbar() {
   return (
-    <nav className="bg-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="text-xl font-bold text-gray-800">
-                Smart Document Validator
-              </Link>
-            </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link
-                to="/"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                to="/upload"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Upload Document
-              </Link>
-              <Link
-                to="/contracts"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Contracts
-              </Link>
-            </div>
+    <nav className="bg-white shadow-sm">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <FileText className="h-6 w-6 text-indigo-600" />
+            <span className="text-xl font-semibold text-gray-900">
+              Smart Invoice Validator
+            </span>
+          </div>
+          <div className="flex items-center space-x-4">
+            <a
+              href="https://github.com/yourusername/smart-invoice-validator"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              GitHub
+            </a>
           </div>
         </div>
       </div>
     </nav>
   )
-}
-
-export default Navbar 
+} 
