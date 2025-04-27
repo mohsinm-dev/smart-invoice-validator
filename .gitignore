@@ -9,3 +9,10 @@ wheels/
 # Virtual environments
 .venv
 backend/.env
+frontend/.env
+streamlit/.env
+
+# Streamlit cache
+streamlit/cache/
+
+frontend/node_modules/
