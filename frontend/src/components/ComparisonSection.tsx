@@ -7,32 +7,26 @@ import { api, Contract, InvoiceData, ComparisonResult } from '@/services/api'
 
 interface ComparisonSectionProps {
   invoiceData: InvoiceData | null;
+  contracts: Contract[];
+  onContractsChange: (contracts: Contract[]) => void;
 }
 
-export function ComparisonSection({ invoiceData }: ComparisonSectionProps) {
-  const [contracts, setContracts] = useState<Contract[]>([])
+export function ComparisonSection({ invoiceData, contracts, onContractsChange }: ComparisonSectionProps) {
   const [selectedContract, setSelectedContract] = useState<string>('')
   const [comparisonResult, setComparisonResult] = useState<ComparisonResult | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    fetchContracts()
-  }, [])
 
   // Reset comparison result when invoice data changes
   useEffect(() => {
     setComparisonResult(null)
   }, [invoiceData])
 
-  const fetchContracts = async () => {
-    try {
-      const data = await api.contracts.getAll()
-      setContracts(data)
-    } catch (error) {
-      toast.error('Failed to load contracts')
-      console.error('Error loading contracts:', error)
+  // Update selected contract when contracts change
+  useEffect(() => {
+    if (contracts.length > 0 && !selectedContract) {
+      setSelectedContract(contracts[0].id)
     }
-  }
+  }, [contracts, selectedContract])
 
   const handleCompare = async () => {
     if (!selectedContract || !invoiceData) {
@@ -77,10 +71,15 @@ export function ComparisonSection({ invoiceData }: ComparisonSectionProps) {
           <option value="">Choose a contract...</option>
           {contracts.map((contract) => (
             <option key={contract.id} value={contract.id}>
-              {contract.supplier_name}
+              {contract.supplier_name} (ID: {contract.id})
             </option>
           ))}
         </select>
+        {contracts.length === 0 && (
+          <p className="mt-2 text-sm text-gray-500">
+            No contracts available. Please upload a contract first.
+          </p>
+        )}
       </div>
 
       <div className="mb-6">

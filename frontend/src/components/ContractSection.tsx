@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { Upload, Plus, X } from 'lucide-react'
+import { Upload, Plus, X, Trash2, Edit2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { api, Contract, Service } from '@/services/api'
 
-export function ContractSection() {
+interface ContractSectionProps {
+  onContractCreated?: () => void;
+}
+
+export function ContractSection({ onContractCreated }: ContractSectionProps) {
   const [contracts, setContracts] = useState<Contract[]>([])
   const [isManualMode, setIsManualMode] = useState(false)
   const [newContract, setNewContract] = useState<{
@@ -18,6 +22,7 @@ export function ContractSection() {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
+  const [editingContract, setEditingContract] = useState<Contract | null>(null)
 
   // Load contracts on component mount
   useEffect(() => {
@@ -34,32 +39,48 @@ export function ContractSection() {
     }
   }
 
-  const onDrop = async (acceptedFiles: File[]) => {
-    const file = acceptedFiles[0]
-    if (!file) return
-
-    setIsUploading(true)
+  const handleUpload = async (file: File) => {
+    setIsLoading(true)
     try {
-      const contract = await api.contracts.uploadFile(file)
-      setContracts([...contracts, contract])
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('supplier_name', newContract.supplier_name || 'Unknown Supplier')
+      
+      const data = await api.contracts.upload(formData)
+      setContracts([...contracts, data])
+      setNewContract({
+        supplier_name: '',
+        services: []
+      })
       toast.success('Contract uploaded successfully')
+      if (onContractCreated) {
+        onContractCreated()
+      }
     } catch (error) {
       toast.error('Failed to upload contract')
       console.error('Error uploading contract:', error)
     } finally {
-      setIsUploading(false)
+      setIsLoading(false)
+    }
+  }
+
+  const handleFileDrop = async (acceptedFiles: File[]) => {
+    if (acceptedFiles.length > 0) {
+      const file = acceptedFiles[0]
+      await handleUpload(file)
     }
   }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
+    onDrop: handleFileDrop,
     accept: {
       'application/pdf': ['.pdf'],
-      'application/msword': ['.doc'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
+      'image/jpeg': ['.jpg', '.jpeg'],
+      'image/png': ['.png']
     },
     maxFiles: 1,
-    disabled: isUploading
+    multiple: false,
+    disabled: isLoading
   })
 
   const addService = () => {
@@ -91,6 +112,9 @@ export function ContractSection() {
         services: []
       })
       toast.success('Contract created successfully')
+      if (onContractCreated) {
+        onContractCreated()
+      }
     } catch (error) {
       toast.error('Failed to create contract')
       console.error('Error creating contract:', error)
@@ -98,6 +122,54 @@ export function ContractSection() {
       setIsLoading(false)
     }
   }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this contract?')) {
+      return;
+    }
+
+    try {
+      await api.contracts.delete(id);
+      setContracts(contracts.filter(contract => contract.id !== id));
+      toast.success('Contract deleted successfully');
+    } catch (error) {
+      toast.error('Failed to delete contract');
+      console.error('Error deleting contract:', error);
+    }
+  };
+
+  const handleEdit = (contract: Contract) => {
+    setEditingContract(contract);
+    setNewContract({
+      supplier_name: contract.supplier_name,
+      services: contract.services
+    });
+    setIsManualMode(true);
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingContract) return;
+
+    setIsLoading(true);
+    try {
+      const updatedContract = await api.contracts.update(editingContract.id, newContract);
+      setContracts(contracts.map(contract => 
+        contract.id === editingContract.id ? updatedContract : contract
+      ));
+      setEditingContract(null);
+      setNewContract({
+        supplier_name: '',
+        services: []
+      });
+      toast.success('Contract updated successfully');
+    } catch (error) {
+      toast.error('Failed to update contract');
+      console.error('Error updating contract:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6">
@@ -130,7 +202,7 @@ export function ContractSection() {
         <div
           {...getRootProps()}
           className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-            isUploading ? 'opacity-50 pointer-events-none' : ''
+            isLoading ? 'opacity-50 pointer-events-none' : ''
           } ${
             isDragActive
               ? 'border-indigo-600 bg-indigo-50'
@@ -142,16 +214,16 @@ export function ContractSection() {
           <p className="text-gray-600">
             {isDragActive
               ? 'Drop the file here'
-              : isUploading
-              ? 'Uploading...'
+              : isLoading
+              ? 'Processing...'
               : 'Drag & drop a contract file, or click to select'}
           </p>
           <p className="text-sm text-gray-500 mt-2">
-            Supported formats: PDF, DOC, DOCX
+            Supported formats: PDF, JPEG, PNG
           </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={editingContract ? handleUpdate : handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Supplier Name
@@ -163,6 +235,7 @@ export function ContractSection() {
                 setNewContract({ ...newContract, supplier_name: e.target.value })
               }
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+              placeholder="Enter supplier name"
               required
             />
           </div>
@@ -214,6 +287,8 @@ export function ContractSection() {
                     placeholder="Unit price"
                     className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                     required
+                    min="0"
+                    step="0.01"
                   />
                   <button
                     type="button"
@@ -230,11 +305,11 @@ export function ContractSection() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-2 px-4 bg-indigo-600 text-white rounded-md transition-colors ${
+            className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md transition-colors ${
               isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-indigo-700'
             }`}
           >
-            {isLoading ? 'Creating...' : 'Create Contract'}
+            {isLoading ? 'Saving...' : editingContract ? 'Update Contract' : 'Create Contract'}
           </button>
         </form>
       )}
@@ -251,12 +326,30 @@ export function ContractSection() {
                 className="border border-gray-200 rounded-md p-4"
               >
                 <div className="flex justify-between items-start mb-4">
-                  <h4 className="font-medium text-gray-900">
-                    {contract.supplier_name}
-                  </h4>
-                  <p className="text-sm text-gray-500">
-                    Created: {new Date(contract.created_at).toLocaleDateString()}
-                  </p>
+                  <div>
+                    <h4 className="font-medium text-gray-900">
+                      {contract.supplier_name}
+                    </h4>
+                    <p className="text-sm text-gray-500">
+                      Created: {new Date(contract.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleEdit(contract)}
+                      className="text-gray-400 hover:text-indigo-600"
+                      title="Edit contract"
+                    >
+                      <Edit2 className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(contract.id)}
+                      className="text-gray-400 hover:text-red-600"
+                      title="Delete contract"
+                    >
+                      <Trash2 className="h-5 w-5" />
+                    </button>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   {contract.services.map((service, idx) => (

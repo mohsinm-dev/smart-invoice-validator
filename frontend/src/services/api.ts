@@ -86,21 +86,10 @@ export const api = {
   contracts: {
     getAll: async (): Promise<Contract[]> => {
       try {
-        // Try direct API first for debugging
-        const directUrl = `${API_URL}${API_V1}/contracts/`;
-        console.log("Trying direct API URL:", directUrl);
-        const directResponse = await debugFetch(directUrl);
-        
-        if (directResponse.ok) {
-          return await directResponse.json();
-        }
-        
-        // Fall back to relative URL if direct fails
-        console.log("Direct API failed, trying relative URL");
-        const response = await debugFetch(`${API_V1}/contracts/`);
+        const response = await debugFetch(`${API_V1}/contracts`);
         return handleResponse(response);
       } catch (error) {
-        console.error('Error in getAll contracts:', error);
+        console.error('Error in getAll:', error);
         throw new Error('Failed to fetch contracts');
       }
     },
@@ -110,47 +99,65 @@ export const api = {
         const response = await debugFetch(`${API_V1}/contracts/${id}`);
         return handleResponse(response);
       } catch (error) {
-        console.error('Error in getById contract:', error);
+        console.error('Error in getById:', error);
         throw new Error('Failed to fetch contract');
       }
     },
     
     create: async (contractData: ContractCreate): Promise<Contract> => {
       try {
-        const response = await debugFetch(`${API_V1}/contracts/`, {
+        const response = await debugFetch(`${API_V1}/contracts`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(contractData),
         });
-        
         return handleResponse(response);
       } catch (error) {
-        console.error('Error in create contract:', error);
+        console.error('Error in create:', error);
         throw new Error('Failed to create contract');
       }
     },
     
-    uploadFile: async (file: File): Promise<Contract> => {
+    upload: async (formData: FormData): Promise<Contract> => {
       try {
-        const formData = new FormData();
-        formData.append('file', file);
-        
-        // Extract text from filename to use as supplier name if possible
-        const filenameParts = file.name.split('.');
-        const possibleSupplierName = filenameParts[0].replace(/[_-]/g, ' ');
-        formData.append('supplier_name', possibleSupplierName);
-        
         const response = await debugFetch(`${API_V1}/contracts/upload`, {
           method: 'POST',
           body: formData,
         });
-        
         return handleResponse(response);
       } catch (error) {
-        console.error('Error uploading contract file:', error);
-        throw new Error('Failed to upload contract file');
+        console.error('Error in upload:', error);
+        throw new Error('Failed to upload contract');
+      }
+    },
+    
+    delete: async (id: string): Promise<void> => {
+      try {
+        const response = await debugFetch(`${API_V1}/contracts/${id}`, {
+          method: 'DELETE',
+        });
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in delete:', error);
+        throw new Error('Failed to delete contract');
+      }
+    },
+    
+    update: async (id: string, contractData: ContractCreate): Promise<Contract> => {
+      try {
+        const response = await debugFetch(`${API_V1}/contracts/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(contractData),
+        });
+        return handleResponse(response);
+      } catch (error) {
+        console.error('Error in update:', error);
+        throw new Error('Failed to update contract');
       }
     }
   },

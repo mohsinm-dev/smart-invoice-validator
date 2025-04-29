@@ -306,7 +306,7 @@ class DocumentProcessor:
             response = self.model.generate_content(
                 [
                     "Extract all relevant invoice information from this document. Include invoice number, issue date, due date, supplier name, line items (with description, quantity, unit price, and total price), subtotal, tax, and total amount. Format as a JSON object.",
-                    genai.Image(image_bytes)
+                    {"mime_type": "image/png", "data": image_bytes}
                 ]
             )
             
@@ -329,7 +329,7 @@ class DocumentProcessor:
                 "services": [
                     {
                         "service_name": "Name of the service or product",
-                        "unit_price": numerical price value
+                        "unit_price": numerical price value (can be positive or negative)
                     },
                     ... more services
                 ],
@@ -341,12 +341,16 @@ class DocumentProcessor:
             
             Focus on extracting any services or line items with their pricing.
             If you can't find specific fields, use null or empty arrays as appropriate.
+            Pay special attention to:
+            1. Service names and their corresponding prices
+            2. Negative values for adjustments or deductions
+            3. Total contract amounts and individual service prices
             """
             
             response = self.model.generate_content(
                 [
                     prompt,
-                    genai.Image(image_bytes)
+                    {"mime_type": "image/png", "data": image_bytes}
                 ]
             )
             
@@ -358,9 +362,30 @@ class DocumentProcessor:
                 normalized_services = []
                 for service in contract_data["services"]:
                     if isinstance(service, dict):
+                        # Extract and clean service name
+                        service_name = service.get("service_name", "Unknown Service")
+                        service_name = " ".join(service_name.split())
+                        
+                        # Extract and validate price
+                        price_str = str(service.get("unit_price", "0")).strip()
+                        # Handle various price formats
+                        price_str = price_str.replace(",", ".")  # Replace comma with dot
+                        price_str = price_str.replace(" ", "")   # Remove spaces
+                        # Handle negative values with minus sign or parentheses
+                        is_negative = price_str.startswith("-") or price_str.startswith("(")
+                        price_str = price_str.replace("-", "").replace("(", "").replace(")", "")
+                        
+                        try:
+                            unit_price = float(price_str)
+                            if is_negative:
+                                unit_price = -unit_price
+                        except (ValueError, TypeError):
+                            logger.warning(f"Invalid price value: {price_str}, using 0.0")
+                            unit_price = 0.0
+                        
                         normalized_service = {
-                            "service_name": service.get("service_name", "Unknown Service"),
-                            "unit_price": float(service.get("unit_price", 0.0)) if service.get("unit_price") is not None else 0.0
+                            "service_name": service_name,
+                            "unit_price": unit_price
                         }
                         normalized_services.append(normalized_service)
                 
@@ -393,7 +418,7 @@ class DocumentProcessor:
             response = self.model.generate_content(
                 [
                     prompt,
-                    genai.Image(image_bytes)
+                    {"mime_type": "image/png", "data": image_bytes}
                 ]
             )
             
@@ -707,6 +732,11 @@ class DocumentProcessor:
             for service in contract.services:
                 if isinstance(service, dict) and "service_name" in service:
                     service_name = service.get("service_name", "").lower()
+                    # Normalize service name by removing special characters and extra spaces
+                    service_name = " ".join(service_name.split())
+                    # Remove common words that might cause false mismatches
+                    service_name = " ".join(word for word in service_name.split() 
+                                         if word not in ["nr", "no", "number", "arbeten", "work"])
                     unit_price = float(service.get("unit_price", 0.0)) if service.get("unit_price") is not None else 0.0
                     contract_services[service_name] = unit_price
             
@@ -714,7 +744,13 @@ class DocumentProcessor:
             invoice_supplier = invoice_data.get("supplier_name", "").lower()
             contract_supplier = getattr(contract, "supplier_name", "").lower()
             
-            supplier_match = invoice_supplier == contract_supplier if invoice_supplier and contract_supplier else False
+            # More flexible supplier name matching
+            supplier_match = (
+                invoice_supplier in contract_supplier or 
+                contract_supplier in invoice_supplier or
+                any(part in contract_supplier for part in invoice_supplier.split()) or
+                any(part in invoice_supplier for part in contract_supplier.split())
+            )
             
             matches = {
                 "supplier_name": supplier_match,
@@ -741,26 +777,49 @@ class DocumentProcessor:
                 if not service_name:
                     continue
                     
+                # Normalize service name
+                service_name = " ".join(service_name.split())
+                # Remove common words that might cause false mismatches
+                service_name = " ".join(word for word in service_name.split() 
+                                     if word not in ["nr", "no", "number", "arbeten", "work"])
+                
                 # Convert unit_price to float or default to 0
                 try:
                     unit_price = float(item.get("unit_price", 0.0)) if item.get("unit_price") is not None else 0.0
                 except (ValueError, TypeError):
                     unit_price = 0.0
                 
-                if service_name not in contract_services:
+                # Find matching contract service using fuzzy matching
+                matched_service = None
+                for contract_service in contract_services:
+                    # Check for exact match or partial match
+                    if (service_name == contract_service or
+                        service_name in contract_service or
+                        contract_service in service_name or
+                        any(part in contract_service for part in service_name.split()) or
+                        any(part in service_name for part in contract_service.split())):
+                        matched_service = contract_service
+                        break
+                
+                if not matched_service:
                     matches["all_services_in_contract"] = False
                     issues.append({
                         "type": "service_not_in_contract",
                         "service_name": item.get("description", "Unknown service")
                     })
-                elif unit_price != contract_services[service_name]:
-                    matches["prices_match"] = False
-                    issues.append({
-                        "type": "price_mismatch",
-                        "service_name": item.get("description", "Unknown service"),
-                        "contract_value": contract_services[service_name],
-                        "invoice_value": unit_price
-                    })
+                else:
+                    contract_price = contract_services[matched_service]
+                    # Handle negative values and allow for small price differences
+                    if (abs(unit_price - contract_price) > 0.01 and 
+                        not (unit_price == 0 and contract_price < 0) and  # Allow zero to match negative
+                        not (contract_price == 0 and unit_price < 0)):    # Allow zero to match negative
+                        matches["prices_match"] = False
+                        issues.append({
+                            "type": "price_mismatch",
+                            "service_name": item.get("description", "Unknown service"),
+                            "contract_value": contract_price,
+                            "invoice_value": unit_price
+                        })
             
             # Calculate overall match
             overall_match = all(matches.values())
@@ -951,6 +1010,22 @@ class DocumentProcessor:
                     {"description": "Unknown Item", "quantity": 1.0, "unit_price": extracted_data["total"], "total_price": extracted_data["total"]}
                 ]
                 logger.warning("No items extracted, creating default item based on total")
+            
+            # Ensure all required fields are present
+            required_fields = ["invoice_number", "supplier_name", "issue_date", "total"]
+            for field in required_fields:
+                if field not in extracted_data or extracted_data[field] is None:
+                    if field == "invoice_number":
+                        extracted_data[field] = f"INV-{datetime.now().strftime('%Y%m%d%H%M%S')}"
+                    elif field == "supplier_name":
+                        extracted_data[field] = "Unknown Supplier"
+                    elif field == "issue_date":
+                        extracted_data[field] = datetime.now()
+                    elif field == "total":
+                        # Calculate total from items if not present
+                        total = sum(item.get("total_price", 0) for item in extracted_data["items"])
+                        extracted_data[field] = total
+                    logger.warning(f"Missing required field {field}, using default value")
             
             logger.info("Successfully processed invoice")
             return extracted_data

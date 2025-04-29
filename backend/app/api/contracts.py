@@ -35,8 +35,13 @@ class ContractResponse(BaseModel):
 @router.get("/", response_model=List[ContractResponse])
 async def get_contracts(db: Session = Depends(get_db)):
     """Get all contracts."""
-    contracts = db.query(Contract).all()
-    return contracts
+    try:
+        contracts = db.query(Contract).all()
+        logger.info(f"Retrieved {len(contracts)} contracts from database")
+        return contracts
+    except Exception as e:
+        logger.error(f"Error retrieving contracts: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to retrieve contracts")
 
 @router.get("/{contract_id}", response_model=ContractResponse)
 async def get_contract(contract_id: str, db: Session = Depends(get_db)):
@@ -72,7 +77,6 @@ async def create_contract(
 @router.post("/upload", response_model=ContractResponse, status_code=201)
 async def upload_contract(
     file: UploadFile = File(...),
-    supplier_name: str = Form(...),
     db: Session = Depends(get_db)
 ):
     """Upload a contract file and process it."""
@@ -98,14 +102,9 @@ async def upload_contract(
             logger.error(f"Error processing contract: {extracted_data['error']}")
             raise HTTPException(status_code=400, detail=extracted_data["error"])
         
-        # Use extracted supplier name if provided, otherwise use the one from form
-        contract_supplier_name = extracted_data.get("supplier_name")
-        if contract_supplier_name and contract_supplier_name != "Unknown":
-            final_supplier_name = contract_supplier_name
-            logger.info(f"Using extracted supplier name: {final_supplier_name}")
-        else:
-            final_supplier_name = supplier_name
-            logger.info(f"Using supplied supplier name: {final_supplier_name}")
+        # Use the supplier name extracted by the Gemini model
+        supplier_name = extracted_data.get("supplier_name", "Unknown Supplier")
+        logger.info(f"Using extracted supplier name: {supplier_name}")
         
         # Use extracted services if available
         services = extracted_data.get("services", [])
@@ -121,9 +120,10 @@ async def upload_contract(
         logger.info(f"Extracted services: {json.dumps(services)}")
         
         # Create a contract in the database
+        contract_id = str(uuid.uuid4())
         contract = Contract(
-            id=str(uuid.uuid4()),
-            supplier_name=final_supplier_name,
+            id=contract_id,
+            supplier_name=supplier_name,
             services=services
         )
         
@@ -136,4 +136,43 @@ async def upload_contract(
         
     except Exception as e:
         logger.error(f"Error uploading contract: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.delete("/{contract_id}")
+async def delete_contract(contract_id: str, db: Session = Depends(get_db)):
+    """Delete a contract by ID."""
+    contract = db.query(Contract).filter(Contract.id == contract_id).first()
+    if not contract:
+        raise HTTPException(status_code=404, detail="Contract not found")
+    
+    try:
+        db.delete(contract)
+        db.commit()
+        return {"message": "Contract deleted successfully"}
+    except Exception as e:
+        logger.error(f"Error deleting contract: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.put("/{contract_id}", response_model=ContractResponse)
+async def update_contract(
+    contract_id: str,
+    contract_data: ContractCreate,
+    db: Session = Depends(get_db)
+):
+    """Update an existing contract."""
+    contract = db.query(Contract).filter(Contract.id == contract_id).first()
+    if not contract:
+        raise HTTPException(status_code=404, detail="Contract not found")
+    
+    try:
+        contract.supplier_name = contract_data.supplier_name
+        contract.services = [service.dict() for service in contract_data.services]
+        contract.updated_at = datetime.utcnow()
+        
+        db.commit()
+        db.refresh(contract)
+        
+        return contract
+    except Exception as e:
+        logger.error(f"Error updating contract: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e)) 
