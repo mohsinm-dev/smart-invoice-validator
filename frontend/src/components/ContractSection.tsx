@@ -287,7 +287,6 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
                     placeholder="Unit price"
                     className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                     required
-                    min="0"
                     step="0.01"
                   />
                   <button
@@ -358,8 +357,9 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
                       className="flex justify-between text-sm"
                     >
                       <span className="text-gray-700">{service.service_name}</span>
-                      <span className="text-gray-900">
-                        ${service.unit_price.toFixed(2)}
+                      <span className={`text-gray-900 ${service.unit_price < 0 ? 'text-red-600' : ''}`}>
+                        ${Math.abs(service.unit_price).toFixed(2)}
+                        {service.unit_price < 0 ? ' (negative)' : ''}
                       </span>
                     </div>
                   ))}

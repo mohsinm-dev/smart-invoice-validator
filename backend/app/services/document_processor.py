@@ -321,15 +321,17 @@ class DocumentProcessor:
         """Extract contract data from an image using Gemini."""
         try:
             prompt = """
-            Analyze this contract document image and extract the following information.
+            Analyze this contract document image in extreme detail and extract the following information.
+            
+            CRITICAL: Pay special attention to all services/line items and their prices!
             
             Please provide your response as a valid JSON object with these fields:
             {
-                "supplier_name": "The name of the supplier or vendor",
+                "supplier_name": "The full name of the supplier or vendor (company name)",
                 "services": [
                     {
-                        "service_name": "Name of the service or product",
-                        "unit_price": numerical price value (can be positive or negative)
+                        "service_name": "Complete name of the service or product as written",
+                        "unit_price": numerical price value (extract the actual price, never 0 unless explicitly stated)
                     },
                     ... more services
                 ],
@@ -339,12 +341,21 @@ class DocumentProcessor:
                 "max_amount": numerical value of maximum contract amount if specified, null otherwise
             }
             
-            Focus on extracting any services or line items with their pricing.
+            EXTRACTION INSTRUCTIONS:
+            1. Find ALL services/items with associated pricing, even if not in a clear "price list" format
+            2. For each service, extract the complete name exactly as written
+            3. ALWAYS extract the actual price value associated with each service (never default to 0)
+            4. If service names include numbers like "ÅTA nr 6", extract the full text as service_name
+            5. Look for prices in formats like "$1000", "1,000.00", "1000 kr", "1.000,00", etc.
+            6. Extract negative values with the negative sign (e.g., "-1000" or "-$1000")
+            7. If a service appears to have multiple line items, split them into separate services
+            8. Pay special attention to service descriptions that span multiple lines
+            9. IMPORTANT: For headline/main project descriptions (like "Ombyggnad av lokaler..."), use the total contract amount as the price if no specific price is listed
+            10. When a description mentions a sum (like "Kontraktssumma"), use that value as the unit_price
+            
+            Focus on extracting every single service or line item with its pricing.
             If you can't find specific fields, use null or empty arrays as appropriate.
-            Pay special attention to:
-            1. Service names and their corresponding prices
-            2. Negative values for adjustments or deductions
-            3. Total contract amounts and individual service prices
+            Never set unit_price to 0 unless explicitly shown as zero in the document.
             """
             
             response = self.model.generate_content(
@@ -401,16 +412,27 @@ class DocumentProcessor:
         """Extract services and pricing information from an image."""
         try:
             prompt = """
-            Look at this image of a contract page and extract ONLY the services or products with their pricing.
+            Examine this contract page in detail and extract ONLY the services or products with their pricing.
+            
+            CRITICAL: Find ALL services/line items and their associated prices!
             
             Return a JSON array of objects like this:
             [
                 {
-                    "service_name": "Name of service or product",
-                    "unit_price": numerical price value
+                    "service_name": "Complete description of the service exactly as written",
+                    "unit_price": numerical price value (never use 0 unless explicitly stated as 0)
                 },
                 ... more services
             ]
+            
+            IMPORTANT INSTRUCTIONS:
+            1. Extract ALL items that appear to be services, work items, products, or deliverables
+            2. Always include the FULL description of each service (don't abbreviate or summarize)
+            3. For each service, extract the associated price value, never defaulting to 0
+            4. Include item numbers/references as part of the service name (e.g., "ÅTA nr 6")
+            5. Look for prices in any format: "$1000", "1,000.00", "1000 kr", etc.
+            6. Don't skip any services - capture everything that has an associated price
+            7. If a price appears negative (with minus sign or parentheses), capture it as negative
             
             If no services or pricing information is found, return an empty array.
             """
@@ -729,107 +751,176 @@ class DocumentProcessor:
             
             # Prepare contract data for comparison
             contract_services = {}
+            logger.info(f"Contract has {len(contract.services)} services")
             for service in contract.services:
                 if isinstance(service, dict) and "service_name" in service:
-                    service_name = service.get("service_name", "").lower()
-                    # Normalize service name by removing special characters and extra spaces
-                    service_name = " ".join(service_name.split())
-                    # Remove common words that might cause false mismatches
-                    service_name = " ".join(word for word in service_name.split() 
-                                         if word not in ["nr", "no", "number", "arbeten", "work"])
+                    # Keep the original service name
+                    original_service_name = service.get("service_name", "")
+                    service_name = original_service_name.lower()
+                    # Simple normalization - just remove excess whitespace
+                    service_name_norm = " ".join(service_name.split())
+                    
                     unit_price = float(service.get("unit_price", 0.0)) if service.get("unit_price") is not None else 0.0
-                    contract_services[service_name] = unit_price
+                    # Store both original and normalized names for better matching
+                    contract_services[service_name_norm] = {
+                        "original_name": original_service_name,
+                        "price": unit_price
+                    }
+                    logger.debug(f"Contract service: '{service_name_norm}' -> ${unit_price}")
             
-            # Initialize comparison results
-            invoice_supplier = invoice_data.get("supplier_name", "").lower()
-            contract_supplier = getattr(contract, "supplier_name", "").lower()
-            
-            # More flexible supplier name matching
-            supplier_match = (
-                invoice_supplier in contract_supplier or 
-                contract_supplier in invoice_supplier or
-                any(part in contract_supplier for part in invoice_supplier.split()) or
-                any(part in invoice_supplier for part in contract_supplier.split())
-            )
-            
+            # Initialize issues and matches
+            issues = []
             matches = {
-                "supplier_name": supplier_match,
-                "prices_match": True,  # Default to True, set to False if mismatch found
-                "all_services_in_contract": True  # Default to True, set to False if not found
+                "prices_match": True,
+                "all_services_in_contract": True
             }
             
-            issues = []
-            
-            # Check supplier name match
-            if not matches["supplier_name"]:
-                issues.append({
-                    "type": "supplier_mismatch",
-                    "contract_value": contract.supplier_name,
-                    "invoice_value": invoice_data.get("supplier_name", "Unknown")
-                })
-            
+            # Prepare detailed price comparison
+            price_comparison_details = []
+            all_prices_match = True
+
             # Check each invoice item against contract
             for item in invoice_data.get("items", []):
                 if not isinstance(item, dict):
                     continue
-                    
-                service_name = item.get("description", "").lower()
-                if not service_name:
+                # Get the original service description
+                original_service_name = item.get("description", "")
+                if not original_service_name:
                     continue
-                    
-                # Normalize service name
-                service_name = " ".join(service_name.split())
-                # Remove common words that might cause false mismatches
-                service_name = " ".join(word for word in service_name.split() 
-                                     if word not in ["nr", "no", "number", "arbeten", "work"])
+
+                # Keep a normalized version for better matching
+                service_name = original_service_name.lower()
+                service_name_norm = " ".join(service_name.split())
                 
-                # Convert unit_price to float or default to 0
+                # Try individual prices first
                 try:
-                    unit_price = float(item.get("unit_price", 0.0)) if item.get("unit_price") is not None else 0.0
+                    invoice_price = float(item.get("unit_price", 0.0)) if item.get("unit_price") is not None else 0.0
                 except (ValueError, TypeError):
-                    unit_price = 0.0
+                    invoice_price = 0.0
                 
-                # Find matching contract service using fuzzy matching
+                # If item's total_price exists and is non-zero but unit_price is zero, use total_price
+                if invoice_price == 0 and item.get("total_price") and float(item.get("total_price", 0)) > 0:
+                    invoice_price = float(item.get("total_price", 0))
+                    logger.debug(f"Using total_price as invoice_price for '{service_name_norm}': ${invoice_price}")
+                
+                logger.debug(f"Invoice item: '{service_name_norm}' -> ${invoice_price}")
+                
+                # Find matching contract service using various matching techniques
                 matched_service = None
-                for contract_service in contract_services:
-                    # Check for exact match or partial match
-                    if (service_name == contract_service or
-                        service_name in contract_service or
-                        contract_service in service_name or
-                        any(part in contract_service for part in service_name.split()) or
-                        any(part in service_name for part in contract_service.split())):
-                        matched_service = contract_service
-                        break
+                matched_service_name = None
                 
+                # 1. Try exact match (case-insensitive)
+                if service_name_norm in contract_services:
+                    matched_service = contract_services[service_name_norm]
+                    matched_service_name = service_name_norm
+                    logger.debug(f"Found exact match for '{service_name_norm}'")
+                
+                # 2. Try partial matching if no exact match
                 if not matched_service:
+                    for contract_service_name, contract_service_data in contract_services.items():
+                        # Check if either is a substring of the other
+                        if (service_name_norm in contract_service_name or 
+                            contract_service_name in service_name_norm):
+                            matched_service = contract_service_data
+                            matched_service_name = contract_service_name
+                            logger.debug(f"Found substring match: '{service_name_norm}' ~ '{contract_service_name}'")
+                            break
+                
+                # 3. Try word-level matching
+                if not matched_service:
+                    service_words = set(service_name_norm.split())
+                    for contract_service_name, contract_service_data in contract_services.items():
+                        contract_words = set(contract_service_name.split())
+                        # If there's significant word overlap (at least 2 words or 50%)
+                        common_words = service_words.intersection(contract_words)
+                        if len(common_words) >= 2 or (len(common_words) > 0 and len(common_words) / len(service_words) >= 0.5):
+                            matched_service = contract_service_data
+                            matched_service_name = contract_service_name
+                            logger.debug(f"Found word overlap match: '{service_name_norm}' ~ '{contract_service_name}'")
+                            break
+                
+                # If still no match, process as not found
+                if not matched_service:
+                    logger.debug(f"No match found for invoice item: '{service_name_norm}'")
                     matches["all_services_in_contract"] = False
                     issues.append({
                         "type": "service_not_in_contract",
-                        "service_name": item.get("description", "Unknown service")
+                        "service_name": original_service_name
                     })
+                    price_comparison_details.append({
+                        "service_name": original_service_name,
+                        "contract_price": None,
+                        "invoice_price": invoice_price,
+                        "match": False
+                    })
+                    all_prices_match = False
                 else:
-                    contract_price = contract_services[matched_service]
-                    # Handle negative values and allow for small price differences
-                    if (abs(unit_price - contract_price) > 0.01 and 
-                        not (unit_price == 0 and contract_price < 0) and  # Allow zero to match negative
-                        not (contract_price == 0 and unit_price < 0)):    # Allow zero to match negative
-                        matches["prices_match"] = False
+                    contract_price = matched_service["price"]
+                    logger.debug(f"Found match: '{original_service_name}' (invoice ${invoice_price}) ~ '{matched_service['original_name']}' (contract ${contract_price})")
+                    
+                    price_match = (
+                        abs(invoice_price - contract_price) <= 0.01 or
+                        (invoice_price == 0 and contract_price < 0) or
+                        (contract_price == 0 and invoice_price < 0)
+                    )
+                    price_comparison_details.append({
+                        "service_name": original_service_name,
+                        "contract_price": contract_price,
+                        "invoice_price": invoice_price,
+                        "match": price_match
+                    })
+                    if not price_match:
                         issues.append({
                             "type": "price_mismatch",
-                            "service_name": item.get("description", "Unknown service"),
+                            "service_name": original_service_name,
                             "contract_value": contract_price,
-                            "invoice_value": unit_price
+                            "invoice_value": invoice_price
                         })
+                        all_prices_match = False
+
+                # If service matched but invoice price is still 0, try to use total prices from the invoice
+                if matched_service and invoice_price == 0 and invoice_data.get("total"):
+                    # Try to extract price from the right aligned number
+                    logger.debug(f"Invoice price is 0 for matched service '{original_service_name}'. Trying to infer from contract.")
+                    
+                    # If we're showing a price mismatch but the invoice price is 0, use the contract price
+                    # and mark it as unverified (this is better than showing $0)
+                    contract_price = matched_service["price"]
+                    
+                    # Add to price comparison with a note
+                    price_comparison_details.append({
+                        "service_name": original_service_name,
+                        "contract_price": contract_price, 
+                        "invoice_price": 0.0,
+                        "match": False,
+                        "note": "Price not detected in invoice"
+                    })
+                    
+                    # Add issue for the missing price
+                    issues.append({
+                        "type": "price_mismatch", 
+                        "service_name": original_service_name,
+                        "contract_value": contract_price,
+                        "invoice_value": 0.0
+                    })
+                    
+                    all_prices_match = False
+                    continue
             
+            # Set prices_match based on all price comparisons
+            matches["prices_match"] = all_prices_match
+            # Remove supplier_name from matches
+            if "supplier_name" in matches:
+                del matches["supplier_name"]
             # Calculate overall match
             overall_match = all(matches.values())
-            
             return {
                 "contract_id": contract.id,
                 "invoice_data": invoice_data,
                 "matches": matches,
                 "issues": issues,
-                "overall_match": overall_match
+                "overall_match": overall_match,
+                "price_comparison_details": price_comparison_details
             }
             
         except Exception as e:
@@ -899,29 +990,50 @@ class DocumentProcessor:
             
             # Create a prompt for Gemini to extract data
             prompt = """
-            Analyze this invoice image and extract the following information in JSON format.
-            Your response must be a valid JSON object with these fields:
+            Analyze this document image in extreme detail and extract invoice information in JSON format.
+            
+            IMPORTANT: Pay special attention to all line items or services with their quantities and prices!
+            
+            YOUR RESPONSE MUST BE A VALID JSON OBJECT with these fields:
             {
-                "invoice_number": "the invoice number",
-                "supplier_name": "name of the supplier",
+                "invoice_number": "the invoice number (only numbers and letters, no extra text)",
+                "supplier_name": "name of the supplier/company",
                 "issue_date": "YYYY-MM-DD",
                 "due_date": "YYYY-MM-DD or null if not present",
                 "items": [
                     {
-                        "description": "item description",
-                        "quantity": number,
-                        "unit_price": number,
-                        "total_price": number
+                        "description": "full description of the item or service",
+                        "quantity": numeric value (default to 1.0 if unclear),
+                        "unit_price": numeric price value (IMPORTANT: extract actual price, not 0),
+                        "total_price": numeric value or null
                     },
                     ... more items
                 ],
-                "subtotal": number,
-                "tax": number,
-                "total": number,
+                "subtotal": numeric value,
+                "tax": numeric value,
+                "total": numeric value,
                 "raw_text": "summary of the invoice content"
             }
             
-            Be accurate and provide numbers as decimal values, not strings.
+            CRITICAL INSTRUCTIONS:
+            1. Find ALL services/items in the document even if not in a typical "invoice" format
+            2. For each line item, set quantity to 1.0 if not explicitly specified
+            3. For each line item, THE PRICE IS CRITICAL - look in the same row or right-aligned columns for price values
+            4. MOST IMPORTANT: If you see a dollar amount on the same line as a service name, that is the price - DO NOT SET IT TO ZERO
+            5. For values like "$9900.00" or "$26400.00" shown on the right side of service names, these are the prices
+            6. Look for prices in formats like "$1000", "1,000.00", "1000 kr", "1.000,00", etc.
+            7. If service names include numbers like "ÅTA nr 6", extract the full text as description
+            8. Extract negative values with the negative sign (e.g., "-1000" or "-$1000")
+            9. If you see "1 x $0.00" in the document, IGNORE THE $0.00 and look for the actual price value elsewhere on the line
+            10. THE RIGHT-ALIGNED NUMBER next to each service is typically the price - use that value
+            11. Carefully examine columns with numbers, looking for values that are aligned vertically and appear to be prices
+            12. For multi-column layouts, check BOTH the price column and total column for relevant values
+            13. Check all monetary values in the document to ensure no prices are missed
+            14. NEVER return a zero price unless absolutely certain there is no price information for that item
+            15. If a price appears to be missing but there are other prices in the document, use pattern recognition to estimate a reasonable value
+            
+            If you find items but can't determine specific prices, use the right-most numerical value on the same line.
+            NEVER return 0 for prices unless there is absolutely no price information available.
             """
             
             # Send to Gemini for processing
@@ -969,7 +1081,7 @@ class DocumentProcessor:
             for i, item in enumerate(extracted_data.get("items", [])):
                 # Ensure item is a dictionary
                 if not isinstance(item, dict):
-                    item = {"description": f"Item {i+1}", "quantity": 0, "unit_price": 0, "total_price": 0}
+                    item = {"description": f"Item {i+1}", "quantity": 1.0, "unit_price": 0.0, "total_price": 0.0}
                     extracted_data["items"][i] = item
                     continue
                     
@@ -979,27 +1091,43 @@ class DocumentProcessor:
                         if field == "description":
                             item[field] = f"Item {i+1}"
                         else:
-                            item[field] = 0.0
+                            item[field] = 1.0 if field == "quantity" else 0.0
                         logger.warning(f"Missing or None {field} in item {i}, using default value")
                 
                 # Convert numeric fields to float
                 for field in ["quantity", "unit_price"]:
                     try:
-                        item[field] = float(item[field]) if item[field] is not None else 0.0
+                        item[field] = float(item[field]) if item[field] is not None else (1.0 if field == "quantity" else 0.0)
                     except (ValueError, TypeError):
-                        item[field] = 0.0
+                        item[field] = 1.0 if field == "quantity" else 0.0
                         logger.warning(f"Invalid {field} value in item {i}, using default value")
+                
+                # Special handling: if unit_price is 0 but total_price has a value, use that
+                if item["unit_price"] == 0 and "total_price" in item and item["total_price"]:
+                    try:
+                        total_price = float(item["total_price"])
+                        if total_price != 0:
+                            # Use total_price as unit_price if quantity is 0 or 1
+                            if item["quantity"] <= 1:
+                                item["unit_price"] = total_price
+                                logger.info(f"Using total_price {total_price} as unit_price for item {i}")
+                            else:
+                                # Otherwise, calculate unit_price from total and quantity
+                                item["unit_price"] = total_price / item["quantity"]
+                                logger.info(f"Calculated unit_price {item['unit_price']} from total_price for item {i}")
+                    except (ValueError, TypeError, ZeroDivisionError):
+                        pass
                         
                 # Calculate total_price if not provided or invalid
                 if "total_price" not in item or item["total_price"] is None:
-                    quantity = float(item["quantity"]) if item["quantity"] is not None else 0.0
+                    quantity = float(item["quantity"]) if item["quantity"] is not None else 1.0
                     unit_price = float(item["unit_price"]) if item["unit_price"] is not None else 0.0
                     item["total_price"] = quantity * unit_price
                 else:
                     try:
                         item["total_price"] = float(item["total_price"])
                     except (ValueError, TypeError):
-                        quantity = float(item["quantity"]) if item["quantity"] is not None else 0.0
+                        quantity = float(item["quantity"]) if item["quantity"] is not None else 1.0
                         unit_price = float(item["unit_price"]) if item["unit_price"] is not None else 0.0
                         item["total_price"] = quantity * unit_price
                         logger.warning(f"Invalid total_price in item {i}, calculated from quantity and unit_price")

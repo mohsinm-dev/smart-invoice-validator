@@ -882,3 +882,1072 @@ invoice_data.total
 2025-04-30 02:06:11.662 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
 2025-04-30 02:06:11 | INFO | DocumentProcessor initialized with Gemini model
 2025-04-30 02:06:11.663 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:09:10 | INFO | Database tables created successfully
+2025-05-11 17:10:09 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:10:09.811 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:10:09 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:10:09.829 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:10:23 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:10:23.573 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:10:23 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:10:23.574 | INFO     | app.services.document_processor:process_invoice_async:852 - Processing invoice file of type: pdf
+2025-05-11 17:10:35 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:10:35.355 | INFO     | app.services.document_processor:process_invoice_async:927 - Parsing extracted data from Gemini
+2025-05-11 17:10:35 | WARNING | Missing or None quantity in item 0, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 0, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None unit_price in item 0, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 0, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None quantity in item 1, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 1, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None unit_price in item 1, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 1, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None quantity in item 2, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 2, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None unit_price in item 2, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 2, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None quantity in item 3, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 3, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None unit_price in item 3, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 3, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None quantity in item 4, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 4, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None unit_price in item 4, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 4, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None quantity in item 5, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 5, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None unit_price in item 5, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 5, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None quantity in item 6, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 6, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None unit_price in item 6, using default value
+2025-05-11 17:10:35.357 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 6, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None quantity in item 7, using default value
+2025-05-11 17:10:35.358 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 7, using default value
+2025-05-11 17:10:35 | WARNING | Missing or None unit_price in item 7, using default value
+2025-05-11 17:10:35.358 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 7, using default value
+2025-05-11 17:10:35 | INFO | Successfully processed invoice
+2025-05-11 17:10:35.358 | INFO     | app.services.document_processor:process_invoice_async:1019 - Successfully processed invoice
+2025-05-11 17:11:18 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:11:18.105 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:11:18 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:11:18.106 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:11:18 | ERROR | Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:11:18.106 | ERROR    | app.services.document_processor:compare_invoice_with_contract_async:825 - Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:12:12 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:12:12.331 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:12:12 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:12:12.341 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:12:50 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:12:50.467 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:12:50 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:12:50.468 | INFO     | app.services.document_processor:process_invoice_async:852 - Processing invoice file of type: pdf
+2025-05-11 17:13:00 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:13:00.075 | INFO     | app.services.document_processor:process_invoice_async:927 - Parsing extracted data from Gemini
+2025-05-11 17:13:00 | WARNING | Missing or None quantity in item 0, using default value
+2025-05-11 17:13:00.077 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 0, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None unit_price in item 0, using default value
+2025-05-11 17:13:00.077 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 0, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None quantity in item 1, using default value
+2025-05-11 17:13:00.077 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 1, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None unit_price in item 1, using default value
+2025-05-11 17:13:00.078 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 1, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None quantity in item 2, using default value
+2025-05-11 17:13:00.078 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 2, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None unit_price in item 2, using default value
+2025-05-11 17:13:00.078 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 2, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None quantity in item 3, using default value
+2025-05-11 17:13:00.079 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 3, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None unit_price in item 3, using default value
+2025-05-11 17:13:00.079 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 3, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None quantity in item 4, using default value
+2025-05-11 17:13:00.079 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 4, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None unit_price in item 4, using default value
+2025-05-11 17:13:00.079 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 4, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None quantity in item 5, using default value
+2025-05-11 17:13:00.080 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 5, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None unit_price in item 5, using default value
+2025-05-11 17:13:00.080 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 5, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None quantity in item 6, using default value
+2025-05-11 17:13:00.080 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 6, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None unit_price in item 6, using default value
+2025-05-11 17:13:00.080 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 6, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None quantity in item 7, using default value
+2025-05-11 17:13:00.081 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 7, using default value
+2025-05-11 17:13:00 | WARNING | Missing or None unit_price in item 7, using default value
+2025-05-11 17:13:00.081 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 7, using default value
+2025-05-11 17:13:00 | INFO | Successfully processed invoice
+2025-05-11 17:13:00.081 | INFO     | app.services.document_processor:process_invoice_async:1019 - Successfully processed invoice
+2025-05-11 17:13:03 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:03.057 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:03 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:03.057 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:03 | ERROR | Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:13:03.057 | ERROR    | app.services.document_processor:compare_invoice_with_contract_async:825 - Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:13:21 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:21.786 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:21 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:21.786 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:21 | ERROR | Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:13:21.786 | ERROR    | app.services.document_processor:compare_invoice_with_contract_async:825 - Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:13:34 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:34.777 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:34 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:34.777 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:13:34 | ERROR | Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:13:34.777 | ERROR    | app.services.document_processor:compare_invoice_with_contract_async:825 - Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:14:23 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:14:23.103 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:14:23 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:14:23.121 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:14:33 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:14:33.625 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:14:33 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:14:33.625 | INFO     | app.services.document_processor:process_invoice_async:852 - Processing invoice file of type: pdf
+2025-05-11 17:14:42 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:14:42.461 | INFO     | app.services.document_processor:process_invoice_async:927 - Parsing extracted data from Gemini
+2025-05-11 17:14:42 | WARNING | Missing or None quantity in item 0, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 0, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None unit_price in item 0, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 0, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None quantity in item 1, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 1, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None unit_price in item 1, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 1, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None quantity in item 2, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 2, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None unit_price in item 2, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 2, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None quantity in item 3, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 3, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None unit_price in item 3, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 3, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None quantity in item 4, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 4, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None unit_price in item 4, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 4, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None quantity in item 5, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 5, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None unit_price in item 5, using default value
+2025-05-11 17:14:42.462 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 5, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None quantity in item 6, using default value
+2025-05-11 17:14:42.463 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 6, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None unit_price in item 6, using default value
+2025-05-11 17:14:42.463 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 6, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None quantity in item 7, using default value
+2025-05-11 17:14:42.463 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None quantity in item 7, using default value
+2025-05-11 17:14:42 | WARNING | Missing or None unit_price in item 7, using default value
+2025-05-11 17:14:42.463 | WARNING  | app.services.document_processor:process_invoice_async:972 - Missing or None unit_price in item 7, using default value
+2025-05-11 17:14:42 | INFO | Successfully processed invoice
+2025-05-11 17:14:42.463 | INFO     | app.services.document_processor:process_invoice_async:1019 - Successfully processed invoice
+2025-05-11 17:14:47 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:14:47.339 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:14:47 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:14:47.339 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:14:47 | ERROR | Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:14:47.339 | ERROR    | app.services.document_processor:compare_invoice_with_contract_async:825 - Error comparing invoice with contract: name 'issues' is not defined
+2025-05-11 17:16:23 | INFO | Database tables created successfully
+2025-05-11 17:16:36 | INFO | Database tables created successfully
+2025-05-11 17:16:50 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:16:50.359 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:16:50 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:16:50.360 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:17:29 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:17:29.343 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:17:29 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:17:29.344 | INFO     | app.services.document_processor:process_invoice_async:858 - Processing invoice file of type: pdf
+2025-05-11 17:17:37 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:17:37.664 | INFO     | app.services.document_processor:process_invoice_async:933 - Parsing extracted data from Gemini
+2025-05-11 17:17:37 | WARNING | Missing or None quantity in item 0, using default value
+2025-05-11 17:17:37.666 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 0, using default value
+2025-05-11 17:17:37 | WARNING | Missing or None quantity in item 1, using default value
+2025-05-11 17:17:37.667 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 1, using default value
+2025-05-11 17:17:37 | WARNING | Missing or None quantity in item 2, using default value
+2025-05-11 17:17:37.667 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 2, using default value
+2025-05-11 17:17:37 | INFO | Successfully processed invoice
+2025-05-11 17:17:37.667 | INFO     | app.services.document_processor:process_invoice_async:1025 - Successfully processed invoice
+2025-05-11 17:17:42 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:17:42.551 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:17:42 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:17:42.551 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:19:44 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:19:44.830 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:19:44 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:19:44.831 | INFO     | app.services.document_processor:process_invoice_async:858 - Processing invoice file of type: pdf
+2025-05-11 17:19:53 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:19:53.192 | INFO     | app.services.document_processor:process_invoice_async:933 - Parsing extracted data from Gemini
+2025-05-11 17:19:53 | WARNING | Missing or None quantity in item 0, using default value
+2025-05-11 17:19:53.193 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 0, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None unit_price in item 0, using default value
+2025-05-11 17:19:53.194 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None unit_price in item 0, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None quantity in item 1, using default value
+2025-05-11 17:19:53.194 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 1, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None unit_price in item 1, using default value
+2025-05-11 17:19:53.195 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None unit_price in item 1, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None quantity in item 2, using default value
+2025-05-11 17:19:53.195 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 2, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None unit_price in item 2, using default value
+2025-05-11 17:19:53.195 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None unit_price in item 2, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None quantity in item 3, using default value
+2025-05-11 17:19:53.195 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 3, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None unit_price in item 3, using default value
+2025-05-11 17:19:53.196 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None unit_price in item 3, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None quantity in item 4, using default value
+2025-05-11 17:19:53.196 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 4, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None unit_price in item 4, using default value
+2025-05-11 17:19:53.196 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None unit_price in item 4, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None quantity in item 5, using default value
+2025-05-11 17:19:53.196 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 5, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None unit_price in item 5, using default value
+2025-05-11 17:19:53.196 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None unit_price in item 5, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None quantity in item 6, using default value
+2025-05-11 17:19:53.197 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 6, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None unit_price in item 6, using default value
+2025-05-11 17:19:53.197 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None unit_price in item 6, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None quantity in item 7, using default value
+2025-05-11 17:19:53.197 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None quantity in item 7, using default value
+2025-05-11 17:19:53 | WARNING | Missing or None unit_price in item 7, using default value
+2025-05-11 17:19:53.197 | WARNING  | app.services.document_processor:process_invoice_async:978 - Missing or None unit_price in item 7, using default value
+2025-05-11 17:19:53 | INFO | Successfully processed invoice
+2025-05-11 17:19:53.197 | INFO     | app.services.document_processor:process_invoice_async:1025 - Successfully processed invoice
+2025-05-11 17:20:07 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:20:07.364 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:20:07 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:20:07.364 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:21:03 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:21:03.646 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:21:03 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:21:03.646 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:26:37 | INFO | Database tables created successfully
+2025-05-11 17:26:55 | INFO | Database tables created successfully
+2025-05-11 17:26:59 | INFO | Database tables created successfully
+2025-05-11 17:27:11 | INFO | Database tables created successfully
+2025-05-11 17:27:15 | INFO | Database tables created successfully
+2025-05-11 17:27:38 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:27:38.485 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:27:38 | INFO | Processing contract document: exempel 3.pdf
+2025-05-11 17:27:38.485 | INFO     | app.services.document_processor:process_contract:213 - Processing contract document: exempel 3.pdf
+2025-05-11 17:27:38 | INFO | Converting contract PDF to images
+2025-05-11 17:27:38.486 | INFO     | app.services.document_processor:process_contract:217 - Converting contract PDF to images
+2025-05-11 17:27:47 | WARNING | Invalid price value: None, using 0.0
+2025-05-11 17:27:47.265 | WARNING  | app.services.document_processor:_extract_contract_data_from_image:392 - Invalid price value: None, using 0.0
+2025-05-11 17:27:47 | WARNING | Invalid price value: None, using 0.0
+2025-05-11 17:27:47.266 | WARNING  | app.services.document_processor:_extract_contract_data_from_image:392 - Invalid price value: None, using 0.0
+2025-05-11 17:27:47 | INFO | Using extracted supplier name: Thomas & Kenth Bygg i Tierp AB
+2025-05-11 17:27:47.267 | INFO     | app.api.contracts:upload_contract:107 - Using extracted supplier name: Thomas & Kenth Bygg i Tierp AB
+2025-05-11 17:27:47 | INFO | Extracted services: [{"service_name": "Ombyggnad av lokaler till pensionat, Vespergr\u00e4nd 29 (Kontraktssumma 7,222,000,- exkl moms)", "unit_price": 0.0}, {"service_name": "\u00c4TA-arbeten", "unit_price": 0.0}, {"service_name": "\u00c4TA nr 6", "unit_price": -6000.0}, {"service_name": "\u00c4TA nr 7", "unit_price": 9900.0}, {"service_name": "\u00c4TA nr 8", "unit_price": 26400.0}, {"service_name": "\u00c4TA nr 9", "unit_price": 27750.0}, {"service_name": "\u00c4TA nr 11", "unit_price": 650000.0}, {"service_name": "\u00c4TA nr 12", "unit_price": 50000.0}]
+2025-05-11 17:27:47.267 | INFO     | app.api.contracts:upload_contract:120 - Extracted services: [{"service_name": "Ombyggnad av lokaler till pensionat, Vespergr\u00e4nd 29 (Kontraktssumma 7,222,000,- exkl moms)", "unit_price": 0.0}, {"service_name": "\u00c4TA-arbeten", "unit_price": 0.0}, {"service_name": "\u00c4TA nr 6", "unit_price": -6000.0}, {"service_name": "\u00c4TA nr 7", "unit_price": 9900.0}, {"service_name": "\u00c4TA nr 8", "unit_price": 26400.0}, {"service_name": "\u00c4TA nr 9", "unit_price": 27750.0}, {"service_name": "\u00c4TA nr 11", "unit_price": 650000.0}, {"service_name": "\u00c4TA nr 12", "unit_price": 50000.0}]
+2025-05-11 17:27:47 | INFO | Contract uploaded and processed: 6eea5ee5-ba84-4505-9dd1-11d8059c3b2a
+2025-05-11 17:27:47.277 | INFO     | app.api.contracts:upload_contract:134 - Contract uploaded and processed: 6eea5ee5-ba84-4505-9dd1-11d8059c3b2a
+2025-05-11 17:27:47 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:27:47.298 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:27:57 | ERROR | Error comparing invoice: 404: Contract not found
+2025-05-11 17:27:57.731 | ERROR    | app.api.invoices:compare_invoice:136 - Error comparing invoice: 404: Contract not found
+2025-05-11 17:27:57 | ERROR | Database error: 500: 404: Contract not found
+2025-05-11 17:27:57.732 | ERROR    | app.database:get_db:34 - Database error: 500: 404: Contract not found
+2025-05-11 17:28:16 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:28:16.743 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:28:16 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:28:16.745 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:28:27 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:27.574 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:27 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:28:27.575 | INFO     | app.services.document_processor:process_invoice_async:878 - Processing invoice file of type: pdf
+2025-05-11 17:28:35 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:28:35.864 | INFO     | app.services.document_processor:process_invoice_async:968 - Parsing extracted data from Gemini
+2025-05-11 17:28:35 | INFO | Successfully processed invoice
+2025-05-11 17:28:35.866 | INFO     | app.services.document_processor:process_invoice_async:1060 - Successfully processed invoice
+2025-05-11 17:28:39 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:39.133 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:39 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:39.134 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:57 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:57.713 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:57 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:28:57.713 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:30:28 | INFO | Database tables created successfully
+2025-05-11 17:31:05 | INFO | Database tables created successfully
+2025-05-11 17:31:11 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:31:11.733 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:31:11 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:31:11.733 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:31:11 | INFO | Contract has 8 services
+2025-05-11 17:31:11.733 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:752 - Contract has 8 services
+2025-05-11 17:31:11.733 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:767 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:31:11.733 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:767 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:31:11.733 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:767 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:31:11.733 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:767 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:31:11.733 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:767 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:31:11.733 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:767 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:767 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:767 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:799 - Invoice item: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $7222000.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:809 - Found exact match for 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)'
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:852 - Found match: 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (invoice $7222000.0) ~ 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (contract $0.0)
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:799 - Invoice item: 'äta-arbeten' -> $0.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:809 - Found exact match for 'äta-arbeten'
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:852 - Found match: 'ÄTA-arbeten' (invoice $0.0) ~ 'ÄTA-arbeten' (contract $0.0)
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:799 - Invoice item: 'äta nr 6' -> $-6000.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:809 - Found exact match for 'äta nr 6'
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:852 - Found match: 'ÄTA nr 6' (invoice $-6000.0) ~ 'ÄTA nr 6' (contract $-6000.0)
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:799 - Invoice item: 'äta nr 7' -> $9900.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:809 - Found exact match for 'äta nr 7'
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:852 - Found match: 'ÄTA nr 7' (invoice $9900.0) ~ 'ÄTA nr 7' (contract $9900.0)
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:799 - Invoice item: 'äta nr 8' -> $26400.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:809 - Found exact match for 'äta nr 8'
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:852 - Found match: 'ÄTA nr 8' (invoice $26400.0) ~ 'ÄTA nr 8' (contract $26400.0)
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:799 - Invoice item: 'äta nr 9' -> $27750.0
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:809 - Found exact match for 'äta nr 9'
+2025-05-11 17:31:11.734 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:852 - Found match: 'ÄTA nr 9' (invoice $27750.0) ~ 'ÄTA nr 9' (contract $27750.0)
+2025-05-11 17:31:11.735 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:799 - Invoice item: 'äta nr 11' -> $650000.0
+2025-05-11 17:31:11.735 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:809 - Found exact match for 'äta nr 11'
+2025-05-11 17:31:11.735 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:852 - Found match: 'ÄTA nr 11' (invoice $650000.0) ~ 'ÄTA nr 11' (contract $650000.0)
+2025-05-11 17:31:11.735 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:799 - Invoice item: 'äta nr 12' -> $50000.0
+2025-05-11 17:31:11.735 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:809 - Found exact match for 'äta nr 12'
+2025-05-11 17:31:11.735 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:852 - Found match: 'ÄTA nr 12' (invoice $50000.0) ~ 'ÄTA nr 12' (contract $50000.0)
+2025-05-11 17:32:37 | INFO | Database tables created successfully
+2025-05-11 17:34:00 | INFO | Database tables created successfully
+2025-05-11 17:34:21 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:34:21.566 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:34:21 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:34:21.567 | INFO     | app.services.document_processor:process_invoice_async:919 - Processing invoice file of type: pdf
+2025-05-11 17:34:32 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:34:32.849 | INFO     | app.services.document_processor:process_invoice_async:1009 - Parsing extracted data from Gemini
+2025-05-11 17:34:32 | INFO | Successfully processed invoice
+2025-05-11 17:34:32.850 | INFO     | app.services.document_processor:process_invoice_async:1101 - Successfully processed invoice
+2025-05-11 17:34:41 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:34:41.224 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:34:41 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:34:41.224 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:34:41 | INFO | Contract has 8 services
+2025-05-11 17:34:41.224 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 17:34:41.224 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:34:41.224 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:801 - Invoice item: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:811 - Found exact match for 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)'
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:854 - Found match: 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (invoice $0.0) ~ 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (contract $0.0)
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:801 - Invoice item: 'äta-arbeten' -> $0.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:811 - Found exact match for 'äta-arbeten'
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:854 - Found match: 'ÄTA-arbeten' (invoice $0.0) ~ 'ÄTA-arbeten' (contract $0.0)
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:801 - Invoice item: 'äta nr 6' -> $0.0
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:811 - Found exact match for 'äta nr 6'
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:854 - Found match: 'ÄTA nr 6' (invoice $0.0) ~ 'ÄTA nr 6' (contract $-6000.0)
+2025-05-11 17:34:41.225 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:801 - Invoice item: 'äta nr 7' -> $0.0
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:811 - Found exact match for 'äta nr 7'
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:854 - Found match: 'ÄTA nr 7' (invoice $0.0) ~ 'ÄTA nr 7' (contract $9900.0)
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:801 - Invoice item: 'äta nr 8' -> $0.0
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:811 - Found exact match for 'äta nr 8'
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:854 - Found match: 'ÄTA nr 8' (invoice $0.0) ~ 'ÄTA nr 8' (contract $26400.0)
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:801 - Invoice item: 'äta nr 9' -> $0.0
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:811 - Found exact match for 'äta nr 9'
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:854 - Found match: 'ÄTA nr 9' (invoice $0.0) ~ 'ÄTA nr 9' (contract $27750.0)
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:801 - Invoice item: 'äta nr 11' -> $0.0
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:811 - Found exact match for 'äta nr 11'
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:854 - Found match: 'ÄTA nr 11' (invoice $0.0) ~ 'ÄTA nr 11' (contract $650000.0)
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:801 - Invoice item: 'äta nr 12' -> $0.0
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:811 - Found exact match for 'äta nr 12'
+2025-05-11 17:34:41.226 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:854 - Found match: 'ÄTA nr 12' (invoice $0.0) ~ 'ÄTA nr 12' (contract $50000.0)
+2025-05-11 17:36:31 | INFO | Database tables created successfully
+2025-05-11 17:36:52 | INFO | Database tables created successfully
+2025-05-11 17:38:04 | INFO | Database tables created successfully
+2025-05-11 17:38:12 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:38:12.247 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:38:12 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:38:12.247 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:38:12 | INFO | Contract has 8 services
+2025-05-11 17:38:12.247 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:38:12.248 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)'
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (invoice $0.0) ~ 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (contract $0.0)
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)'. Trying to infer from contract.
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta-arbeten' -> $0.0
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta-arbeten'
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA-arbeten' (invoice $0.0) ~ 'ÄTA-arbeten' (contract $0.0)
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'ÄTA-arbeten'. Trying to infer from contract.
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 6' -> $0.0
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 6'
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 6' (invoice $0.0) ~ 'ÄTA nr 6' (contract $-6000.0)
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'ÄTA nr 6'. Trying to infer from contract.
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:804 - Using total_price as invoice_price for 'äta nr 7': $9900.0
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 7' -> $9900.0
+2025-05-11 17:38:12.249 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 7'
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 7' (invoice $9900.0) ~ 'ÄTA nr 7' (contract $9900.0)
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:804 - Using total_price as invoice_price for 'äta nr 8': $26400.0
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 8' -> $26400.0
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 8'
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 8' (invoice $26400.0) ~ 'ÄTA nr 8' (contract $26400.0)
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:804 - Using total_price as invoice_price for 'äta nr 9': $27750.0
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 9' -> $27750.0
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 9'
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 9' (invoice $27750.0) ~ 'ÄTA nr 9' (contract $27750.0)
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:804 - Using total_price as invoice_price for 'äta nr 11': $650000.0
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 11' -> $650000.0
+2025-05-11 17:38:12.250 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 11'
+2025-05-11 17:38:12.251 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 11' (invoice $650000.0) ~ 'ÄTA nr 11' (contract $650000.0)
+2025-05-11 17:38:12.251 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:804 - Using total_price as invoice_price for 'äta nr 12': $50000.0
+2025-05-11 17:38:12.251 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 12' -> $50000.0
+2025-05-11 17:38:12.251 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 12'
+2025-05-11 17:38:12.251 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 12' (invoice $50000.0) ~ 'ÄTA nr 12' (contract $50000.0)
+2025-05-11 17:38:49 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:38:49.902 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:38:49 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:38:49.903 | INFO     | app.services.document_processor:process_invoice_async:954 - Processing invoice file of type: pdf
+2025-05-11 17:38:59 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:38:59.253 | INFO     | app.services.document_processor:process_invoice_async:1045 - Parsing extracted data from Gemini
+2025-05-11 17:38:59 | WARNING | Missing or None unit_price in item 0, using default value
+2025-05-11 17:38:59.257 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 0, using default value
+2025-05-11 17:38:59 | WARNING | Missing or None unit_price in item 1, using default value
+2025-05-11 17:38:59.257 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 1, using default value
+2025-05-11 17:38:59 | WARNING | Missing or None unit_price in item 2, using default value
+2025-05-11 17:38:59.257 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 2, using default value
+2025-05-11 17:38:59 | INFO | Using total_price -6000.0 as unit_price for item 2
+2025-05-11 17:38:59.257 | INFO     | app.services.document_processor:process_invoice_async:1108 - Using total_price -6000.0 as unit_price for item 2
+2025-05-11 17:38:59 | WARNING | Missing or None unit_price in item 3, using default value
+2025-05-11 17:38:59.258 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 3, using default value
+2025-05-11 17:38:59 | INFO | Using total_price 9900.0 as unit_price for item 3
+2025-05-11 17:38:59.258 | INFO     | app.services.document_processor:process_invoice_async:1108 - Using total_price 9900.0 as unit_price for item 3
+2025-05-11 17:38:59 | WARNING | Missing or None unit_price in item 4, using default value
+2025-05-11 17:38:59.258 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 4, using default value
+2025-05-11 17:38:59 | INFO | Using total_price 26400.0 as unit_price for item 4
+2025-05-11 17:38:59.258 | INFO     | app.services.document_processor:process_invoice_async:1108 - Using total_price 26400.0 as unit_price for item 4
+2025-05-11 17:38:59 | WARNING | Missing or None unit_price in item 5, using default value
+2025-05-11 17:38:59.258 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 5, using default value
+2025-05-11 17:38:59 | INFO | Using total_price 27750.0 as unit_price for item 5
+2025-05-11 17:38:59.259 | INFO     | app.services.document_processor:process_invoice_async:1108 - Using total_price 27750.0 as unit_price for item 5
+2025-05-11 17:38:59 | WARNING | Missing or None unit_price in item 6, using default value
+2025-05-11 17:38:59.259 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 6, using default value
+2025-05-11 17:38:59 | INFO | Using total_price 650000.0 as unit_price for item 6
+2025-05-11 17:38:59.259 | INFO     | app.services.document_processor:process_invoice_async:1108 - Using total_price 650000.0 as unit_price for item 6
+2025-05-11 17:38:59 | WARNING | Missing or None unit_price in item 7, using default value
+2025-05-11 17:38:59.260 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 7, using default value
+2025-05-11 17:38:59 | INFO | Using total_price 50000.0 as unit_price for item 7
+2025-05-11 17:38:59.260 | INFO     | app.services.document_processor:process_invoice_async:1108 - Using total_price 50000.0 as unit_price for item 7
+2025-05-11 17:38:59 | INFO | Successfully processed invoice
+2025-05-11 17:38:59.260 | INFO     | app.services.document_processor:process_invoice_async:1153 - Successfully processed invoice
+2025-05-11 17:39:04 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:39:04.746 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:39:04 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:39:04.746 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:39:04 | INFO | Contract has 8 services
+2025-05-11 17:39:04.746 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 17:39:04.746 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:39:04.746 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:39:04.746 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:39:04.746 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)'
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Ombyggnad av lokaler till pensionat, Vespergränd 29
+(Kontraktssumma 7,222,000,- exkl moms)' (invoice $0.0) ~ 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (contract $0.0)
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'Ombyggnad av lokaler till pensionat, Vespergränd 29
+(Kontraktssumma 7,222,000,- exkl moms)'. Trying to infer from contract.
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta-arbeten' -> $0.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta-arbeten'
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA-arbeten' (invoice $0.0) ~ 'ÄTA-arbeten' (contract $0.0)
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'ÄTA-arbeten'. Trying to infer from contract.
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 6' -> $-6000.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 6'
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 6' (invoice $-6000.0) ~ 'ÄTA nr 6' (contract $-6000.0)
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 7' -> $9900.0
+2025-05-11 17:39:04.747 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 7'
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 7' (invoice $9900.0) ~ 'ÄTA nr 7' (contract $9900.0)
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 8' -> $26400.0
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 8'
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 8' (invoice $26400.0) ~ 'ÄTA nr 8' (contract $26400.0)
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 9' -> $27750.0
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 9'
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 9' (invoice $27750.0) ~ 'ÄTA nr 9' (contract $27750.0)
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 11' -> $650000.0
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 11'
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 11' (invoice $650000.0) ~ 'ÄTA nr 11' (contract $650000.0)
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 12' -> $50000.0
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 12'
+2025-05-11 17:39:04.748 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 12' (invoice $50000.0) ~ 'ÄTA nr 12' (contract $50000.0)
+2025-05-11 17:40:37 | INFO | Database tables created successfully
+2025-05-11 17:41:16 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:41:16.269 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:41:16 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:41:16.269 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:41:16 | INFO | Contract has 8 services
+2025-05-11 17:41:16.269 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 17:41:16.269 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:41:16.269 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:41:16.269 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:41:16.269 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)'
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Ombyggnad av lokaler till pensionat, Vespergränd 29
+(Kontraktssumma 7,222,000,- exkl moms)' (invoice $0.0) ~ 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (contract $0.0)
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'Ombyggnad av lokaler till pensionat, Vespergränd 29
+(Kontraktssumma 7,222,000,- exkl moms)'. Trying to infer from contract.
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta-arbeten' -> $0.0
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta-arbeten'
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA-arbeten' (invoice $0.0) ~ 'ÄTA-arbeten' (contract $0.0)
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'ÄTA-arbeten'. Trying to infer from contract.
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 6' -> $-6000.0
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 6'
+2025-05-11 17:41:16.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 6' (invoice $-6000.0) ~ 'ÄTA nr 6' (contract $-6000.0)
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 7' -> $9900.0
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 7'
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 7' (invoice $9900.0) ~ 'ÄTA nr 7' (contract $9900.0)
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 8' -> $26400.0
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 8'
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 8' (invoice $26400.0) ~ 'ÄTA nr 8' (contract $26400.0)
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 9' -> $27750.0
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 9'
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 9' (invoice $27750.0) ~ 'ÄTA nr 9' (contract $27750.0)
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 11' -> $650000.0
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 11'
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 11' (invoice $650000.0) ~ 'ÄTA nr 11' (contract $650000.0)
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 12' -> $50000.0
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 12'
+2025-05-11 17:41:16.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 12' (invoice $50000.0) ~ 'ÄTA nr 12' (contract $50000.0)
+2025-05-11 17:45:21 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:45:21.806 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:45:21 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:45:21.821 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:45:29 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:45:29.634 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:45:29 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:45:29.634 | INFO     | app.services.document_processor:process_invoice_async:954 - Processing invoice file of type: pdf
+2025-05-11 17:45:40 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:45:40.647 | INFO     | app.services.document_processor:process_invoice_async:1045 - Parsing extracted data from Gemini
+2025-05-11 17:45:40 | WARNING | Missing or None unit_price in item 0, using default value
+2025-05-11 17:45:40.650 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 0, using default value
+2025-05-11 17:45:40 | WARNING | Missing or None unit_price in item 1, using default value
+2025-05-11 17:45:40.651 | WARNING  | app.services.document_processor:process_invoice_async:1090 - Missing or None unit_price in item 1, using default value
+2025-05-11 17:45:40 | INFO | Successfully processed invoice
+2025-05-11 17:45:40.651 | INFO     | app.services.document_processor:process_invoice_async:1153 - Successfully processed invoice
+2025-05-11 17:45:43 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:45:43.749 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:45:43 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:45:43.750 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:45:43 | INFO | Contract has 8 services
+2025-05-11 17:45:43.750 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)'
+2025-05-11 17:45:43.750 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (invoice $0.0) ~ 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (contract $0.0)
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)'. Trying to infer from contract.
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta-arbeten' -> $0.0
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta-arbeten'
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA-arbeten' (invoice $0.0) ~ 'ÄTA-arbeten' (contract $0.0)
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'ÄTA-arbeten'. Trying to infer from contract.
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 6' -> $-6000.0
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 6'
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 6' (invoice $-6000.0) ~ 'ÄTA nr 6' (contract $-6000.0)
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 7' -> $9900.0
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 7'
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 7' (invoice $9900.0) ~ 'ÄTA nr 7' (contract $9900.0)
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 8' -> $26400.0
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 8'
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 8' (invoice $26400.0) ~ 'ÄTA nr 8' (contract $26400.0)
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 9' -> $27750.0
+2025-05-11 17:45:43.751 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 9'
+2025-05-11 17:45:43.752 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 9' (invoice $27750.0) ~ 'ÄTA nr 9' (contract $27750.0)
+2025-05-11 17:45:43.752 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 11' -> $650000.0
+2025-05-11 17:45:43.752 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 11'
+2025-05-11 17:45:43.752 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 11' (invoice $650000.0) ~ 'ÄTA nr 11' (contract $650000.0)
+2025-05-11 17:45:43.752 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 12' -> $50000.0
+2025-05-11 17:45:43.752 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 12'
+2025-05-11 17:45:43.752 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 12' (invoice $50000.0) ~ 'ÄTA nr 12' (contract $50000.0)
+2025-05-11 17:50:29 | INFO | Database tables created successfully
+2025-05-11 17:50:55 | INFO | Database tables created successfully
+2025-05-11 17:51:35 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:51:35.898 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:51:35 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:51:35.898 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:51:35 | INFO | Contract has 8 services
+2025-05-11 17:51:35.898 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 17:51:35.898 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)'
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (invoice $0.0) ~ 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (contract $0.0)
+2025-05-11 17:51:35.899 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)'. Trying to infer from contract.
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta-arbeten' -> $0.0
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta-arbeten'
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA-arbeten' (invoice $0.0) ~ 'ÄTA-arbeten' (contract $0.0)
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'ÄTA-arbeten'. Trying to infer from contract.
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 6' -> $-6000.0
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 6'
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 6' (invoice $-6000.0) ~ 'ÄTA nr 6' (contract $-6000.0)
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 7' -> $9900.0
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 7'
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 7' (invoice $9900.0) ~ 'ÄTA nr 7' (contract $9900.0)
+2025-05-11 17:51:35.900 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 8' -> $26400.0
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 8'
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 8' (invoice $26400.0) ~ 'ÄTA nr 8' (contract $26400.0)
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 9' -> $27750.0
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 9'
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 9' (invoice $27750.0) ~ 'ÄTA nr 9' (contract $27750.0)
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 11' -> $650000.0
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 11'
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 11' (invoice $650000.0) ~ 'ÄTA nr 11' (contract $650000.0)
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 12' -> $50000.0
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 12'
+2025-05-11 17:51:35.901 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 12' (invoice $50000.0) ~ 'ÄTA nr 12' (contract $50000.0)
+2025-05-11 17:54:15 | INFO | Database tables created successfully
+2025-05-11 17:54:44 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:54:44.497 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:54:44 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:54:44.507 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:55:39 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:55:39.766 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:55:39 | INFO | Retrieved 1 contracts from database
+2025-05-11 17:55:39.770 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 17:55:47 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:55:47.921 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:55:47 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:55:47.922 | INFO     | app.services.document_processor:process_invoice_async:954 - Processing invoice file of type: pdf
+2025-05-11 17:55:58 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:55:58.223 | INFO     | app.services.document_processor:process_invoice_async:1050 - Parsing extracted data from Gemini
+2025-05-11 17:55:58 | WARNING | Missing or None unit_price in item 0, using default value
+2025-05-11 17:55:58.228 | WARNING  | app.services.document_processor:process_invoice_async:1095 - Missing or None unit_price in item 0, using default value
+2025-05-11 17:55:58 | WARNING | Missing or None unit_price in item 1, using default value
+2025-05-11 17:55:58.229 | WARNING  | app.services.document_processor:process_invoice_async:1095 - Missing or None unit_price in item 1, using default value
+2025-05-11 17:55:58 | WARNING | Missing or None unit_price in item 2, using default value
+2025-05-11 17:55:58.229 | WARNING  | app.services.document_processor:process_invoice_async:1095 - Missing or None unit_price in item 2, using default value
+2025-05-11 17:55:58 | INFO | Using total_price -6000.0 as unit_price for item 2
+2025-05-11 17:55:58.230 | INFO     | app.services.document_processor:process_invoice_async:1113 - Using total_price -6000.0 as unit_price for item 2
+2025-05-11 17:55:58 | WARNING | Missing or None unit_price in item 3, using default value
+2025-05-11 17:55:58.230 | WARNING  | app.services.document_processor:process_invoice_async:1095 - Missing or None unit_price in item 3, using default value
+2025-05-11 17:55:58 | INFO | Using total_price 9900.0 as unit_price for item 3
+2025-05-11 17:55:58.230 | INFO     | app.services.document_processor:process_invoice_async:1113 - Using total_price 9900.0 as unit_price for item 3
+2025-05-11 17:55:58 | WARNING | Missing or None unit_price in item 4, using default value
+2025-05-11 17:55:58.231 | WARNING  | app.services.document_processor:process_invoice_async:1095 - Missing or None unit_price in item 4, using default value
+2025-05-11 17:55:58 | INFO | Using total_price 26400.0 as unit_price for item 4
+2025-05-11 17:55:58.231 | INFO     | app.services.document_processor:process_invoice_async:1113 - Using total_price 26400.0 as unit_price for item 4
+2025-05-11 17:55:58 | WARNING | Missing or None unit_price in item 5, using default value
+2025-05-11 17:55:58.231 | WARNING  | app.services.document_processor:process_invoice_async:1095 - Missing or None unit_price in item 5, using default value
+2025-05-11 17:55:58 | INFO | Using total_price 27750.0 as unit_price for item 5
+2025-05-11 17:55:58.231 | INFO     | app.services.document_processor:process_invoice_async:1113 - Using total_price 27750.0 as unit_price for item 5
+2025-05-11 17:55:58 | WARNING | Missing or None unit_price in item 6, using default value
+2025-05-11 17:55:58.231 | WARNING  | app.services.document_processor:process_invoice_async:1095 - Missing or None unit_price in item 6, using default value
+2025-05-11 17:55:58 | INFO | Using total_price 650000.0 as unit_price for item 6
+2025-05-11 17:55:58.232 | INFO     | app.services.document_processor:process_invoice_async:1113 - Using total_price 650000.0 as unit_price for item 6
+2025-05-11 17:55:58 | WARNING | Missing or None unit_price in item 7, using default value
+2025-05-11 17:55:58.232 | WARNING  | app.services.document_processor:process_invoice_async:1095 - Missing or None unit_price in item 7, using default value
+2025-05-11 17:55:58 | INFO | Using total_price 50000.0 as unit_price for item 7
+2025-05-11 17:55:58.232 | INFO     | app.services.document_processor:process_invoice_async:1113 - Using total_price 50000.0 as unit_price for item 7
+2025-05-11 17:55:58 | INFO | Successfully processed invoice
+2025-05-11 17:55:58.232 | INFO     | app.services.document_processor:process_invoice_async:1158 - Successfully processed invoice
+2025-05-11 17:56:04 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:04.871 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:04 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:04.871 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:04 | INFO | Contract has 8 services
+2025-05-11 17:56:04.872 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 17:56:04.872 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:56:04.872 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:56:04.872 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:56:04.873 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:56:04.873 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:56:04.873 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:56:04.873 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:56:04.873 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:56:04.873 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:56:04.873 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)'
+2025-05-11 17:56:04.874 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (invoice $0.0) ~ 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)' (contract $0.0)
+2025-05-11 17:56:04.874 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'Ombyggnad av lokaler till pensionat, Vespergränd 29 (Kontraktssumma 7,222,000,- exkl moms)'. Trying to infer from contract.
+2025-05-11 17:56:04.874 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta-arbeten' -> $0.0
+2025-05-11 17:56:04.874 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta-arbeten'
+2025-05-11 17:56:04.874 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA-arbeten' (invoice $0.0) ~ 'ÄTA-arbeten' (contract $0.0)
+2025-05-11 17:56:04.874 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:884 - Invoice price is 0 for matched service 'ÄTA-arbeten'. Trying to infer from contract.
+2025-05-11 17:56:04.874 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 6' -> $-6000.0
+2025-05-11 17:56:04.875 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 6'
+2025-05-11 17:56:04.875 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 6' (invoice $-6000.0) ~ 'ÄTA nr 6' (contract $-6000.0)
+2025-05-11 17:56:04.875 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 7' -> $9900.0
+2025-05-11 17:56:04.875 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 7'
+2025-05-11 17:56:04.875 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 7' (invoice $9900.0) ~ 'ÄTA nr 7' (contract $9900.0)
+2025-05-11 17:56:04.875 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 8' -> $26400.0
+2025-05-11 17:56:04.875 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 8'
+2025-05-11 17:56:04.875 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 8' (invoice $26400.0) ~ 'ÄTA nr 8' (contract $26400.0)
+2025-05-11 17:56:04.876 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 9' -> $27750.0
+2025-05-11 17:56:04.876 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 9'
+2025-05-11 17:56:04.876 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 9' (invoice $27750.0) ~ 'ÄTA nr 9' (contract $27750.0)
+2025-05-11 17:56:04.876 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 11' -> $650000.0
+2025-05-11 17:56:04.876 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 11'
+2025-05-11 17:56:04.876 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 11' (invoice $650000.0) ~ 'ÄTA nr 11' (contract $650000.0)
+2025-05-11 17:56:04.876 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'äta nr 12' -> $50000.0
+2025-05-11 17:56:04.877 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'äta nr 12'
+2025-05-11 17:56:04.877 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'ÄTA nr 12' (invoice $50000.0) ~ 'ÄTA nr 12' (contract $50000.0)
+2025-05-11 17:56:23 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:23.659 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:23 | INFO | Processing invoice file of type: pdf
+2025-05-11 17:56:23.659 | INFO     | app.services.document_processor:process_invoice_async:954 - Processing invoice file of type: pdf
+2025-05-11 17:56:29 | INFO | Parsing extracted data from Gemini
+2025-05-11 17:56:29.581 | INFO     | app.services.document_processor:process_invoice_async:1050 - Parsing extracted data from Gemini
+2025-05-11 17:56:29 | INFO | Successfully processed invoice
+2025-05-11 17:56:29.582 | INFO     | app.services.document_processor:process_invoice_async:1158 - Successfully processed invoice
+2025-05-11 17:56:32 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:32.792 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:32 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:32.792 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 17:56:32 | INFO | Contract has 8 services
+2025-05-11 17:56:32.793 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'stockholm gas ab gashandel' -> $86.4
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'stockholm gas ab gashandel'
+2025-05-11 17:56:32.793 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'gasnätet stockholm ab gasnät' -> $225.6
+2025-05-11 17:56:32.794 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'gasnätet stockholm ab gasnät'
+2025-05-11 17:56:32.794 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'övrigt' -> $0.36
+2025-05-11 17:56:32.794 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'övrigt'
+2025-05-11 17:56:32.794 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'moms 25%' -> $78.0
+2025-05-11 17:56:32.794 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'moms 25%'
+2025-05-11 17:56:32.794 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'öresutjämning' -> $-0.36
+2025-05-11 17:56:32.794 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'öresutjämning'
+2025-05-11 18:04:11 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:04:11.579 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:04:11 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:04:11.582 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:04:17 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:04:17.877 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:04:17 | INFO | Processing invoice file of type: pdf
+2025-05-11 18:04:17.878 | INFO     | app.services.document_processor:process_invoice_async:954 - Processing invoice file of type: pdf
+2025-05-11 18:04:30 | INFO | Parsing extracted data from Gemini
+2025-05-11 18:04:30.857 | INFO     | app.services.document_processor:process_invoice_async:1050 - Parsing extracted data from Gemini
+2025-05-11 18:04:30 | INFO | Successfully processed invoice
+2025-05-11 18:04:30.858 | INFO     | app.services.document_processor:process_invoice_async:1158 - Successfully processed invoice
+2025-05-11 18:04:36 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:04:36.002 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:04:36 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:04:36.003 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:04:36 | INFO | Contract has 8 services
+2025-05-11 18:04:36.003 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 8 services
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'ombyggnad av lokaler till pensionat, vespergränd 29 (kontraktssumma 7,222,000,- exkl moms)' -> $0.0
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta-arbeten' -> $0.0
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 6' -> $-6000.0
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 7' -> $9900.0
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 8' -> $26400.0
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 9' -> $27750.0
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 11' -> $650000.0
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'äta nr 12' -> $50000.0
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'stockholm gas ab gashandel' -> $86.4
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'stockholm gas ab gashandel'
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'gasnätet stockholm ab gasnät' -> $225.6
+2025-05-11 18:04:36.004 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'gasnätet stockholm ab gasnät'
+2025-05-11 18:04:36.005 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'övrigt' -> $0.36
+2025-05-11 18:04:36.005 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'övrigt'
+2025-05-11 18:04:36.005 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'moms 25%' -> $78.0
+2025-05-11 18:04:36.005 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'moms 25%'
+2025-05-11 18:04:36.005 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'öresutjämning' -> $-0.36
+2025-05-11 18:04:36.005 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'öresutjämning'
+2025-05-11 18:05:15 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:05:15.784 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:05:15 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-11 18:05:15.785 | INFO     | app.services.document_processor:process_contract:213 - Processing contract document: Faktura (1).pdf
+2025-05-11 18:05:15 | INFO | Converting contract PDF to images
+2025-05-11 18:05:15.785 | INFO     | app.services.document_processor:process_contract:217 - Converting contract PDF to images
+2025-05-11 18:05:47 | INFO | Processing 2 pages for service details
+2025-05-11 18:05:47.062 | INFO     | app.services.document_processor:process_contract:235 - Processing 2 pages for service details
+2025-05-11 18:06:11 | INFO | Using extracted supplier name: Stockholm Gas AB
+2025-05-11 18:06:11.713 | INFO     | app.api.contracts:upload_contract:107 - Using extracted supplier name: Stockholm Gas AB
+2025-05-11 18:06:11 | INFO | Extracted services: [{"service_name": "Gashandel", "unit_price": 86.4}, {"service_name": "Gasn\u00e4t", "unit_price": 225.6}, {"service_name": "\u00d6vrigt", "unit_price": 0.36}, {"service_name": "\u00d6resutj\u00e4mning", "unit_price": -0.36}, {"service_name": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31 Fast avgift Gas", "unit_price": 108.0}, {"service_name": "Dr\u00f6jsm\u00e5lsr\u00e4nta 2025-03-31 Datum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225", "unit_price": 0.36}, {"service_name": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01 - 2025-03-31 Fast avgift N\u00e4t", "unit_price": 282.0}]
+2025-05-11 18:06:11.715 | INFO     | app.api.contracts:upload_contract:120 - Extracted services: [{"service_name": "Gashandel", "unit_price": 86.4}, {"service_name": "Gasn\u00e4t", "unit_price": 225.6}, {"service_name": "\u00d6vrigt", "unit_price": 0.36}, {"service_name": "\u00d6resutj\u00e4mning", "unit_price": -0.36}, {"service_name": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31 Fast avgift Gas", "unit_price": 108.0}, {"service_name": "Dr\u00f6jsm\u00e5lsr\u00e4nta 2025-03-31 Datum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225", "unit_price": 0.36}, {"service_name": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01 - 2025-03-31 Fast avgift N\u00e4t", "unit_price": 282.0}]
+2025-05-11 18:06:11 | INFO | Contract uploaded and processed: b77bb1f0-e09c-484c-8ca1-d2e585cfc91b
+2025-05-11 18:06:11.728 | INFO     | app.api.contracts:upload_contract:134 - Contract uploaded and processed: b77bb1f0-e09c-484c-8ca1-d2e585cfc91b
+2025-05-11 18:11:38 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:11:38.191 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:11:38 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:11:38.194 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:11:54 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:11:54.305 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:11:54 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-11 18:11:54.305 | INFO     | app.services.document_processor:process_contract:213 - Processing contract document: Faktura (1).pdf
+2025-05-11 18:11:54 | INFO | Converting contract PDF to images
+2025-05-11 18:11:54.306 | INFO     | app.services.document_processor:process_contract:217 - Converting contract PDF to images
+2025-05-11 18:12:50 | ERROR | Contract data extraction error: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:142.250.205.10:443: Failed to connect to remote host: Timeout occurred: FD shutdown
+2025-05-11 18:12:50.518 | ERROR    | app.services.document_processor:_extract_contract_data_from_image:408 - Contract data extraction error: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:142.250.205.10:443: Failed to connect to remote host: Timeout occurred: FD shutdown
+2025-05-11 18:12:50 | INFO | Processing 2 pages for service details
+2025-05-11 18:12:50.520 | INFO     | app.services.document_processor:process_contract:235 - Processing 2 pages for service details
+2025-05-11 18:13:48 | ERROR | Service extraction error: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNKNOWN: ipv4:142.250.76.42:443: tcp handshaker shutdown
+2025-05-11 18:13:48.069 | ERROR    | app.services.document_processor:_extract_services_from_image:475 - Service extraction error: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNKNOWN: ipv4:142.250.76.42:443: tcp handshaker shutdown
+2025-05-11 18:13:48 | ERROR | Error processing contract: Error extracting data from contract document: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:142.250.205.10:443: Failed to connect to remote host: Timeout occurred: FD shutdown
+2025-05-11 18:13:48.069 | ERROR    | app.api.contracts:upload_contract:102 - Error processing contract: Error extracting data from contract document: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:142.250.205.10:443: Failed to connect to remote host: Timeout occurred: FD shutdown
+2025-05-11 18:13:48 | ERROR | Error uploading contract: 400: Error extracting data from contract document: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:142.250.205.10:443: Failed to connect to remote host: Timeout occurred: FD shutdown
+2025-05-11 18:13:48.069 | ERROR    | app.api.contracts:upload_contract:138 - Error uploading contract: 400: Error extracting data from contract document: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:142.250.205.10:443: Failed to connect to remote host: Timeout occurred: FD shutdown
+2025-05-11 18:13:48 | ERROR | Database error: 400: 400: Error extracting data from contract document: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:142.250.205.10:443: Failed to connect to remote host: Timeout occurred: FD shutdown
+2025-05-11 18:13:48.070 | ERROR    | app.database:get_db:34 - Database error: 400: 400: Error extracting data from contract document: Timeout of 60.0s exceeded, last exception: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:142.250.205.10:443: Failed to connect to remote host: Timeout occurred: FD shutdown
+2025-05-11 18:13:48 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:13:48.076 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:13:48 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:13:48.080 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:13:49 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:13:49.085 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:13:49 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:13:49.090 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:13:51 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:13:51.977 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:13:51 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:13:51.979 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:14:29 | INFO | Database tables created successfully
+2025-05-11 18:14:33 | INFO | Database tables created successfully
+2025-05-11 18:14:51 | INFO | Database tables created successfully
+2025-05-11 18:14:55 | INFO | Database tables created successfully
+2025-05-11 18:15:20 | INFO | Database tables created successfully
+2025-05-11 18:15:26 | INFO | Database tables created successfully
+2025-05-11 18:15:32 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:15:32.478 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:15:32 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:15:32.480 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:15:40 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:15:40.343 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:15:40 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-11 18:15:40.344 | INFO     | app.services.document_processor:process_contract:213 - Processing contract document: Faktura (1).pdf
+2025-05-11 18:15:40 | INFO | Converting contract PDF to images
+2025-05-11 18:15:40.344 | INFO     | app.services.document_processor:process_contract:217 - Converting contract PDF to images
+2025-05-11 18:15:40 | ERROR | Contract data extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:40.650 | ERROR    | app.services.document_processor:_extract_contract_data_from_image:428 - Contract data extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:40 | WARNING | Using basic contract structure due to extraction error on first page
+2025-05-11 18:15:40.650 | WARNING  | app.services.document_processor:process_contract:240 - Using basic contract structure due to extraction error on first page
+2025-05-11 18:15:40 | INFO | Processing 2 pages for service details
+2025-05-11 18:15:40.650 | INFO     | app.services.document_processor:process_contract:244 - Processing 2 pages for service details
+2025-05-11 18:15:40 | ERROR | Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:40.832 | ERROR    | app.services.document_processor:_extract_services_from_image:506 - Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:40 | INFO | Extracted 1 services from page 1
+2025-05-11 18:15:40.832 | INFO     | app.services.document_processor:process_contract:255 - Extracted 1 services from page 1
+2025-05-11 18:15:41 | ERROR | Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:41.007 | ERROR    | app.services.document_processor:_extract_services_from_image:506 - Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:41 | INFO | Extracted 1 services from page 2
+2025-05-11 18:15:41.007 | INFO     | app.services.document_processor:process_contract:255 - Extracted 1 services from page 2
+2025-05-11 18:15:41 | INFO | Using extracted supplier name: Faktura (1)
+2025-05-11 18:15:41.007 | INFO     | app.api.contracts:upload_contract:107 - Using extracted supplier name: Faktura (1)
+2025-05-11 18:15:41 | INFO | Extracted services: [{"service_name": "Document Processing Error", "unit_price": 0.0}, {"service_name": "Document Processing Error", "unit_price": 0.0}]
+2025-05-11 18:15:41.008 | INFO     | app.api.contracts:upload_contract:120 - Extracted services: [{"service_name": "Document Processing Error", "unit_price": 0.0}, {"service_name": "Document Processing Error", "unit_price": 0.0}]
+2025-05-11 18:15:41 | INFO | Contract uploaded and processed: 42914d5b-43db-4309-8f74-1825a5e8adc9
+2025-05-11 18:15:41.012 | INFO     | app.api.contracts:upload_contract:134 - Contract uploaded and processed: 42914d5b-43db-4309-8f74-1825a5e8adc9
+2025-05-11 18:15:41 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:15:41.028 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:15:59 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:15:59.205 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:15:59 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-11 18:15:59.206 | INFO     | app.services.document_processor:process_contract:213 - Processing contract document: Faktura (1).pdf
+2025-05-11 18:15:59 | INFO | Converting contract PDF to images
+2025-05-11 18:15:59.206 | INFO     | app.services.document_processor:process_contract:217 - Converting contract PDF to images
+2025-05-11 18:15:59 | ERROR | Contract data extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:59.507 | ERROR    | app.services.document_processor:_extract_contract_data_from_image:428 - Contract data extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:59 | WARNING | Using basic contract structure due to extraction error on first page
+2025-05-11 18:15:59.507 | WARNING  | app.services.document_processor:process_contract:240 - Using basic contract structure due to extraction error on first page
+2025-05-11 18:15:59 | INFO | Processing 2 pages for service details
+2025-05-11 18:15:59.507 | INFO     | app.services.document_processor:process_contract:244 - Processing 2 pages for service details
+2025-05-11 18:15:59 | ERROR | Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:59.689 | ERROR    | app.services.document_processor:_extract_services_from_image:506 - Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:59 | INFO | Extracted 1 services from page 1
+2025-05-11 18:15:59.690 | INFO     | app.services.document_processor:process_contract:255 - Extracted 1 services from page 1
+2025-05-11 18:15:59 | ERROR | Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:59.864 | ERROR    | app.services.document_processor:_extract_services_from_image:506 - Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:15:59 | INFO | Extracted 1 services from page 2
+2025-05-11 18:15:59.864 | INFO     | app.services.document_processor:process_contract:255 - Extracted 1 services from page 2
+2025-05-11 18:15:59 | INFO | Using extracted supplier name: Faktura (1)
+2025-05-11 18:15:59.864 | INFO     | app.api.contracts:upload_contract:107 - Using extracted supplier name: Faktura (1)
+2025-05-11 18:15:59 | INFO | Extracted services: [{"service_name": "Document Processing Error", "unit_price": 0.0}, {"service_name": "Document Processing Error", "unit_price": 0.0}]
+2025-05-11 18:15:59.865 | INFO     | app.api.contracts:upload_contract:120 - Extracted services: [{"service_name": "Document Processing Error", "unit_price": 0.0}, {"service_name": "Document Processing Error", "unit_price": 0.0}]
+2025-05-11 18:15:59 | INFO | Contract uploaded and processed: 21e89a83-246f-4a1d-abfa-cbcdd43fff5c
+2025-05-11 18:15:59.867 | INFO     | app.api.contracts:upload_contract:134 - Contract uploaded and processed: 21e89a83-246f-4a1d-abfa-cbcdd43fff5c
+2025-05-11 18:15:59 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:15:59.877 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:16:16 | INFO | Database tables created successfully
+2025-05-11 18:16:21 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:16:21.171 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:16:21 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:16:21.177 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:16:45 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:16:45.759 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:16:45 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-11 18:16:45.759 | INFO     | app.services.document_processor:process_contract:213 - Processing contract document: Faktura (1).pdf
+2025-05-11 18:16:45 | INFO | Converting contract PDF to images
+2025-05-11 18:16:45.759 | INFO     | app.services.document_processor:process_contract:217 - Converting contract PDF to images
+2025-05-11 18:16:46 | ERROR | Contract data extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:16:46.077 | ERROR    | app.services.document_processor:_extract_contract_data_from_image:428 - Contract data extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:16:46 | WARNING | Using basic contract structure due to extraction error on first page
+2025-05-11 18:16:46.077 | WARNING  | app.services.document_processor:process_contract:240 - Using basic contract structure due to extraction error on first page
+2025-05-11 18:16:46 | INFO | Processing 2 pages for service details
+2025-05-11 18:16:46.078 | INFO     | app.services.document_processor:process_contract:244 - Processing 2 pages for service details
+2025-05-11 18:16:46 | ERROR | Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:16:46.259 | ERROR    | app.services.document_processor:_extract_services_from_image:506 - Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:16:46 | INFO | Extracted 1 services from page 1
+2025-05-11 18:16:46.259 | INFO     | app.services.document_processor:process_contract:255 - Extracted 1 services from page 1
+2025-05-11 18:16:46 | ERROR | Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:16:46.432 | ERROR    | app.services.document_processor:_extract_services_from_image:506 - Service extraction error: Unknown field for GenerationConfig: timeout
+2025-05-11 18:16:46 | INFO | Extracted 1 services from page 2
+2025-05-11 18:16:46.432 | INFO     | app.services.document_processor:process_contract:255 - Extracted 1 services from page 2
+2025-05-11 18:16:46 | INFO | Using extracted supplier name: Faktura (1)
+2025-05-11 18:16:46.433 | INFO     | app.api.contracts:upload_contract:107 - Using extracted supplier name: Faktura (1)
+2025-05-11 18:16:46 | INFO | Extracted services: [{"service_name": "Document Processing Error", "unit_price": 0.0}, {"service_name": "Document Processing Error", "unit_price": 0.0}]
+2025-05-11 18:16:46.433 | INFO     | app.api.contracts:upload_contract:120 - Extracted services: [{"service_name": "Document Processing Error", "unit_price": 0.0}, {"service_name": "Document Processing Error", "unit_price": 0.0}]
+2025-05-11 18:16:46 | INFO | Contract uploaded and processed: 44d6020c-99f2-468b-a230-e5dc45fa4afd
+2025-05-11 18:16:46.436 | INFO     | app.api.contracts:upload_contract:134 - Contract uploaded and processed: 44d6020c-99f2-468b-a230-e5dc45fa4afd
+2025-05-11 18:16:46 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:16:46.452 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:17:04 | INFO | Database tables created successfully
+2025-05-11 18:17:19 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:17:19.763 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:17:19 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:17:19.767 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:17:29 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:17:29.686 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:17:29 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-11 18:17:29.686 | INFO     | app.services.document_processor:process_contract:213 - Processing contract document: Faktura (1).pdf
+2025-05-11 18:17:29 | INFO | Converting contract PDF to images
+2025-05-11 18:17:29.687 | INFO     | app.services.document_processor:process_contract:217 - Converting contract PDF to images
+2025-05-11 18:19:14 | ERROR | Contract data extraction error: 504 Deadline Exceeded
+2025-05-11 18:19:14.076 | ERROR    | app.services.document_processor:_extract_contract_data_from_image:408 - Contract data extraction error: 504 Deadline Exceeded
+2025-05-11 18:19:14 | INFO | Processing 2 pages for service details
+2025-05-11 18:19:14.077 | INFO     | app.services.document_processor:process_contract:235 - Processing 2 pages for service details
+2025-05-11 18:19:21 | ERROR | Error processing contract: Error extracting data from contract document: 504 Deadline Exceeded
+2025-05-11 18:19:21.009 | ERROR    | app.api.contracts:upload_contract:102 - Error processing contract: Error extracting data from contract document: 504 Deadline Exceeded
+2025-05-11 18:19:21 | ERROR | Error uploading contract: 400: Error extracting data from contract document: 504 Deadline Exceeded
+2025-05-11 18:19:21.009 | ERROR    | app.api.contracts:upload_contract:138 - Error uploading contract: 400: Error extracting data from contract document: 504 Deadline Exceeded
+2025-05-11 18:19:21 | ERROR | Database error: 400: 400: Error extracting data from contract document: 504 Deadline Exceeded
+2025-05-11 18:19:21.010 | ERROR    | app.database:get_db:34 - Database error: 400: 400: Error extracting data from contract document: 504 Deadline Exceeded
+2025-05-11 18:19:21 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:19:21.080 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:19:21 | INFO | Retrieved 1 contracts from database
+2025-05-11 18:19:21.084 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 1 contracts from database
+2025-05-11 18:19:40 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:19:40.878 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:19:40 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-11 18:19:40.878 | INFO     | app.services.document_processor:process_contract:213 - Processing contract document: Faktura (1).pdf
+2025-05-11 18:19:40 | INFO | Converting contract PDF to images
+2025-05-11 18:19:40.879 | INFO     | app.services.document_processor:process_contract:217 - Converting contract PDF to images
+2025-05-11 18:19:47 | INFO | Processing 2 pages for service details
+2025-05-11 18:19:47.692 | INFO     | app.services.document_processor:process_contract:235 - Processing 2 pages for service details
+2025-05-11 18:19:53 | INFO | Using extracted supplier name: Stockholm Gas AB
+2025-05-11 18:19:53.120 | INFO     | app.api.contracts:upload_contract:107 - Using extracted supplier name: Stockholm Gas AB
+2025-05-11 18:19:53 | INFO | Extracted services: [{"service_name": "Gashandel", "unit_price": 108.0}, {"service_name": "Gasn\u00e4t", "unit_price": 282.0}, {"service_name": "\u00d6vrigt", "unit_price": 0.36}, {"service_name": "\u00d6resutj\u00e4mning", "unit_price": -0.36}, {"service_name": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31 Fast avgift Gas", "unit_price": 108.0}, {"service_name": "Dr\u00f6jsm\u00e5lsr\u00e4nta\nDatum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225", "unit_price": 0.36}, {"service_name": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01 - 2025-03-31 Fast avgift N\u00e4t", "unit_price": 282.0}]
+2025-05-11 18:19:53.120 | INFO     | app.api.contracts:upload_contract:120 - Extracted services: [{"service_name": "Gashandel", "unit_price": 108.0}, {"service_name": "Gasn\u00e4t", "unit_price": 282.0}, {"service_name": "\u00d6vrigt", "unit_price": 0.36}, {"service_name": "\u00d6resutj\u00e4mning", "unit_price": -0.36}, {"service_name": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31 Fast avgift Gas", "unit_price": 108.0}, {"service_name": "Dr\u00f6jsm\u00e5lsr\u00e4nta\nDatum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225", "unit_price": 0.36}, {"service_name": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01 - 2025-03-31 Fast avgift N\u00e4t", "unit_price": 282.0}]
+2025-05-11 18:19:53 | INFO | Contract uploaded and processed: ca0c35b5-a1f2-4110-b0e4-d24e17e2150e
+2025-05-11 18:19:53.125 | INFO     | app.api.contracts:upload_contract:134 - Contract uploaded and processed: ca0c35b5-a1f2-4110-b0e4-d24e17e2150e
+2025-05-11 18:19:53 | INFO | Retrieved 2 contracts from database
+2025-05-11 18:19:53.143 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 18:21:47 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:21:47.963 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:21:47 | INFO | Processing invoice file of type: pdf
+2025-05-11 18:21:47.963 | INFO     | app.services.document_processor:process_invoice_async:954 - Processing invoice file of type: pdf
+2025-05-11 18:22:14 | INFO | Parsing extracted data from Gemini
+2025-05-11 18:22:14.754 | INFO     | app.services.document_processor:process_invoice_async:1050 - Parsing extracted data from Gemini
+2025-05-11 18:22:14 | INFO | Successfully processed invoice
+2025-05-11 18:22:14.758 | INFO     | app.services.document_processor:process_invoice_async:1158 - Successfully processed invoice
+2025-05-11 18:22:19 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:22:19.908 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:22:19 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 18:22:19.908 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 18:22:19 | INFO | Contract has 7 services
+2025-05-11 18:22:19.908 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 7 services
+2025-05-11 18:22:19.908 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'gashandel' -> $108.0
+2025-05-11 18:22:19.908 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'gasnät' -> $282.0
+2025-05-11 18:22:19.908 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'övrigt' -> $0.36
+2025-05-11 18:22:19.908 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'öresutjämning' -> $-0.36
+2025-05-11 18:22:19.908 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'gashandel (biogas 100 - gasspis) 2025-03-01 - 2025-03-31 fast avgift gas' -> $108.0
+2025-05-11 18:22:19.908 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'dröjsmålsränta datum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225' -> $0.36
+2025-05-11 18:22:19.908 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'gasnät (spistariff 3 rum & kök) 2025-03-01 - 2025-03-31 fast avgift nät' -> $282.0
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'stockholm gas ab gashandel' -> $86.4
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:826 - Found substring match: 'stockholm gas ab gashandel' ~ 'gashandel'
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Stockholm Gas AB
+Gashandel' (invoice $86.4) ~ 'Gashandel' (contract $108.0)
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'gasnätet stockholm ab gasnät' -> $225.6
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:826 - Found substring match: 'gasnätet stockholm ab gasnät' ~ 'gasnät'
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Gasnätet Stockholm AB
+Gasnät' (invoice $225.6) ~ 'Gasnät' (contract $282.0)
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'övrigt' -> $0.36
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'övrigt'
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Övrigt' (invoice $0.36) ~ 'Övrigt' (contract $0.36)
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'moms 25%' -> $78.0
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'moms 25%'
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'öresutjämning' -> $-0.36
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'öresutjämning'
+2025-05-11 18:22:19.909 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Öresutjämning' (invoice $-0.36) ~ 'Öresutjämning' (contract $-0.36)
+2025-05-11 19:12:45 | INFO | Retrieved 2 contracts from database
+2025-05-11 19:12:45.321 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 19:12:45 | INFO | Retrieved 2 contracts from database
+2025-05-11 19:12:45.323 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 19:25:11 | INFO | Database tables created successfully
+2025-05-11 19:27:42 | INFO | Retrieved 2 contracts from database
+2025-05-11 19:27:42.497 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 19:27:42 | INFO | Retrieved 2 contracts from database
+2025-05-11 19:27:42.499 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 19:27:43 | INFO | Retrieved 2 contracts from database
+2025-05-11 19:27:43.951 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 19:27:43 | INFO | Retrieved 2 contracts from database
+2025-05-11 19:27:43.954 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 19:51:48 | INFO | Database tables created successfully
+2025-05-11 19:54:58 | INFO | Retrieved 2 contracts from database
+2025-05-11 19:54:58.503 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 19:54:58 | INFO | Retrieved 2 contracts from database
+2025-05-11 19:54:58.506 | INFO     | app.api.contracts:get_contracts:40 - Retrieved 2 contracts from database
+2025-05-11 19:55:40 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 19:55:40.797 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 19:55:40 | INFO | Processing invoice file of type: pdf
+2025-05-11 19:55:40.797 | INFO     | app.services.document_processor:process_invoice_async:954 - Processing invoice file of type: pdf
+2025-05-11 19:55:47 | INFO | Parsing extracted data from Gemini
+2025-05-11 19:55:47.878 | INFO     | app.services.document_processor:process_invoice_async:1050 - Parsing extracted data from Gemini
+2025-05-11 19:55:47 | INFO | Successfully processed invoice
+2025-05-11 19:55:47.882 | INFO     | app.services.document_processor:process_invoice_async:1158 - Successfully processed invoice
+2025-05-11 19:55:52 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 19:55:52.269 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 19:55:52 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-11 19:55:52.269 | INFO     | app.services.document_processor:__init__:150 - DocumentProcessor initialized with Gemini model
+2025-05-11 19:55:52 | INFO | Contract has 7 services
+2025-05-11 19:55:52.269 | INFO     | app.services.document_processor:compare_invoice_with_contract_async:754 - Contract has 7 services
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'gashandel' -> $108.0
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'gasnät' -> $282.0
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'övrigt' -> $0.36
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'öresutjämning' -> $-0.38
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'gashandel' -> $108.0
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'dröjsmålsräntadatum' -> $0.36
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:769 - Contract service: 'gasnät' -> $282.0
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'stockholm gas ab gashandel' -> $86.4
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:826 - Found substring match: 'stockholm gas ab gashandel' ~ 'gashandel'
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Stockholm Gas AB Gashandel' (invoice $86.4) ~ 'Gashandel' (contract $108.0)
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'gasnätet stockholm ab gasnät' -> $225.6
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:826 - Found substring match: 'gasnätet stockholm ab gasnät' ~ 'gasnät'
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Gasnätet Stockholm AB Gasnät' (invoice $225.6) ~ 'Gasnät' (contract $282.0)
+2025-05-11 19:55:52.270 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'övrigt' -> $0.36
+2025-05-11 19:55:52.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'övrigt'
+2025-05-11 19:55:52.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Övrigt' (invoice $0.36) ~ 'Övrigt' (contract $0.36)
+2025-05-11 19:55:52.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'moms 25%' -> $78.0
+2025-05-11 19:55:52.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:844 - No match found for invoice item: 'moms 25%'
+2025-05-11 19:55:52.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:806 - Invoice item: 'öresutjämning' -> $-0.36
+2025-05-11 19:55:52.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:816 - Found exact match for 'öresutjämning'
+2025-05-11 19:55:52.271 | DEBUG    | app.services.document_processor:compare_invoice_with_contract_async:859 - Found match: 'Öresutjämning' (invoice $-0.36) ~ 'Öresutjämning' (contract $-0.38)

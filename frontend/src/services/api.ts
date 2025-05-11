@@ -40,11 +40,18 @@ export interface InvoiceData {
   raw_text?: string;
 }
 
+export interface PriceComparisonDetail {
+  service_name: string;
+  contract_price: number | null;
+  invoice_price: number;
+  match: boolean;
+  note?: string;
+}
+
 export interface ComparisonResult {
   contract_id: string;
   invoice_data: InvoiceData;
   matches: {
-    supplier_name: boolean;
     prices_match: boolean;
     all_services_in_contract: boolean;
   };
@@ -55,6 +62,7 @@ export interface ComparisonResult {
     invoice_value?: number | string;
   }>;
   overall_match: boolean;
+  price_comparison_details: PriceComparisonDetail[];
 }
 
 // Helper function to handle errors
