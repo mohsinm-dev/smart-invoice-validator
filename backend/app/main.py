@@ -3,12 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .config import settings
 from .api import contracts, invoices
+from .models.models import Contract, Invoice
 import logging
 from loguru import logger
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
 logger.info("Database tables created successfully")
+logger.info(f"Tables in metadata: {Base.metadata.tables.keys()}")
 
 # Configure logging
 logging.basicConfig(level=settings.LOG_LEVEL)

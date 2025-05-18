@@ -1,16 +1,14 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, JSON, Boolean
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
-
-Base = declarative_base()
+from ..database import Base
 
 class Contract(Base):
     __tablename__ = "contracts"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String(36), primary_key=True, index=True)
     supplier_name = Column(String, index=True)
-    services = Column(JSON)  # Store services as JSON
+    items = Column(JSON)  # Changed from 'services' to 'items'
     document_path = Column(String, nullable=True)  # Path to uploaded document
     is_manual = Column(Boolean, default=False)  # Whether contract was manually entered
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -21,8 +19,8 @@ class Contract(Base):
 class Invoice(Base):
     __tablename__ = "invoices"
 
-    id = Column(Integer, primary_key=True, index=True)
-    contract_id = Column(Integer, ForeignKey("contracts.id"), nullable=True)
+    id = Column(String(36), primary_key=True, index=True)
+    contract_id = Column(String(36), ForeignKey("contracts.id"), nullable=True)
     invoice_number = Column(String, index=True)
     supplier_name = Column(String, index=True)
     issue_date = Column(DateTime)

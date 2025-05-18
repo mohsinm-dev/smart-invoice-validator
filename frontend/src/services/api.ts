@@ -3,20 +3,22 @@ const API_URL = 'http://localhost:8000';
 const API_V1 = '/api/v1';
 
 // Types
-export interface Service {
-  service_name: string;
+export interface Item {
+  description: string;
+  quantity: number;
   unit_price: number;
+  total_price?: number;
 }
 
 export interface ContractCreate {
   supplier_name: string;
-  services: Service[];
+  items: Item[];
 }
 
 export interface Contract {
   id: string;
   supplier_name: string;
-  services: Service[];
+  items: Item[];
   created_at: string;
   updated_at?: string;
 }
@@ -29,6 +31,7 @@ export interface InvoiceItem {
 }
 
 export interface InvoiceData {
+  id: string;
   invoice_number: string;
   supplier_name: string;
   issue_date: string;
@@ -38,6 +41,7 @@ export interface InvoiceData {
   tax?: number;
   total: number;
   raw_text?: string;
+  created_at: string;
 }
 
 export interface PriceComparisonDetail {
@@ -172,7 +176,7 @@ export const api = {
   
   // Invoice endpoints
   invoices: {
-    getAll: async (): Promise<any[]> => {
+    getAll: async (): Promise<InvoiceData[]> => {
       try {
         // Try direct API first for debugging
         const directUrl = `${API_URL}${API_V1}/invoices/`;
@@ -193,7 +197,7 @@ export const api = {
       }
     },
     
-    getById: async (id: string): Promise<any> => {
+    getById: async (id: string): Promise<InvoiceData> => {
       try {
         const response = await debugFetch(`${API_V1}/invoices/${id}`);
         return handleResponse(response);
@@ -239,24 +243,23 @@ export const api = {
         throw new Error('Failed to process invoice');
       }
     },
-    
-    compareInvoice: async (contractId: string, invoiceData: InvoiceData): Promise<ComparisonResult> => {
+
+    deleteById: async (id: string): Promise<void> => {
       try {
-        const response = await debugFetch(`${API_V1}/invoices/compare`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contract_id: contractId,
-            invoice_data: invoiceData,
-          }),
+        const response = await debugFetch(`${API_V1}/invoices/${id}`, {
+          method: 'DELETE',
         });
-        
-        return handleResponse(response);
+        // Check if response is ok, but don't expect JSON for a 200/204 no content
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('API Error deleting invoice:', response.status, errorText);
+          throw new Error(`API request failed with status ${response.status}: ${errorText}`);
+        }
+        // No content expected, so just return
+        return;
       } catch (error) {
-        console.error('Error in compareInvoice:', error);
-        throw new Error('Failed to compare invoice');
+        console.error('Error in deleteById invoice:', error);
+        throw new Error('Failed to delete invoice');
       }
     }
   }

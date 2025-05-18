@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Upload, Plus, X, Trash2, Edit2 } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { api, Contract, Service } from '@/services/api'
+import { api, Contract, Item as ApiItem } from '@/services/api'
 
 interface ContractSectionProps {
   onContractCreated?: () => void;
@@ -15,10 +15,10 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
   const [isManualMode, setIsManualMode] = useState(false)
   const [newContract, setNewContract] = useState<{
     supplier_name: string;
-    services: Service[];
+    items: ApiItem[];
   }>({
     supplier_name: '',
-    services: []
+    items: []
   })
   const [isLoading, setIsLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
@@ -41,16 +41,16 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
 
   const handleUpload = async (file: File) => {
     setIsLoading(true)
+    setIsUploading(true)
     try {
       const formData = new FormData()
       formData.append('file', file)
-      formData.append('supplier_name', newContract.supplier_name || 'Unknown Supplier')
       
       const data = await api.contracts.upload(formData)
-      setContracts([...contracts, data])
+      setContracts((prevContracts) => [...prevContracts, data])
       setNewContract({
         supplier_name: '',
-        services: []
+        items: []
       })
       toast.success('Contract uploaded successfully')
       if (onContractCreated) {
@@ -61,6 +61,7 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
       console.error('Error uploading contract:', error)
     } finally {
       setIsLoading(false)
+      setIsUploading(false)
     }
   }
 
@@ -80,25 +81,40 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
     },
     maxFiles: 1,
     multiple: false,
-    disabled: isLoading
+    disabled: isLoading || isUploading
   })
 
-  const addService = () => {
+  const addItem = () => {
     setNewContract({
       ...newContract,
-      services: [
-        ...newContract.services,
-        { service_name: '', unit_price: 0 }
+      items: [
+        ...newContract.items,
+        { description: '', quantity: 1, unit_price: 0, total_price: 0 }
       ]
     })
   }
 
-  const removeService = (index: number) => {
+  const removeItem = (index: number) => {
     setNewContract({
       ...newContract,
-      services: newContract.services.filter((_, i) => i !== index)
+      items: newContract.items.filter((_, i) => i !== index)
     })
   }
+
+  const handleItemChange = (index: number, field: keyof ApiItem, value: string | number) => {
+    setNewContract(prev => {
+      const updatedItems = [...prev.items]
+      const itemToUpdate = { ...updatedItems[index] } as any;
+      itemToUpdate[field] = typeof value === 'string' && (field === 'quantity' || field === 'unit_price' || field === 'total_price') ? parseFloat(value) || 0 : value;
+      
+      // Recalculate total_price if quantity or unit_price changes for this item
+      if (field === 'quantity' || field === 'unit_price') {
+        itemToUpdate.total_price = itemToUpdate.quantity * itemToUpdate.unit_price;
+      }
+      updatedItems[index] = itemToUpdate as ApiItem;
+      return { ...prev, items: updatedItems };
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -106,10 +122,10 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
     
     try {
       const data = await api.contracts.create(newContract)
-      setContracts([...contracts, data])
+      setContracts((prevContracts) => [...prevContracts, data])
       setNewContract({
         supplier_name: '',
-        services: []
+        items: []
       })
       toast.success('Contract created successfully')
       if (onContractCreated) {
@@ -142,7 +158,7 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
     setEditingContract(contract);
     setNewContract({
       supplier_name: contract.supplier_name,
-      services: contract.services
+      items: contract.items
     });
     setIsManualMode(true);
   };
@@ -160,7 +176,7 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
       setEditingContract(null);
       setNewContract({
         supplier_name: '',
-        services: []
+        items: []
       });
       toast.success('Contract updated successfully');
     } catch (error) {
@@ -177,7 +193,7 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
       
       <div className="flex items-center space-x-4 mb-6">
         <button
-          onClick={() => setIsManualMode(false)}
+          onClick={() => { setIsManualMode(false); setEditingContract(null); setNewContract({ supplier_name: '', items: [] }); }}
           className={`px-4 py-2 rounded-md transition-colors ${
             !isManualMode
               ? 'bg-indigo-600 text-white'
@@ -187,7 +203,7 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
           Upload
         </button>
         <button
-          onClick={() => setIsManualMode(true)}
+          onClick={() => { setIsManualMode(true); setEditingContract(null); setNewContract({ supplier_name: '', items: [] }); }}
           className={`px-4 py-2 rounded-md transition-colors ${
             isManualMode
               ? 'bg-indigo-600 text-white'
@@ -202,7 +218,7 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
         <div
           {...getRootProps()}
           className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-            isLoading ? 'opacity-50 pointer-events-none' : ''
+            (isLoading || isUploading) ? 'opacity-50 pointer-events-none' : ''
           } ${
             isDragActive
               ? 'border-indigo-600 bg-indigo-50'
@@ -214,7 +230,7 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
           <p className="text-gray-600">
             {isDragActive
               ? 'Drop the file here'
-              : isLoading
+              : (isLoading || isUploading)
               ? 'Processing...'
               : 'Drag & drop a contract file, or click to select'}
           </p>
@@ -243,56 +259,69 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="block text-sm font-medium text-gray-700">
-                Services
+                Items
               </label>
               <button
                 type="button"
-                onClick={addService}
+                onClick={addItem}
                 className="flex items-center text-sm text-indigo-600 hover:text-indigo-700"
               >
                 <Plus className="h-4 w-4 mr-1" />
-                Add Service
+                Add Item
               </button>
             </div>
 
             <div className="space-y-4">
-              {newContract.services.map((service, index) => (
-                <div key={index} className="flex items-center space-x-4">
+              {newContract.items.map((item, index) => (
+                <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
                   <input
                     type="text"
-                    value={service.service_name}
+                    value={item.description}
                     onChange={(e) => {
-                      const updatedServices = [...newContract.services]
-                      updatedServices[index].service_name = e.target.value
+                      const updatedItems = [...newContract.items]
+                      updatedItems[index].description = e.target.value
                       setNewContract({
                         ...newContract,
-                        services: updatedServices
+                        items: updatedItems
                       })
                     }}
-                    placeholder="Service name"
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    placeholder="Item description"
+                    className="md:col-span-6 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                     required
                   />
                   <input
                     type="number"
-                    value={service.unit_price === 0 ? '' : service.unit_price}
+                    value={item.quantity === 0 ? '' : item.quantity}
                     onChange={(e) => {
-                      const updatedServices = [...newContract.services]
-                      updatedServices[index].unit_price = parseFloat(e.target.value) || 0
+                      const updatedItems = [...newContract.items]
+                      updatedItems[index].quantity = parseFloat(e.target.value) || 0
+                      setNewContract({ ...newContract, items: updatedItems })
+                    }}
+                    placeholder="Quantity"
+                    className="md:col-span-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    required
+                    step="0.01"
+                  />
+                  <input
+                    type="number"
+                    value={item.unit_price === 0 ? '' : item.unit_price}
+                    onChange={(e) => {
+                      const updatedItems = [...newContract.items]
+                      updatedItems[index].unit_price = parseFloat(e.target.value) || 0
                       setNewContract({
                         ...newContract,
-                        services: updatedServices
+                        items: updatedItems
                       })
                     }}
                     placeholder="Unit price"
-                    className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                    className="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                     required
                     step="0.01"
                   />
                   <button
                     type="button"
-                    onClick={() => removeService(index)}
-                    className="text-gray-400 hover:text-red-500"
+                    onClick={() => removeItem(index)}
+                    className="md:col-span-1 text-gray-400 hover:text-red-500 flex justify-center"
                   >
                     <X className="h-5 w-5" />
                   </button>
@@ -351,18 +380,25 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  {contract.services.map((service, idx) => (
+                  {contract.items && contract.items.map((item, idx) => (
                     <div
                       key={idx}
-                      className="flex justify-between text-sm"
+                      className="grid grid-cols-12 gap-x-4 text-sm"
                     >
-                      <span className="text-gray-700">{service.service_name}</span>
-                      <span className={`text-gray-900 ${service.unit_price < 0 ? 'text-red-600' : ''}`}>
-                        ${Math.abs(service.unit_price).toFixed(2)}
-                        {service.unit_price < 0 ? ' (negative)' : ''}
+                      <span className="col-span-6 text-gray-700 truncate" title={item.description}>{item.description}</span>
+                      <span className={`sm:col-span-2 text-gray-600 text-right sm:text-left`}>Qty: {item.quantity?.toFixed(2) || 'N/A'}</span>
+                      <span className={`sm:col-span-2 text-gray-800 text-right sm:text-left ${item.unit_price < 0 ? 'text-red-600' : ''}`}>
+                        @ ${item.unit_price !== undefined ? Math.abs(item.unit_price).toFixed(2) : 'N/A'}
+                      </span>
+                      <span className={`sm:col-span-3 text-gray-900 font-medium text-right ${item.total_price && item.total_price < 0 ? 'text-red-600' : ''}`}>
+                        Total: ${item.total_price !== undefined ? Math.abs(item.total_price).toFixed(2) : (item.quantity * item.unit_price) ? (item.quantity * item.unit_price).toFixed(2) : 'N/A'}
+                        {item.total_price && item.total_price < 0 ? ' (neg)' : ''}
                       </span>
                     </div>
                   ))}
+                  {(!contract.items || contract.items.length === 0) && (
+                     <p className="text-sm text-gray-500">No items listed for this contract.</p>
+                  )}
                 </div>
               </div>
             ))}

@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from ..database import get_db
 from ..models import Contract
 from ..services.document_processor import DocumentProcessor
+from ..models.document_models import InvoiceItemModel
 from pydantic import BaseModel
 from datetime import datetime
 import uuid
@@ -14,18 +15,20 @@ import json
 
 router = APIRouter(prefix="/contracts", tags=["contracts"])
 
-class Service(BaseModel):
-    service_name: str
+class ItemResponse(BaseModel):
+    description: str
+    quantity: float
     unit_price: float
+    total_price: Optional[float] = None
 
 class ContractCreate(BaseModel):
     supplier_name: str
-    services: List[Service]
+    items: List[ItemResponse]
 
 class ContractResponse(BaseModel):
     id: str
     supplier_name: str
-    services: List[Service]
+    items: List[ItemResponse]
     created_at: datetime
     updated_at: datetime | None
 
@@ -61,7 +64,7 @@ async def create_contract(
         contract = Contract(
             id=str(uuid.uuid4()),
             supplier_name=contract_data.supplier_name,
-            services=[service.dict() for service in contract_data.services]
+            items=[item.dict() for item in contract_data.items]
         )
         
         db.add(contract)
@@ -90,53 +93,59 @@ async def upload_contract(
             )
         
         file_path = os.path.join(settings.UPLOAD_DIR, file.filename)
+        content = await file.read()
         with open(file_path, "wb") as f:
-            content = await file.read()
             f.write(content)
         
         # Process the contract file using DocumentProcessor
         processor = DocumentProcessor()
-        extracted_data = processor.process_contract(content, file.filename)
+        extracted_data_model = processor.process_contract(content, file.filename)
         
-        if "error" in extracted_data:
-            logger.error(f"Error processing contract: {extracted_data['error']}")
-            raise HTTPException(status_code=400, detail=extracted_data["error"])
+        if extracted_data_model is None:
+            logger.error(f"Error processing contract: Failed to extract data for {file.filename}")
+            raise HTTPException(status_code=400, detail="Failed to process contract file and extract data.")
         
-        # Use the supplier name extracted by the Gemini model
-        supplier_name = extracted_data.get("supplier_name", "Unknown Supplier")
+        # Use the supplier name extracted by the model
+        supplier_name = extracted_data_model.supplier_name or "Unknown Supplier"
         logger.info(f"Using extracted supplier name: {supplier_name}")
         
-        # Use extracted services if available
-        services = extracted_data.get("services", [])
-        if not services:
-            logger.warning("No services extracted from contract, using defaults")
-            # Provide default services only if nothing was extracted
-            services = [
-                {"service_name": "Professional Services", "unit_price": 100.0},
-                {"service_name": "Consulting", "unit_price": 150.0}
-            ]
+        # Use extracted items (List[InvoiceItemModel])
+        extracted_items = extracted_data_model.items
         
-        # Log the extracted services for debugging
-        logger.info(f"Extracted services: {json.dumps(services)}")
+        # Convert List[InvoiceItemModel] to List[dict] for DB storage / response model
+        items_for_db = [item.model_dump() for item in extracted_items]
+
+        if not items_for_db:
+            logger.warning(f"No items extracted from contract {file.filename}, using defaults if applicable or empty list")
+            # Default items logic might need review based on requirements.
+            # For now, if no items, it will be an empty list.
+            # items_for_db = [
+            #     ItemResponse(description="Default Service", quantity=1.0, unit_price=0.0, total_price=0.0).model_dump()
+            # ]
+
+        # Log the extracted items for debugging
+        logger.info(f"Extracted items: {json.dumps(items_for_db)}")
         
         # Create a contract in the database
-        contract_id = str(uuid.uuid4())
-        contract = Contract(
-            id=contract_id,
+        contract_id_val = str(uuid.uuid4())
+        db_contract = Contract(
+            id=contract_id_val,
             supplier_name=supplier_name,
-            services=services
+            items=items_for_db
         )
         
-        db.add(contract)
+        db.add(db_contract)
         db.commit()
-        db.refresh(contract)
+        db.refresh(db_contract)
         
-        logger.info(f"Contract uploaded and processed: {contract.id}")
-        return contract
+        logger.info(f"Contract uploaded and processed: {db_contract.id}")
+        return db_contract
         
+    except HTTPException as http_exc:
+        raise http_exc
     except Exception as e:
         logger.error(f"Error uploading contract: {str(e)}")
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Internal server error during contract upload: {str(e)}")
 
 @router.delete("/{contract_id}")
 async def delete_contract(contract_id: str, db: Session = Depends(get_db)):
@@ -166,7 +175,7 @@ async def update_contract(
     
     try:
         contract.supplier_name = contract_data.supplier_name
-        contract.services = [service.dict() for service in contract_data.services]
+        contract.items = [item.dict() for item in contract_data.items]
         contract.updated_at = datetime.utcnow()
         
         db.commit()

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from ..database import get_db
 from ..models import Invoice, Contract
 from ..services.document_processor import DocumentProcessor
@@ -23,22 +23,16 @@ class InvoiceItem(BaseModel):
     total_price: float | None = None
 
 class InvoiceData(BaseModel):
+    id: str
     invoice_number: str
     supplier_name: str
     issue_date: datetime
-    due_date: datetime | None = None
+    due_date: Optional[datetime] = None
     items: List[dict]  # Modified to be a list of dictionaries with description, quantity, etc.
-    subtotal: float | None = None
-    tax: float | None = None
+    subtotal: Optional[float] = None
+    tax: Optional[float] = None
     total: float
-    raw_text: str | None = None
-
-class ComparisonResult(BaseModel):
-    contract_id: str
-    invoice_data: InvoiceData
-    matches: dict
-    issues: List[dict]
-    overall_match: bool
+    created_at: datetime
 
 @router.post("/process")
 async def process_invoice(
@@ -74,66 +68,60 @@ async def process_invoice(
         
         # Process invoice to extract data using the DocumentProcessor
         processor = DocumentProcessor()
-        invoice_data = await processor.process_invoice_async(file_content, invoice_item.file_type)
+        stitched_content_bytes = processor.stitch_document(file_content, invoice_item.file_type)
         
-        return invoice_data
+        if stitched_content_bytes is None:
+            # Stitching failed, possibly due to unsupported file type or internal error
+            logger.error(f"Failed to stitch document for file type: {invoice_item.file_type}")
+            raise HTTPException(status_code=500, detail=f"Failed to process document: Could not convert or stitch file type '{invoice_item.file_type}'")
+
+        # Now, process the stitched PNG image content
+        # The file_type for process_invoice_async should now be 'png'
+        extracted_invoice_model = await processor.process_invoice_async(stitched_content_bytes, 'png')
+        
+        if extracted_invoice_model is None:
+            # This might happen if process_invoice_async itself fails or returns None
+            logger.error(f"Processing the stitched PNG image returned no data.")
+            raise HTTPException(status_code=500, detail="Failed to extract data from the processed document.")
+        
+        # Save the processed invoice data to the database
+        try:
+            # Ensure items are in a JSON-serializable format (list of dicts)
+            items_for_db = [item.model_dump() for item in extracted_invoice_model.items]
+
+            db_invoice = Invoice(
+                id=str(uuid.uuid4()), # Generate a new UUID for the invoice
+                invoice_number=extracted_invoice_model.invoice_number,
+                supplier_name=extracted_invoice_model.supplier_name,
+                issue_date=extracted_invoice_model.issue_date,
+                due_date=extracted_invoice_model.due_date,
+                items=items_for_db, # Store as JSON
+                subtotal=extracted_invoice_model.subtotal,
+                tax=extracted_invoice_model.tax,
+                total=extracted_invoice_model.total,
+                # raw_text=extracted_invoice_model.raw_text, # Temporarily removed if DB schema doesn't have it
+                # contract_id can be associated later if needed, or passed in request
+            )
+            db.add(db_invoice)
+            db.commit()
+            db.refresh(db_invoice)
+            logger.info(f"Processed invoice data saved to DB with ID: {db_invoice.id}")
+            
+            # Return the Pydantic model of the extracted data, not the DB model directly for consistency
+            # or a new Pydantic model that represents a saved invoice.
+            # For now, returning the extracted_invoice_model which matches InvoiceData definition partially.
+            return extracted_invoice_model 
+            
+        except Exception as db_error:
+            logger.error(f"Error saving processed invoice to database: {db_error}")
+            db.rollback()
+            raise HTTPException(status_code=500, detail="Failed to save processed invoice data.")
         
     except ValueError as e:
         logger.error(f"Validation error in process_invoice: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         logger.error(f"Error processing invoice: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-@router.post("/compare", response_model=ComparisonResult)
-async def compare_invoice(
-    request: dict,
-    db: Session = Depends(get_db)
-):
-    """Compare an invoice against a contract.
-    
-    Example request body:
-    ```json
-    {
-        "contract_id": "contract-id-here",
-        "invoice_data": {
-            "invoice_number": "123",
-            "supplier_name": "Supplier Name",
-            "issue_date": "2023-01-01T00:00:00",
-            "items": [...],
-            "total": 100.0,
-            ...
-        }
-    }
-    ```
-    """
-    try:
-        # Extract data from request body
-        if not request.get("contract_id"):
-            raise HTTPException(status_code=400, detail="Contract ID is required")
-            
-        if not request.get("invoice_data"):
-            raise HTTPException(status_code=400, detail="Invoice data is required")
-            
-        contract_id = request.get("contract_id")
-        invoice_data = request.get("invoice_data")
-        
-        # Get contract
-        contract = db.query(Contract).filter(Contract.id == contract_id).first()
-        if not contract:
-            raise HTTPException(status_code=404, detail="Contract not found")
-        
-        # Compare invoice with contract using processor instance
-        processor = DocumentProcessor()
-        comparison_result = await processor.compare_invoice_with_contract(
-            contract=contract,
-            invoice_data=invoice_data
-        )
-        
-        return ComparisonResult(**comparison_result)
-        
-    except Exception as e:
-        logger.error(f"Error comparing invoice: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/", response_model=dict)
@@ -182,50 +170,66 @@ async def create_invoice(
         logger.error(f"Error creating invoice: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
-@router.get("/", response_model=List[dict])
+@router.get("/", response_model=List[InvoiceData])
 async def get_invoices(db: Session = Depends(get_db)):
-    """Get all invoices."""
-    invoices = db.query(Invoice).all()
-    return [
-        {
-            "id": invoice.id,
-            "contract_id": invoice.contract_id,
-            "file_path": invoice.file_path,
-            "is_valid": invoice.is_valid,
-            "created_at": invoice.created_at
-        }
-        for invoice in invoices
-    ]
+    """Get all invoices with their processed data."""
+    invoices = db.query(Invoice).order_by(Invoice.created_at.desc()).all()
+    
+    results = []
+    for invoice in invoices:
+        results.append(
+            InvoiceData(
+                id=invoice.id,
+                invoice_number=invoice.invoice_number,
+                supplier_name=invoice.supplier_name,
+                issue_date=invoice.issue_date,
+                due_date=invoice.due_date,
+                items=invoice.items,
+                subtotal=invoice.subtotal,
+                tax=invoice.tax,
+                total=invoice.total,
+                created_at=invoice.created_at
+            )
+        )
+    return results
 
-@router.get("/{invoice_id}", response_model=dict)
-async def get_invoice(invoice_id: int, db: Session = Depends(get_db)):
+@router.get("/{invoice_id}", response_model=InvoiceData)
+async def get_invoice(invoice_id: str, db: Session = Depends(get_db)):
     """Get a specific invoice by ID."""
     invoice = db.query(Invoice).filter(Invoice.id == invoice_id).first()
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")
     
-    return {
-        "id": invoice.id,
-        "contract_id": invoice.contract_id,
-        "file_path": invoice.file_path,
-        "content": invoice.content,
-        "is_valid": invoice.is_valid,
-        "validation_result": invoice.validation_result,
-        "created_at": invoice.created_at,
-        "updated_at": invoice.updated_at
-    }
+    # Map SQLAlchemy model to Pydantic model
+    return InvoiceData(
+        id=invoice.id,
+        invoice_number=invoice.invoice_number,
+        supplier_name=invoice.supplier_name,
+        issue_date=invoice.issue_date,
+        due_date=invoice.due_date,
+        items=invoice.items,
+        subtotal=invoice.subtotal,
+        tax=invoice.tax,
+        total=invoice.total,
+        created_at=invoice.created_at
+    )
 
 @router.delete("/{invoice_id}")
-async def delete_invoice(invoice_id: int, db: Session = Depends(get_db)):
+async def delete_invoice(invoice_id: str, db: Session = Depends(get_db)):
     """Delete an invoice by ID."""
     invoice = db.query(Invoice).filter(Invoice.id == invoice_id).first()
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")
     
     try:
-        # Delete file
-        if os.path.exists(invoice.file_path):
+        # Delete file only if file_path exists and the file is present
+        if invoice.file_path and os.path.exists(invoice.file_path):
             os.remove(invoice.file_path)
+            logger.info(f"Deleted associated file: {invoice.file_path} for invoice ID: {invoice_id}")
+        elif invoice.file_path:
+            logger.warning(f"File path {invoice.file_path} for invoice ID: {invoice_id} was set but file not found.")
+        else:
+            logger.info(f"No file path associated with invoice ID: {invoice_id}. No file to delete.")
         
         # Delete database record
         db.delete(invoice)
@@ -256,43 +260,4 @@ async def process_invoice_example():
             "file_type": "pdf"
         },
         "note": "For actual processing, send this format to the /process endpoint"
-    }
-
-@router.post("/compare-example")
-async def compare_invoice_example():
-    """
-    Example endpoint demonstrating how to compare an invoice with a contract.
-    
-    This endpoint doesn't actually perform a comparison - it just shows the expected request format.
-    
-    Example usage with curl:
-    ```bash
-    curl -X POST "http://localhost:8000/api/v1/invoices/compare-example" -H "Content-Type: application/json"
-    ```
-    
-    Response will show the expected format of the request body.
-    """
-    return {
-        "expected_request_format": {
-            "contract_id": "contract-id-here",
-            "invoice_data": {
-                "invoice_number": "123456",
-                "supplier_name": "Supplier Name",
-                "issue_date": "2023-01-01T00:00:00",
-                "due_date": "2023-02-01T00:00:00",
-                "items": [
-                    {
-                        "description": "Service description",
-                        "quantity": 1,
-                        "unit_price": 100.0,
-                        "total_price": 100.0
-                    }
-                ],
-                "subtotal": 100.0,
-                "tax": 20.0,
-                "total": 120.0,
-                "raw_text": "Sample invoice content"
-            }
-        },
-        "note": "For actual comparison, send this format to the /compare endpoint"
     } 

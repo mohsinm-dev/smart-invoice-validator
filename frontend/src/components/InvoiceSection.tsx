@@ -2,30 +2,35 @@
 
 import React, { useState, useEffect } from 'react'
 import { useDropzone, DropzoneOptions } from 'react-dropzone'
-import { Upload } from 'lucide-react'
+import { Upload, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { api, InvoiceData } from '@/services/api'
 
 interface InvoiceSectionProps {
   onInvoiceProcessed?: (invoiceData: InvoiceData) => void;
+  onRefreshInvoices?: () => Promise<void>;
 }
 
-const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed }) => {
-  const [invoices, setInvoices] = useState<any[]>([])
+const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed, onRefreshInvoices }) => {
+  const [invoices, setInvoices] = useState<InvoiceData[]>([])
   const [processedInvoice, setProcessedInvoice] = useState<InvoiceData | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
 
   useEffect(() => {
     fetchInvoices()
   }, [])
 
   const fetchInvoices = async () => {
+    setIsLoading(true)
     try {
       const data = await api.invoices.getAll()
       setInvoices(data)
     } catch (error) {
       console.error('Error fetching invoices:', error)
-      // Don't show error toast since this isn't critical for the user
+      toast.error('Could not load saved invoices.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -42,10 +47,10 @@ const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed }) =
       const invoiceData = await api.invoices.processInvoice(file)
       setProcessedInvoice(invoiceData)
       
-      // Notify parent component if callback is provided
       if (onInvoiceProcessed) {
         onInvoiceProcessed(invoiceData)
       }
+      await fetchInvoices()
       
       toast.success('Invoice processed successfully')
     } catch (error) {
@@ -53,6 +58,23 @@ const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed }) =
       console.error('Error processing invoice:', error)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const handleDeleteInvoice = async (invoiceId: string) => {
+    setIsDeleting(invoiceId)
+    try {
+      await api.invoices.deleteById(invoiceId)
+      toast.success('Invoice deleted successfully!')
+      await fetchInvoices()
+      if (onRefreshInvoices) {
+        await onRefreshInvoices()
+      }
+    } catch (error) {
+      console.error('Error deleting invoice:', error)
+      toast.error('Failed to delete invoice.')
+    } finally {
+      setIsDeleting(null)
     }
   }
 
@@ -187,27 +209,26 @@ const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed }) =
             {invoices.map((invoice) => (
               <div
                 key={invoice.id}
-                className="border border-gray-200 rounded-md p-4"
+                className="border border-gray-200 rounded-md p-4 flex justify-between items-center"
               >
-                <div className="flex justify-between">
-                  <div>
-                    <p className="font-medium">Invoice #{invoice.id}</p>
-                    <p className="text-sm text-gray-600">
-                      Created: {new Date(invoice.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div>
-                    {invoice.is_valid ? (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        Valid
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                        Invalid
-                      </span>
-                    )}
-                  </div>
+                <div className="flex-1">
+                  <p className="font-medium">{invoice.supplier_name} - INV# {invoice.invoice_number}</p>
+                  <p className="text-sm text-gray-600">
+                    Processed: {new Date(invoice.created_at).toLocaleDateString()} - Total: ${invoice.total.toFixed(2)}
+                  </p>
                 </div>
+                <button
+                  onClick={() => handleDeleteInvoice(invoice.id)}
+                  disabled={isDeleting === invoice.id || isLoading}
+                  className="p-2 text-red-500 hover:text-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  title="Delete this invoice"
+                >
+                  {isDeleting === invoice.id ? (
+                    <span className="text-sm italic">Deleting...</span>
+                  ) : (
+                    <Trash2 size={18} />
+                  )}
+                </button>
               </div>
             ))}
           </div>

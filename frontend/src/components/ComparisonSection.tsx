@@ -1,34 +1,67 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Check, X, AlertTriangle } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { api, Contract, InvoiceData, ComparisonResult, PriceComparisonDetail } from '@/services/api'
+import { api, Contract, InvoiceData, ComparisonResult, PriceComparisonDetail, Item as ContractItem, InvoiceItem } from '@/services/api'
 
 interface ComparisonSectionProps {
-  invoiceData: InvoiceData | null;
+  allInvoices: InvoiceData[];
   contracts: Contract[];
   onContractsChange: (contracts: Contract[]) => void;
+  onRefreshInvoices: () => Promise<void>;
 }
 
-export function ComparisonSection({ invoiceData, contracts, onContractsChange }: ComparisonSectionProps) {
-  const [selectedContract, setSelectedContract] = useState<string>('')
+export function ComparisonSection({ allInvoices = [], contracts, onContractsChange, onRefreshInvoices }: ComparisonSectionProps) {
+  const [selectedContractId, setSelectedContractId] = useState<string>('')
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState<string>('')
+  const [currentInvoiceData, setCurrentInvoiceData] = useState<InvoiceData | null>(null);
   const [comparisonResult, setComparisonResult] = useState<ComparisonResult | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [priceDetails, setPriceDetails] = useState<PriceComparisonDetail[]>([])
 
-  // Reset comparison result when invoice data changes
+  console.log('ComparisonSection render. allInvoices:', allInvoices, 'selectedInvoiceId:', selectedInvoiceId, 'isLoading:', isLoading, 'contracts:', contracts, 'selectedContractId:', selectedContractId);
+
+  // Effect to update currentInvoiceData when selectedInvoiceId or allInvoices changes
   useEffect(() => {
+    console.log('[Effect currentInvoiceData] Triggered. selectedInvoiceId:', selectedInvoiceId, 'allInvoices count:', allInvoices.length);
+    if (selectedInvoiceId) {
+      const invoice = allInvoices.find(inv => inv.id === selectedInvoiceId);
+      console.log('[Effect currentInvoiceData] Found invoice for currentInvoiceData:', invoice);
+      setCurrentInvoiceData(invoice || null);
+    } else {
+      console.log('[Effect currentInvoiceData] Clearing currentInvoiceData because no selectedInvoiceId.');
+      setCurrentInvoiceData(null);
+    }
+  }, [selectedInvoiceId, allInvoices]);
+
+  // Reset comparison result when current invoice data changes
+  useEffect(() => {
+    console.log('[Effect resetComparison] Triggered. currentInvoiceData:', currentInvoiceData);
     setComparisonResult(null)
     setPriceDetails([])
-  }, [invoiceData])
+  }, [currentInvoiceData])
 
   // Update selected contract when contracts change
   useEffect(() => {
-    if (contracts.length > 0 && !selectedContract) {
-      setSelectedContract(contracts[0].id)
+    console.log('[Effect selectedContract] Triggered. contracts count:', contracts.length, 'selectedContractId:', selectedContractId);
+    if (contracts.length > 0 && !selectedContractId) {
+      console.log('[Effect selectedContract] Auto-selecting first contract:', contracts[0].id);
+      setSelectedContractId(String(contracts[0].id))
     }
-  }, [contracts, selectedContract])
+  }, [contracts, selectedContractId])
+
+  // Auto-select first invoice if available and none is selected, or clear if invoices disappear
+  useEffect(() => {
+    console.log('[Effect autoSelectInvoice] Triggered. allInvoices count:', allInvoices.length, 'selectedInvoiceId:', selectedInvoiceId);
+    if (allInvoices.length > 0 && !selectedInvoiceId) {
+      console.log('[Effect autoSelectInvoice] Auto-selecting first invoice:', allInvoices[0].id);
+      setSelectedInvoiceId(allInvoices[0].id);
+    } else if (allInvoices.length === 0 && selectedInvoiceId) { 
+      console.log('[Effect autoSelectInvoice] Invoices are empty, clearing selectedInvoiceId.');
+      setSelectedInvoiceId('');
+    }
+  }, [allInvoices, selectedInvoiceId]);
 
   // Update price details when comparison result changes
   useEffect(() => {
@@ -58,100 +91,149 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
   }, [comparisonResult]);
 
   const handleCompare = async () => {
-    if (!selectedContract || !invoiceData) {
-      toast.error('Please select a contract and upload an invoice')
+    if (!selectedContractId || !currentInvoiceData) {
+      toast.error('Please select a contract and an invoice')
       return
     }
 
     setIsLoading(true)
     try {
-      const result = await api.invoices.compareInvoice(selectedContract, invoiceData)
+      // Fetch the full contract details
+      const contract = await api.contracts.getById(selectedContractId);
+      if (!contract) {
+        toast.error('Could not fetch contract details.');
+        setIsLoading(false);
+        return;
+      }
+
+      // --- Start Frontend Comparison Logic ---
+      const issues: ComparisonResult['issues'] = [];
+      const priceComparisonDetails: PriceComparisonDetail[] = [];
+      let overallMatch = true; // Assume match initially
+
+      const matches: ComparisonResult['matches'] = {
+        prices_match: true, // Will be updated based on item comparisons
+        all_services_in_contract: true, // Will be updated
+      };
       
-      // Debug the full response
-      console.log("Full comparison result:", JSON.stringify(result));
-      
-      // If no price_comparison_details or if we need to enhance the list with contract services
-      if (!result.price_comparison_details || result.price_comparison_details.length < 3) {
-        // Get the selected contract
-        const contract = contracts.find(c => c.id === selectedContract);
-        
-        if (contract && contract.services && contract.services.length > 0) {
-          console.log("Adding missing services from contract");
-          
-          // Create a comprehensive list including all contract services
-          const enhancedDetails: PriceComparisonDetail[] = [];
-          
-          // First add any existing price comparison details
-          if (result.price_comparison_details && result.price_comparison_details.length > 0) {
-            enhancedDetails.push(...result.price_comparison_details);
+      // 1. Compare Supplier Name
+      // if (contract.supplier_name.toLowerCase() !== currentInvoiceData.supplier_name.toLowerCase()) {
+      //   issues.push({
+      //     type: 'supplier_mismatch',
+      //     contract_value: contract.supplier_name,
+      //     invoice_value: currentInvoiceData.supplier_name,
+      //   });
+      //   overallMatch = false;
+      // }
+
+      // 2. Compare Items/Services and Prices
+      const contractItems = contract.items || []; // Assuming contract.items contains service details
+      const invoiceItems = currentInvoiceData.items || [];
+
+      let allInvoiceItemsFoundInContract = true;
+      let allContractItemsFoundInInvoice = true;
+      let pricesMatchOverall = true;
+
+      // Normalize item descriptions for comparison
+      const normalize = (str: string) => str.toLowerCase().trim();
+
+      // Process contract items to populate priceComparisonDetails
+      contractItems.forEach((cItem: ContractItem) => {
+        const contractItemName = normalize(cItem.description);
+        const matchingInvoiceItem = invoiceItems.find(
+          (iItem: InvoiceItem) => normalize(iItem.description) === contractItemName
+        );
+
+        let invoicePrice = 0;
+        let itemMatch = false;
+        let note: string | undefined;
+
+        if (matchingInvoiceItem) {
+          invoicePrice = matchingInvoiceItem.unit_price || matchingInvoiceItem.total_price || 0;
+          // Compare unit prices with a small tolerance for floating point issues
+          itemMatch = Math.abs(cItem.unit_price - invoicePrice) < 0.01;
+          if (!itemMatch) {
+            pricesMatchOverall = false;
+            note = `Price mismatch: Contract €${cItem.unit_price.toFixed(2)}, Invoice €${invoicePrice.toFixed(2)}`;
+            issues.push({
+              type: 'price_mismatch',
+              service_name: cItem.description,
+              contract_value: cItem.unit_price,
+              invoice_value: invoicePrice,
+            });
           }
-          
-          // Then add any missing services from the contract
-          contract.services.forEach(service => {
-            // Check if this service is already in our enhanced list
-            const existingIndex = enhancedDetails.findIndex(
-              detail => detail.service_name.toLowerCase() === service.service_name.toLowerCase()
-            );
-            
-            if (existingIndex === -1) {
-              // Find if there's an invoice item that matches this service
-              let invoicePrice = 0;
-              let priceMatch = false;
-              
-              // Look in the issues for this service name
-              if (result.issues && result.issues.length > 0) {
-                const matchingIssue = result.issues.find(issue => 
-                  issue.service_name && 
-                  issue.service_name.toLowerCase() === service.service_name.toLowerCase()
-                );
-                
-                if (matchingIssue && matchingIssue.invoice_value !== undefined) {
-                  invoicePrice = Number(matchingIssue.invoice_value);
-                  // Check if prices actually match within tolerance
-                  priceMatch = Math.abs(service.unit_price - invoicePrice) < 0.01;
-                }
-              }
-              
-              // Look in the invoice data directly for matching services
-              if (invoicePrice === 0 && result.invoice_data && result.invoice_data.items) {
-                // Try to find a matching item in the invoice data
-                const matchingItem = result.invoice_data.items.find(item => 
-                  item.description && 
-                  (item.description.toLowerCase() === service.service_name.toLowerCase() ||
-                   item.description.toLowerCase().includes(service.service_name.toLowerCase()) ||
-                   service.service_name.toLowerCase().includes(item.description.toLowerCase()))
-                );
-                
-                if (matchingItem) {
-                  // Use the unit_price if available, otherwise use total_price
-                  invoicePrice = matchingItem.unit_price || matchingItem.total_price || 0;
-                  priceMatch = Math.abs(service.unit_price - invoicePrice) < 0.01;
-                  console.log(`Found direct match in invoice data: ${service.service_name} -> ${invoicePrice}`);
-                }
-              }
-              
-              // Add this service to our enhanced list
-              enhancedDetails.push({
-                service_name: service.service_name,
-                contract_price: service.unit_price,
-                invoice_price: invoicePrice,
-                match: priceMatch,
-                note: invoicePrice === 0 ? "Price not detected in invoice" : undefined
-              });
-            }
+        } else {
+          allContractItemsFoundInInvoice = false;
+          pricesMatchOverall = false; // Missing item means prices don't fully match
+          note = "Service not found in invoice";
+          issues.push({
+            type: 'service_not_in_invoice', // Custom type
+            service_name: cItem.description,
+            contract_value: cItem.unit_price,
+            invoice_value: 'N/A',
           });
-          
-          // Replace the price comparison details with our enhanced list
-          if (enhancedDetails.length > 0) {
-            result.price_comparison_details = enhancedDetails;
-            console.log(`Enhanced price details to include ${enhancedDetails.length} items`);
-          }
         }
+        
+        priceComparisonDetails.push({
+          service_name: cItem.description,
+          contract_price: cItem.unit_price,
+          invoice_price: invoicePrice,
+          match: itemMatch,
+          note: note,
+        });
+      });
+
+      // Check for invoice items not in the contract
+      invoiceItems.forEach((iItem: InvoiceItem) => {
+        const invoiceItemName = normalize(iItem.description);
+        const isInContract = contractItems.some(
+          (cItem: ContractItem) => normalize(cItem.description) === invoiceItemName
+        );
+        if (!isInContract) {
+          allInvoiceItemsFoundInContract = false;
+          issues.push({
+            type: 'service_not_in_contract',
+            service_name: iItem.description,
+            contract_value: 'N/A',
+            invoice_value: iItem.unit_price || iItem.total_price || 0,
+          });
+           // Add to price comparison details as an extra item from invoice
+           priceComparisonDetails.push({
+            service_name: iItem.description,
+            contract_price: null, // Not in contract
+            invoice_price: iItem.unit_price || iItem.total_price || 0,
+            match: false,
+            note: "Service not found in contract",
+          });
+        }
+      });
+      
+      matches.prices_match = pricesMatchOverall;
+      matches.all_services_in_contract = allContractItemsFoundInInvoice; // If all contract services are in invoice.
+                                                                     // Could also be interpreted as if all invoice services are in contract.
+                                                                     // For now, let's stick to "all contract services are present and prices match"
+
+      if (!pricesMatchOverall || !allContractItemsFoundInInvoice || !allInvoiceItemsFoundInContract || issues.length > 0) {
+        overallMatch = false;
       }
       
+      // 3. Compare Totals (optional, as item prices should dictate this)
+      // We can add a check for currentInvoiceData.total vs sum of contract item totals if needed.
+      // For now, focusing on item-level comparison.
+
+      const result: ComparisonResult = {
+        contract_id: selectedContractId,
+        invoice_data: currentInvoiceData,
+        matches: matches,
+        issues: issues,
+        overall_match: overallMatch,
+        price_comparison_details: priceComparisonDetails,
+      };
+      // --- End Frontend Comparison Logic ---
+      
+      console.log("Frontend Comparison Result:", JSON.stringify(result, null, 2));
       setComparisonResult(result)
       
-      // Check if we have price details
       if (result.price_comparison_details && result.price_comparison_details.length > 0) {
         console.log(`Received ${result.price_comparison_details.length} price details`);
       } else {
@@ -164,91 +246,6 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
       setIsLoading(false)
     }
   }
-
-  // Filter out false positives in issues and recalculate match status
-  const filteredComparisonResult = React.useMemo(() => {
-    if (!comparisonResult) return null;
-    
-    // Create a deep copy of the comparison result
-    const result = {
-      ...comparisonResult,
-      issues: [...comparisonResult.issues],
-      matches: { ...comparisonResult.matches }
-    };
-    
-    // Filter out price mismatches where the prices actually match within tolerance
-    const filteredIssues = result.issues.filter(issue => {
-      if (issue.type === 'price_mismatch' && 
-          issue.contract_value !== undefined && 
-          issue.invoice_value !== undefined) {
-        const contractValue = Number(issue.contract_value);
-        const invoiceValue = Number(issue.invoice_value);
-        
-        // If they match within tolerance, don't show as an issue
-        if (Math.abs(contractValue - invoiceValue) < 0.01) {
-          return false;
-        }
-        
-        // Keep "missing invoice price" issues
-        if (invoiceValue === 0) {
-          return true;
-        }
-        
-        // Keep actual price mismatches
-        return true;
-      }
-      // Keep all other types of issues
-      return true;
-    });
-    
-    // Add missing price issues if they don't exist already
-    if (comparisonResult.price_comparison_details) {
-      comparisonResult.price_comparison_details.forEach(detail => {
-        const hasMissingPrice = detail.invoice_price === 0 && 
-                              (detail.note === "Price not detected in invoice" || 
-                               detail.note === "No items found in contract/invoice");
-        
-        if (hasMissingPrice) {
-          // Check if this issue already exists
-          const issueExists = filteredIssues.some(
-            issue => issue.type === 'price_mismatch' && 
-                    issue.service_name === detail.service_name && 
-                    issue.invoice_value === 0
-          );
-          
-          if (!issueExists && detail.contract_price !== null) {
-            // Add a new issue for the missing price
-            filteredIssues.push({
-              type: 'price_mismatch',
-              service_name: detail.service_name,
-              contract_value: detail.contract_price,
-              invoice_value: 0
-            });
-          }
-        }
-      });
-    }
-    
-    result.issues = filteredIssues;
-    
-    // Recalculate matches status
-    if (filteredIssues.length === 0) {
-      result.matches.prices_match = true;
-      
-      // If no service_not_in_contract issues remain, set all_services_in_contract to true
-      if (!filteredIssues.some(issue => issue.type === 'service_not_in_contract')) {
-        result.matches.all_services_in_contract = true;
-      }
-    } else {
-      // If we have price mismatch issues, prices don't match
-      result.matches.prices_match = !filteredIssues.some(issue => issue.type === 'price_mismatch');
-    }
-    
-    // Calculate overall match
-    result.overall_match = Object.values(result.matches).every(Boolean);
-    
-    return result;
-  }, [comparisonResult]);
 
   const renderMatchIcon = (isMatch: boolean) => {
     if (isMatch) {
@@ -268,8 +265,8 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
           Select Contract
         </label>
         <select
-          value={selectedContract}
-          onChange={(e) => setSelectedContract(e.target.value)}
+          value={selectedContractId}
+          onChange={(e) => setSelectedContractId(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
         >
           <option value="">Choose a contract...</option>
@@ -287,18 +284,47 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
       </div>
 
       <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Select Invoice
+        </label>
+        <div className="flex items-center space-x-2">
+          <select
+            value={selectedInvoiceId}
+            onChange={(e) => {
+              console.log('Invoice dropdown onChange. New value:', e.target.value);
+              setSelectedInvoiceId(e.target.value);
+            }}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent disabled:bg-gray-100"
+            disabled={allInvoices.length === 0 || isLoading}
+          >
+            <option value="">Choose an invoice...</option>
+            {allInvoices.map((invoice) => (
+              <option key={invoice.id} value={invoice.id}>
+                #{invoice.invoice_number} - {invoice.supplier_name} (Total: {invoice.total.toFixed(2)})
+              </option>
+            ))}
+          </select>
+        </div>
+        {allInvoices.length === 0 && (
+          <p className="mt-2 text-sm text-gray-500">
+            No invoices available. Please process an invoice first.
+          </p>
+        )}
+      </div>
+
+      <div className="mb-6">
         <p className="text-sm text-gray-700 mb-3">
-          {invoiceData 
-            ? `Invoice #${invoiceData.invoice_number} from ${invoiceData.supplier_name} is ready for comparison` 
-            : "Upload an invoice from the Invoices section to compare"}
+          {currentInvoiceData 
+            ? `Invoice #${currentInvoiceData.invoice_number} from ${currentInvoiceData.supplier_name} is ready for comparison` 
+            : "Select an invoice to compare"}
         </p>
       </div>
 
       <button
         onClick={handleCompare}
-        disabled={!selectedContract || !invoiceData || isLoading}
+        disabled={!selectedContractId || !currentInvoiceData || isLoading}
         className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md transition-colors ${
-          (!selectedContract || !invoiceData || isLoading)
+          (!selectedContractId || !currentInvoiceData || isLoading)
             ? 'opacity-50 cursor-not-allowed'
             : 'hover:bg-indigo-700'
         }`}
@@ -315,7 +341,7 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
               </h3>
               <div className="flex items-center space-x-2">
                 <span className="text-sm text-gray-600">Overall Match:</span>
-                {filteredComparisonResult?.overall_match ? (
+                {comparisonResult.overall_match ? (
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                     Match
                   </span>
@@ -350,11 +376,19 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
                           const difference = invoicePrice - contractPrice;
                           
                           // Handle missing price with a special message
-                          const hasMissingPrice = invoicePrice === 0 && (detail.note === "Price not detected in invoice" || detail.note === "No items found in contract/invoice");
+                          const hasMissingPrice = detail.invoice_price === 0 && detail.contract_price !== null && detail.note === "Service not found in invoice";
+                          const isExtraInvoiceItem = detail.contract_price === null && detail.note === "Service not found in contract";
                           
                           // Use our own comparison with tolerance instead of backend's flag
                           // For missing prices, they should never match
-                          const pricesMatch = hasMissingPrice ? false : Math.abs(difference) < 0.01;
+                          let pricesMatch = false;
+                          if (isExtraInvoiceItem) {
+                            pricesMatch = false; // Cannot match if not in contract
+                          } else if (hasMissingPrice) {
+                            pricesMatch = false; // Cannot match if missing in invoice
+                          } else {
+                            pricesMatch = Math.abs(difference) < 0.01;
+                          }
                           
                           const formattedDiff = Math.abs(difference).toLocaleString('en-US', {
                             style: 'currency',
@@ -365,7 +399,7 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
                           // Determine row styling - highlight price mismatches in red, missing prices in yellow
                           const rowStyle = pricesMatch 
                             ? "border-b border-gray-200" 
-                            : (hasMissingPrice ? "bg-yellow-50 border-b border-gray-200" : "bg-red-50 border-b border-gray-200");
+                            : (hasMissingPrice || isExtraInvoiceItem ? "bg-yellow-50 border-b border-gray-200" : "bg-red-50 border-b border-gray-200");
                           
                           return (
                             <tr
@@ -384,17 +418,21 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
                               </td>
                               <td className="px-4 py-3 text-gray-900">
                                 {hasMissingPrice 
-                                  ? <span className="text-amber-500 italic">Missing in invoice</span>
-                                  : invoicePrice.toLocaleString('en-US', {
+                                  ? <span className="text-amber-500 italic">Not in invoice</span>
+                                  : isExtraInvoiceItem 
+                                    ? <span className="text-amber-500 italic">Not in contract (Invoice: {invoicePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })})</span>
+                                    : invoicePrice.toLocaleString('en-US', {
                                       style: 'currency',
                                       currency: 'USD',
                                       minimumFractionDigits: 2
                                     })}
                               </td>
-                              <td className={`px-4 py-3 font-medium ${!pricesMatch ? (hasMissingPrice ? "text-amber-500" : (difference > 0 ? "text-red-600" : "text-blue-600")) : "text-gray-400"}`}>
+                              <td className={`px-4 py-3 font-medium ${!pricesMatch ? (hasMissingPrice || isExtraInvoiceItem ? "text-amber-500" : (difference > 0 ? "text-red-600" : "text-blue-600")) : "text-gray-400"}`}>
                                 {!pricesMatch ? (
                                   hasMissingPrice ? (
-                                    <span className="text-amber-500">Price missing</span>
+                                    <span className="text-amber-500">Not in invoice</span>
+                                  ) : isExtraInvoiceItem ? (
+                                    <span className="text-amber-500">Not in contract</span>
                                   ) : (
                                     <>
                                       {difference > 0 ? '+' : '-'} {formattedDiff}
@@ -425,15 +463,15 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
 
               <div className="flex items-center justify-between p-4 bg-white rounded-md">
                 <span className="text-gray-900">All Services in Contract</span>
-                {renderMatchIcon(filteredComparisonResult?.matches.all_services_in_contract ?? false)}
+                {renderMatchIcon(comparisonResult.matches.all_services_in_contract)}
               </div>
             </div>
 
-            {filteredComparisonResult && filteredComparisonResult.issues && filteredComparisonResult.issues.length > 0 && (
+            {comparisonResult.issues && comparisonResult.issues.length > 0 && (
               <div className="mt-6">
                 <h4 className="text-sm font-medium text-gray-900 mb-3">Issues</h4>
                 <div className="space-y-2">
-                  {filteredComparisonResult?.issues?.map((issue, index) => (
+                  {comparisonResult.issues?.map((issue: ComparisonResult['issues'][0], index: number) => (
                     <div
                       key={index}
                       className="flex items-start space-x-3 text-sm text-gray-600 bg-white p-3 rounded-md"
@@ -442,14 +480,14 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
                       <div>
                         {issue.type === 'service_not_in_contract' && (
                           <p>
-                            Service &quot;{issue.service_name}&quot; not found in contract
+                            Service &quot;{issue.service_name}&quot; from invoice not found in contract. Invoice Price: ${typeof issue.invoice_value === 'number' ? issue.invoice_value.toFixed(2) : issue.invoice_value}
                           </p>
                         )}
                         {issue.type === 'price_mismatch' && (
                           <p>
                             Price mismatch for &quot;{issue.service_name}&quot;:
-                            Contract: ${issue.contract_value}, Invoice: $
-                            {issue.invoice_value}
+                            Contract: ${typeof issue.contract_value === 'number' ? issue.contract_value.toFixed(2) : issue.contract_value}, Invoice: $
+                            {typeof issue.invoice_value === 'number' ? issue.invoice_value.toFixed(2) : issue.invoice_value}
                           </p>
                         )}
                         {issue.type === 'supplier_mismatch' && (
@@ -457,6 +495,11 @@ export function ComparisonSection({ invoiceData, contracts, onContractsChange }:
                             Supplier name mismatch: Contract: &quot;
                             {issue.contract_value}&quot;, Invoice: &quot;
                             {issue.invoice_value}&quot;
+                          </p>
+                        )}
+                        {issue.type === 'service_not_in_invoice' && (
+                          <p>
+                            Service &quot;{issue.service_name}&quot; from contract not found in invoice. Contract Price: ${typeof issue.contract_value === 'number' ? issue.contract_value.toFixed(2) : issue.contract_value}
                           </p>
                         )}
                       </div>
