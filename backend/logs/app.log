@@ -3443,3 +3443,1047 @@ items.47.total_price
 2025-05-19 03:55:42.670 | INFO     | app.api.invoices:process_invoice:108 - Processed invoice data saved to DB with ID: b0eceb58-a8b9-46c2-8b01-3313d90cb3f5
 2025-05-19 03:55:42 | INFO | Retrieved 1 contracts from database
 2025-05-19 03:55:42.678 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-24 23:58:37 | INFO | Database tables created successfully
+2025-05-24 23:58:37 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:00:06 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:00:06.828 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:00:06 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:00:06.896 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:00:13 | ERROR | Error deleting invoice: 'Invoice' object has no attribute 'file_path'
+2025-05-25 00:00:13.221 | ERROR    | app.api.invoices:delete_invoice:238 - Error deleting invoice: 'Invoice' object has no attribute 'file_path'
+2025-05-25 00:00:13 | ERROR | Database error: 400: 'Invoice' object has no attribute 'file_path'
+2025-05-25 00:00:13.221 | ERROR    | app.database:get_db:34 - Database error: 400: 'Invoice' object has no attribute 'file_path'
+2025-05-25 00:01:01 | INFO | Database tables created successfully
+2025-05-25 00:01:01 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:01:06 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:01:06.361 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 0 contracts from database
+2025-05-25 00:01:06 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:01:06.368 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 0 contracts from database
+2025-05-25 00:01:37 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-25 00:01:37.660 | INFO     | app.services.document_processor:__init__:38 - DocumentProcessor initialized with Gemini model
+2025-05-25 00:01:37 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-25 00:01:37.660 | INFO     | app.services.document_processor:process_contract:98 - Processing contract document: Faktura (1).pdf
+2025-05-25 00:01:37 | INFO | Converting contract PDF to images
+2025-05-25 00:01:37.661 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-25 00:02:07 | INFO | Processing 1 additional pages for service details
+2025-05-25 00:02:07.343 | INFO     | app.services.document_processor:process_contract:122 - Processing 1 additional pages for service details
+2025-05-25 00:02:43 | INFO | Using extracted supplier name: Stockholm Gas AB
+2025-05-25 00:02:43.196 | INFO     | app.api.contracts:upload_contract:110 - Using extracted supplier name: Stockholm Gas AB
+2025-05-25 00:02:43 | INFO | Extracted items: [{"description": "Gashandel", "quantity": 1.0, "unit_price": 86.4, "total_price": 86.4}, {"description": "Gasn\u00e4t", "quantity": 1.0, "unit_price": 225.6, "total_price": 225.6}, {"description": "\u00d6vrigt", "quantity": 1.0, "unit_price": 0.36, "total_price": 0.36}, {"description": "\u00d6resutj\u00e4mning", "quantity": 1.0, "unit_price": -0.36, "total_price": -0.36}, {"description": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31 Fast avgift Gas", "quantity": 1.0, "unit_price": 108.0, "total_price": 108.0}, {"description": "Dr\u00f6jsm\u00e5lsr\u00e4nta 2025-03-31 Datum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225", "quantity": 1.0, "unit_price": 0.36, "total_price": 0.36}, {"description": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01 - 2025-03-31 Fast avgift N\u00e4t", "quantity": 1.0, "unit_price": 282.0, "total_price": 282.0}]
+2025-05-25 00:02:43.197 | INFO     | app.api.contracts:upload_contract:127 - Extracted items: [{"description": "Gashandel", "quantity": 1.0, "unit_price": 86.4, "total_price": 86.4}, {"description": "Gasn\u00e4t", "quantity": 1.0, "unit_price": 225.6, "total_price": 225.6}, {"description": "\u00d6vrigt", "quantity": 1.0, "unit_price": 0.36, "total_price": 0.36}, {"description": "\u00d6resutj\u00e4mning", "quantity": 1.0, "unit_price": -0.36, "total_price": -0.36}, {"description": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31 Fast avgift Gas", "quantity": 1.0, "unit_price": 108.0, "total_price": 108.0}, {"description": "Dr\u00f6jsm\u00e5lsr\u00e4nta 2025-03-31 Datum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225", "quantity": 1.0, "unit_price": 0.36, "total_price": 0.36}, {"description": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01 - 2025-03-31 Fast avgift N\u00e4t", "quantity": 1.0, "unit_price": 282.0, "total_price": 282.0}]
+2025-05-25 00:02:43 | INFO | Contract uploaded and processed: 044f3dd4-7479-46a2-8ad2-250e8ad2d5ac
+2025-05-25 00:02:43.204 | INFO     | app.api.contracts:upload_contract:141 - Contract uploaded and processed: 044f3dd4-7479-46a2-8ad2-250e8ad2d5ac
+2025-05-25 00:02:49 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:02:49.571 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:02:49 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:02:49.574 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:03:03 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-25 00:03:03.251 | INFO     | app.services.document_processor:__init__:38 - DocumentProcessor initialized with Gemini model
+2025-05-25 00:03:03 | INFO | Stitching document of type: pdf
+2025-05-25 00:03:03.252 | INFO     | app.services.document_processor:stitch_document:345 - Stitching document of type: pdf
+2025-05-25 00:03:06 | INFO | Stitching 2 pages from PDF.
+2025-05-25 00:03:06.413 | INFO     | app.services.document_processor:stitch_document:359 - Stitching 2 pages from PDF.
+2025-05-25 00:03:07 | INFO | Async processing invoice file of type: png
+2025-05-25 00:03:07.000 | INFO     | app.services.document_processor:process_invoice_async:429 - Async processing invoice file of type: png
+2025-05-25 00:04:07 | ERROR | Error processing invoice async: 504 Deadline Exceeded
+2025-05-25 00:04:07.717 | ERROR    | app.services.document_processor:process_invoice_async:478 - Error processing invoice async: 504 Deadline Exceeded
+2025-05-25 00:04:07 | INFO | Processed invoice data saved to DB with ID: 56c269ca-a95a-4e8f-b549-0e3181de32fe
+2025-05-25 00:04:07.736 | INFO     | app.api.invoices:process_invoice:106 - Processed invoice data saved to DB with ID: 56c269ca-a95a-4e8f-b549-0e3181de32fe
+2025-05-25 00:05:21 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:05:21.885 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:05:21 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:05:21.887 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:06:42 | INFO | Database tables created successfully
+2025-05-25 00:06:42 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:08:05 | INFO | Database tables created successfully
+2025-05-25 00:08:05 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:08:36 | INFO | Database tables created successfully
+2025-05-25 00:08:36 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:09:49 | INFO | Database tables created successfully
+2025-05-25 00:09:49 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:10:04 | INFO | Database tables created successfully
+2025-05-25 00:10:04 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:10:23 | INFO | Database tables created successfully
+2025-05-25 00:10:23 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:10:41 | INFO | Database tables created successfully
+2025-05-25 00:10:41 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:10:44 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:10:44.677 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 0 contracts from database
+2025-05-25 00:10:44 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:10:44.681 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 0 contracts from database
+2025-05-25 00:10:52 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-25 00:10:52.099 | INFO     | app.services.document_processor:__init__:37 - DocumentProcessor initialized with Gemini model
+2025-05-25 00:10:52 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-25 00:10:52.100 | INFO     | app.services.document_processor:process_contract:97 - Processing contract document: Faktura (1).pdf
+2025-05-25 00:10:52 | INFO | Converting contract PDF to images
+2025-05-25 00:10:52.100 | INFO     | app.services.document_processor:process_contract:107 - Converting contract PDF to images
+2025-05-25 00:10:52 | INFO | Stitched 2 pages into one image of size (1654, 4678)
+2025-05-25 00:10:52.848 | INFO     | app.services.document_processor:process_contract:126 - Stitched 2 pages into one image of size (1654, 4678)
+2025-05-25 00:11:09 | INFO | Using extracted supplier name: Stockholm Gas AB
+2025-05-25 00:11:09.889 | INFO     | app.api.contracts:upload_contract:110 - Using extracted supplier name: Stockholm Gas AB
+2025-05-25 00:11:09 | INFO | Extracted items: [{"description": "Gashandel", "quantity": 1.0, "unit_price": 86.4, "total_price": 86.4}, {"description": "Gasn\u00e4t", "quantity": 1.0, "unit_price": 225.6, "total_price": 225.6}, {"description": "\u00d6vrigt", "quantity": 1.0, "unit_price": 0.36, "total_price": 0.36}, {"description": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31\nFast avgift Gas", "quantity": 1.0, "unit_price": 108.0, "total_price": 108.0}, {"description": "\u00d6vrigt\nDr\u00f6jsm\u00e5lsr\u00e4nta", "quantity": 1.0, "unit_price": 0.36, "total_price": 0.36}, {"description": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01 - 2025-03-31\nFast avgift N\u00e4t", "quantity": 1.0, "unit_price": 282.0, "total_price": 282.0}]
+2025-05-25 00:11:09.890 | INFO     | app.api.contracts:upload_contract:127 - Extracted items: [{"description": "Gashandel", "quantity": 1.0, "unit_price": 86.4, "total_price": 86.4}, {"description": "Gasn\u00e4t", "quantity": 1.0, "unit_price": 225.6, "total_price": 225.6}, {"description": "\u00d6vrigt", "quantity": 1.0, "unit_price": 0.36, "total_price": 0.36}, {"description": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31\nFast avgift Gas", "quantity": 1.0, "unit_price": 108.0, "total_price": 108.0}, {"description": "\u00d6vrigt\nDr\u00f6jsm\u00e5lsr\u00e4nta", "quantity": 1.0, "unit_price": 0.36, "total_price": 0.36}, {"description": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01 - 2025-03-31\nFast avgift N\u00e4t", "quantity": 1.0, "unit_price": 282.0, "total_price": 282.0}]
+2025-05-25 00:11:09 | INFO | Contract uploaded and processed: 1fe6d7e9-855f-44d5-9d9c-efe90e968abe
+2025-05-25 00:11:09.902 | INFO     | app.api.contracts:upload_contract:141 - Contract uploaded and processed: 1fe6d7e9-855f-44d5-9d9c-efe90e968abe
+2025-05-25 00:11:09 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:11:09.931 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:11:32 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-25 00:11:32.736 | INFO     | app.services.document_processor:__init__:37 - DocumentProcessor initialized with Gemini model
+2025-05-25 00:11:32 | INFO | Stitching document of type: pdf
+2025-05-25 00:11:32.736 | INFO     | app.services.document_processor:stitch_document:321 - Stitching document of type: pdf
+2025-05-25 00:11:32 | INFO | Stitching 2 pages from PDF.
+2025-05-25 00:11:32.891 | INFO     | app.services.document_processor:stitch_document:335 - Stitching 2 pages from PDF.
+2025-05-25 00:11:33 | INFO | Async processing invoice file of type: png
+2025-05-25 00:11:33.480 | INFO     | app.services.document_processor:process_invoice_async:405 - Async processing invoice file of type: png
+2025-05-25 00:12:04 | INFO | Processed invoice data saved to DB with ID: a015fa74-4743-4168-9e20-f9b1b29412ea
+2025-05-25 00:12:04.401 | INFO     | app.api.invoices:process_invoice:106 - Processed invoice data saved to DB with ID: a015fa74-4743-4168-9e20-f9b1b29412ea
+2025-05-25 00:12:38 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:12:38.420 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:12:38 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:12:38.467 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:21:56 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:21:56.119 | INFO     | app.api.contracts:get_contracts:43 - Retrieved 1 contracts from database
+2025-05-25 00:27:25 | INFO | Database tables created successfully
+2025-05-25 00:27:25 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:32:37 | INFO | Database tables created successfully
+2025-05-25 00:32:37 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:33:01 | INFO | Database tables created successfully
+2025-05-25 00:33:01 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:33:22 | INFO | Database tables created successfully
+2025-05-25 00:33:22 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:33:29 | INFO | Database tables created successfully
+2025-05-25 00:33:29 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:34:05 | INFO | Database tables created successfully
+2025-05-25 00:34:05 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:34:24 | INFO | Database tables created successfully
+2025-05-25 00:34:24 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:37:39 | INFO | Database tables created successfully
+2025-05-25 00:37:39 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:38:33 | INFO | Database tables created successfully
+2025-05-25 00:38:33 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:38:43 | INFO | Database tables created successfully
+2025-05-25 00:38:43 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:38:59 | INFO | Database tables created successfully
+2025-05-25 00:38:59 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:40:49 | INFO | Database tables created successfully
+2025-05-25 00:40:49 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:40:52 | INFO | Database tables created successfully
+2025-05-25 00:40:52 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:41:55 | INFO | Database tables created successfully
+2025-05-25 00:41:55 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:42:14 | INFO | Database tables created successfully
+2025-05-25 00:42:14 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:43:02 | INFO | Database tables created successfully
+2025-05-25 00:43:02 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:43:10 | INFO | Database tables created successfully
+2025-05-25 00:43:10 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:43:21 | ERROR | Error deleting contract: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: DELETE FROM contracts WHERE contracts.id = ?]
+[parameters: ('1fe6d7e9-855f-44d5-9d9c-efe90e968abe',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-25 00:43:21.989 | ERROR    | app.api.contracts:delete_contract:166 - Error deleting contract: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: DELETE FROM contracts WHERE contracts.id = ?]
+[parameters: ('1fe6d7e9-855f-44d5-9d9c-efe90e968abe',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-25 00:43:21 | ERROR | Database error: 400: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: DELETE FROM contracts WHERE contracts.id = ?]
+[parameters: ('1fe6d7e9-855f-44d5-9d9c-efe90e968abe',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-25 00:43:21.990 | ERROR    | app.database:get_db:34 - Database error: 400: (sqlite3.OperationalError) attempt to write a readonly database
+[SQL: DELETE FROM contracts WHERE contracts.id = ?]
+[parameters: ('1fe6d7e9-855f-44d5-9d9c-efe90e968abe',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-05-25 00:43:37 | INFO | Database tables created successfully
+2025-05-25 00:43:37 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:43:40 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:43:40.713 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-25 00:43:40 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:43:40.715 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-25 00:46:29 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:46:29.584 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-25 00:46:47 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:46:47.912 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-25 00:46:47 | INFO | Retrieved 0 contracts from database
+2025-05-25 00:46:47.914 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-25 00:46:56 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-25 00:46:56.774 | INFO     | app.services.document_processor:__init__:34 - DocumentProcessor initialized with Gemini model
+2025-05-25 00:46:56 | INFO | Processing contract document: Faktura (1).pdf
+2025-05-25 00:46:56.774 | INFO     | app.services.document_processor:process_contract:101 - Processing contract document: Faktura (1).pdf
+2025-05-25 00:46:56 | INFO | Converting contract PDF to images
+2025-05-25 00:46:56.775 | INFO     | app.services.document_processor:process_contract:111 - Converting contract PDF to images
+2025-05-25 00:46:56 | INFO | Stitching 2 image pages.
+2025-05-25 00:46:56.936 | INFO     | app.services.document_processor:stitch_document_content:267 - Stitching 2 image pages.
+2025-05-25 00:46:57 | INFO | Sending contract image (Faktura (1).pdf) to Gemini for extraction.
+2025-05-25 00:46:57.518 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:232 - Sending contract image (Faktura (1).pdf) to Gemini for extraction.
+2025-05-25 00:47:14 | INFO | Using extracted supplier name: Stockholm Gas AB
+2025-05-25 00:47:14.656 | INFO     | app.api.contracts:upload_contract:115 - Using extracted supplier name: Stockholm Gas AB
+2025-05-25 00:47:14 | INFO | Extracted items: [{"description": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31 Fast avgift Gas", "quantity": 1.0, "unit_price": 108.0, "total": 108.0}, {"description": "Dr\u00f6jsm\u00e5lsr\u00e4nta 2025-03-31 Datum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225", "quantity": 1.0, "unit_price": 0.36, "total": 0.36}, {"description": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01-2025-03-31 Fast avgift N\u00e4t", "quantity": 1.0, "unit_price": 282.0, "total": 282.0}]
+2025-05-25 00:47:14.658 | INFO     | app.api.contracts:upload_contract:128 - Extracted items: [{"description": "Gashandel (Biogas 100 - gasspis) 2025-03-01 - 2025-03-31 Fast avgift Gas", "quantity": 1.0, "unit_price": 108.0, "total": 108.0}, {"description": "Dr\u00f6jsm\u00e5lsr\u00e4nta 2025-03-31 Datum 2025-03-28 2025-03-31, faktura 600105991225, 600105991225", "quantity": 1.0, "unit_price": 0.36, "total": 0.36}, {"description": "Gasn\u00e4t (Spistariff 3 rum & k\u00f6k) 2025-03-01-2025-03-31 Fast avgift N\u00e4t", "quantity": 1.0, "unit_price": 282.0, "total": 282.0}]
+2025-05-25 00:47:14 | INFO | Contract uploaded and processed: 807b2bf7-d70b-4155-a5dd-b64e3c977fda
+2025-05-25 00:47:14.668 | INFO     | app.api.contracts:upload_contract:145 - Contract uploaded and processed: 807b2bf7-d70b-4155-a5dd-b64e3c977fda
+2025-05-25 00:47:14 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:47:14.696 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-25 00:47:33 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-25 00:47:33.166 | INFO     | app.services.document_processor:__init__:34 - DocumentProcessor initialized with Gemini model
+2025-05-25 00:47:33 | INFO | Stitching document of type: pdf
+2025-05-25 00:47:33.166 | INFO     | app.services.document_processor:stitch_document:303 - Stitching document of type: pdf
+2025-05-25 00:47:33 | INFO | Stitching 2 image pages.
+2025-05-25 00:47:33.468 | INFO     | app.services.document_processor:stitch_document_content:267 - Stitching 2 image pages.
+2025-05-25 00:47:34 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-25 00:47:34.106 | INFO     | app.services.document_processor:process_invoice_async:339 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-25 00:47:34 | ERROR | Unsupported file type for async invoice 'unknown_invoice_async': png
+2025-05-25 00:47:34.106 | ERROR    | app.services.document_processor:process_invoice_async:347 - Unsupported file type for async invoice 'unknown_invoice_async': png
+2025-05-25 00:47:34 | ERROR | Processing the stitched PNG image returned no data.
+2025-05-25 00:47:34.106 | ERROR    | app.api.invoices:process_invoice:67 - Processing the stitched PNG image returned no data.
+2025-05-25 00:47:34 | ERROR | Error processing invoice: 500: Failed to extract data from the processed document.
+2025-05-25 00:47:34.106 | ERROR    | app.api.invoices:process_invoice:109 - Error processing invoice: 500: Failed to extract data from the processed document.
+2025-05-25 00:47:34 | ERROR | Database error: 500: 500: Failed to extract data from the processed document.
+2025-05-25 00:47:34.107 | ERROR    | app.database:get_db:34 - Database error: 500: 500: Failed to extract data from the processed document.
+2025-05-25 00:49:34 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:49:34.245 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-25 00:49:34 | INFO | Retrieved 1 contracts from database
+2025-05-25 00:49:34.250 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-25 00:49:51 | INFO | Database tables created successfully
+2025-05-25 00:49:51 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:49:58 | INFO | Database tables created successfully
+2025-05-25 00:49:58 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:51:16 | INFO | Database tables created successfully
+2025-05-25 00:51:16 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:51:24 | INFO | Database tables created successfully
+2025-05-25 00:51:24 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:51:34 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-25 00:51:34.958 | INFO     | app.services.document_processor:__init__:34 - DocumentProcessor initialized with Gemini model
+2025-05-25 00:51:34 | INFO | Stitching document of type: pdf
+2025-05-25 00:51:34.958 | INFO     | app.services.document_processor:stitch_document:303 - Stitching document of type: pdf
+2025-05-25 00:51:35 | INFO | Stitching 2 image pages.
+2025-05-25 00:51:35.117 | INFO     | app.services.document_processor:stitch_document_content:267 - Stitching 2 image pages.
+2025-05-25 00:51:35 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-25 00:51:35.716 | INFO     | app.services.document_processor:process_invoice_async:339 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-25 00:51:35 | ERROR | Unsupported file type for async invoice 'unknown_invoice_async': png
+2025-05-25 00:51:35.716 | ERROR    | app.services.document_processor:process_invoice_async:347 - Unsupported file type for async invoice 'unknown_invoice_async': png
+2025-05-25 00:51:35 | ERROR | Processing the stitched PNG image returned no data.
+2025-05-25 00:51:35.716 | ERROR    | app.api.invoices:process_invoice:67 - Processing the stitched PNG image returned no data.
+2025-05-25 00:51:35 | ERROR | Error processing invoice: 500: Failed to extract data from the processed document.
+2025-05-25 00:51:35.716 | ERROR    | app.api.invoices:process_invoice:109 - Error processing invoice: 500: Failed to extract data from the processed document.
+2025-05-25 00:51:35 | ERROR | Database error: 500: 500: Failed to extract data from the processed document.
+2025-05-25 00:51:35.717 | ERROR    | app.database:get_db:34 - Database error: 500: 500: Failed to extract data from the processed document.
+2025-05-25 00:52:29 | INFO | Database tables created successfully
+2025-05-25 00:52:29 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:52:38 | INFO | Database tables created successfully
+2025-05-25 00:52:38 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:52:53 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-25 00:52:53.571 | INFO     | app.services.document_processor:__init__:34 - DocumentProcessor initialized with Gemini model
+2025-05-25 00:52:53 | INFO | Stitching document of type: pdf
+2025-05-25 00:52:53.571 | INFO     | app.services.document_processor:stitch_document:303 - Stitching document of type: pdf
+2025-05-25 00:52:53 | INFO | Stitching 2 image pages.
+2025-05-25 00:52:53.717 | INFO     | app.services.document_processor:stitch_document_content:267 - Stitching 2 image pages.
+2025-05-25 00:52:54 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-25 00:52:54.300 | INFO     | app.services.document_processor:process_invoice_async:339 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-25 00:52:54 | ERROR | Unsupported file type for async invoice 'unknown_invoice_async': png
+2025-05-25 00:52:54.300 | ERROR    | app.services.document_processor:process_invoice_async:345 - Unsupported file type for async invoice 'unknown_invoice_async': png
+2025-05-25 00:52:54 | ERROR | Processing the stitched PNG image returned no data.
+2025-05-25 00:52:54.300 | ERROR    | app.api.invoices:process_invoice:67 - Processing the stitched PNG image returned no data.
+2025-05-25 00:52:54 | ERROR | Error processing invoice: 500: Failed to extract data from the processed document.
+2025-05-25 00:52:54.300 | ERROR    | app.api.invoices:process_invoice:109 - Error processing invoice: 500: Failed to extract data from the processed document.
+2025-05-25 00:52:54 | ERROR | Database error: 500: 500: Failed to extract data from the processed document.
+2025-05-25 00:52:54.301 | ERROR    | app.database:get_db:34 - Database error: 500: 500: Failed to extract data from the processed document.
+2025-05-25 00:57:23 | INFO | Database tables created successfully
+2025-05-25 00:57:23 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 00:58:23 | INFO | Database tables created successfully
+2025-05-25 00:58:23 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-25 01:01:59 | INFO | Database tables created successfully
+2025-05-25 01:01:59 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-26 10:48:28 | INFO | Database tables created successfully
+2025-05-26 10:48:28 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-26 10:48:36 | INFO | Retrieved 1 contracts from database
+2025-05-26 10:48:36.189 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-26 10:48:36 | INFO | Retrieved 1 contracts from database
+2025-05-26 10:48:36.226 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-26 10:48:44 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-26 10:48:44.759 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-26 10:48:44 | INFO | Stitching document of type: pdf
+2025-05-26 10:48:44.759 | INFO     | app.services.document_processor:stitch_document:301 - Stitching document of type: pdf
+2025-05-26 10:48:44 | INFO | Stitching 2 image pages.
+2025-05-26 10:48:44.922 | INFO     | app.services.document_processor:stitch_document_content:265 - Stitching 2 image pages.
+2025-05-26 10:48:45 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-26 10:48:45.507 | INFO     | app.services.document_processor:process_invoice_async:337 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-26 10:48:45 | INFO | Sending invoice image (unknown_invoice_async) to Gemini for extraction.
+2025-05-26 10:48:45.507 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:197 - Sending invoice image (unknown_invoice_async) to Gemini for extraction.
+2025-05-26 10:48:50 | INFO | Processed invoice data saved to DB with ID: 72dd6fa7-ce56-4abd-b5f8-d3e95c41b59b
+2025-05-26 10:48:50.682 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 72dd6fa7-ce56-4abd-b5f8-d3e95c41b59b
+2025-05-26 10:50:01 | INFO | Retrieved 1 contracts from database
+2025-05-26 10:50:01.093 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-26 10:50:01 | INFO | Retrieved 1 contracts from database
+2025-05-26 10:50:01.106 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-26 10:50:10 | INFO | Retrieved 1 contracts from database
+2025-05-26 10:50:10.202 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-26 10:50:10 | INFO | Retrieved 1 contracts from database
+2025-05-26 10:50:10.210 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-26 10:50:25 | INFO | No file path associated with invoice ID: 72dd6fa7-ce56-4abd-b5f8-d3e95c41b59b. No file to delete.
+2025-05-26 10:50:25.171 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 72dd6fa7-ce56-4abd-b5f8-d3e95c41b59b. No file to delete.
+2025-05-26 10:51:44 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-26 10:51:44.335 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-26 10:51:44 | INFO | Processing contract document: document (1).pdf
+2025-05-26 10:51:44.336 | INFO     | app.services.document_processor:process_contract:99 - Processing contract document: document (1).pdf
+2025-05-26 10:51:44 | ERROR | Unsupported contract file format: document (1).pdf
+2025-05-26 10:51:44.336 | ERROR    | app.services.document_processor:process_contract:103 - Unsupported contract file format: document (1).pdf
+2025-05-26 10:51:44 | ERROR | Error processing contract: Failed to extract data for document (1).pdf
+2025-05-26 10:51:44.336 | ERROR    | app.api.contracts:upload_contract:111 - Error processing contract: Failed to extract data for document (1).pdf
+2025-05-26 10:51:44 | ERROR | Database error: 400: Failed to process contract file and extract data.
+2025-05-26 10:51:44.336 | ERROR    | app.database:get_db:34 - Database error: 400: Failed to process contract file and extract data.
+2025-05-26 10:52:08 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-26 10:52:08.604 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-26 10:52:08 | INFO | Processing contract document: document (1).pdf
+2025-05-26 10:52:08.604 | INFO     | app.services.document_processor:process_contract:99 - Processing contract document: document (1).pdf
+2025-05-26 10:52:08 | ERROR | Unsupported contract file format: document (1).pdf
+2025-05-26 10:52:08.604 | ERROR    | app.services.document_processor:process_contract:103 - Unsupported contract file format: document (1).pdf
+2025-05-26 10:52:08 | ERROR | Error processing contract: Failed to extract data for document (1).pdf
+2025-05-26 10:52:08.604 | ERROR    | app.api.contracts:upload_contract:111 - Error processing contract: Failed to extract data for document (1).pdf
+2025-05-26 10:52:08 | ERROR | Database error: 400: Failed to process contract file and extract data.
+2025-05-26 10:52:08.604 | ERROR    | app.database:get_db:34 - Database error: 400: Failed to process contract file and extract data.
+2025-05-26 10:53:09 | INFO | Database tables created successfully
+2025-05-26 10:53:09 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-26 10:53:17 | INFO | Database tables created successfully
+2025-05-26 10:53:17 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-26 10:54:29 | INFO | Database tables created successfully
+2025-05-26 10:54:29 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-26 10:54:36 | INFO | Retrieved 0 contracts from database
+2025-05-26 10:54:36.063 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-26 10:54:36 | INFO | Retrieved 0 contracts from database
+2025-05-26 10:54:36.064 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-26 10:54:40 | ERROR | Database error: 400: File type 'pdf' not allowed. Allowed types: .doc, .docx, .pdf
+2025-05-26 10:54:40.065 | ERROR    | app.database:get_db:34 - Database error: 400: File type 'pdf' not allowed. Allowed types: .doc, .docx, .pdf
+2025-05-26 10:56:02 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-26 10:56:02.945 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-26 10:56:02 | INFO | Stitching document of type: pdf
+2025-05-26 10:56:02.945 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-26 10:56:03 | INFO | Stitching 3 image pages.
+2025-05-26 10:56:03.139 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-26 10:56:03 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-26 10:56:03.645 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-26 10:56:03.645 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-26 10:56:03.645 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'.png', '.jpeg', '.jpg', '.pdf'}
+2025-05-26 10:56:03.646 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-26 10:56:03 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-26 10:56:03.646 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-26 10:56:09 | INFO | Processed invoice data saved to DB with ID: c3719cc9-af87-457b-aa84-4d695a7a86fd
+2025-05-26 10:56:09.246 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: c3719cc9-af87-457b-aa84-4d695a7a86fd
+2025-05-26 10:56:35 | INFO | Retrieved 0 contracts from database
+2025-05-26 10:56:35.322 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-26 10:56:35 | INFO | Retrieved 0 contracts from database
+2025-05-26 10:56:35.330 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-26 10:56:41 | INFO | No file path associated with invoice ID: c3719cc9-af87-457b-aa84-4d695a7a86fd. No file to delete.
+2025-05-26 10:56:41.527 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: c3719cc9-af87-457b-aa84-4d695a7a86fd. No file to delete.
+2025-05-26 10:57:05 | ERROR | Database error: 400: File type 'pdf' not allowed. Allowed types: .doc, .docx, .pdf
+2025-05-26 10:57:05.456 | ERROR    | app.database:get_db:34 - Database error: 400: File type 'pdf' not allowed. Allowed types: .doc, .docx, .pdf
+2025-05-26 10:58:00 | INFO | Database tables created successfully
+2025-05-26 10:58:00 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-26 10:58:03 | INFO | Retrieved 0 contracts from database
+2025-05-26 10:58:03.951 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-26 10:58:03 | INFO | Retrieved 0 contracts from database
+2025-05-26 10:58:03.954 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-26 10:58:04 | INFO | Retrieved 0 contracts from database
+2025-05-26 10:58:04.759 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-26 10:58:04 | INFO | Retrieved 0 contracts from database
+2025-05-26 10:58:04.762 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-26 10:58:07 | ERROR | Database error: 400: File type 'pdf' not allowed. Allowed types: .doc, .docx, .pdf
+2025-05-26 10:58:07.938 | ERROR    | app.database:get_db:34 - Database error: 400: File type 'pdf' not allowed. Allowed types: .doc, .docx, .pdf
+2025-05-27 11:12:32 | INFO | Database tables created successfully
+2025-05-27 11:12:32 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:09:13 | INFO | Database tables created successfully
+2025-05-27 13:09:13 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:09:21 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:09:21.648 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:09:21 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:09:21.656 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:09:26 | ERROR | Database error: 400: File type 'pdf' not allowed. Allowed types: .doc, .pdf, .docx
+2025-05-27 13:09:26.400 | ERROR    | app.database:get_db:34 - Database error: 400: File type 'pdf' not allowed. Allowed types: .doc, .pdf, .docx
+2025-05-27 13:17:38 | INFO | Database tables created successfully
+2025-05-27 13:17:38 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:18:16 | INFO | Database tables created successfully
+2025-05-27 13:18:16 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:18:28 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:18:28.578 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:18:28 | INFO | Processing contract document: document (1).pdf
+2025-05-27 13:18:28.579 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (1).pdf
+2025-05-27 13:18:28.579 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:18:28.579 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['.pdf', '.jpg', '.jpeg', '.png']
+2025-05-27 13:18:28 | ERROR | Unsupported contract file format: document (1).pdf. (Checked 'pdf' against ['.pdf', '.jpg', '.jpeg', '.png'])
+2025-05-27 13:18:28.579 | ERROR    | app.services.document_processor:process_contract:102 - Unsupported contract file format: document (1).pdf. (Checked 'pdf' against ['.pdf', '.jpg', '.jpeg', '.png'])
+2025-05-27 13:18:28 | ERROR | Error processing contract: Failed to extract data for document (1).pdf
+2025-05-27 13:18:28.579 | ERROR    | app.api.contracts:upload_contract:121 - Error processing contract: Failed to extract data for document (1).pdf
+2025-05-27 13:18:28 | ERROR | Database error: 400: Failed to process contract file 'document (1).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:18:28.580 | ERROR    | app.database:get_db:34 - Database error: 400: Failed to process contract file 'document (1).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:18:38 | INFO | Database tables created successfully
+2025-05-27 13:18:38 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:18:39 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:18:39.818 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:18:39 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:18:39.828 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:18:44 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:18:44.678 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:18:44 | INFO | Processing contract document: document (2).pdf
+2025-05-27 13:18:44.678 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (2).pdf
+2025-05-27 13:18:44.678 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:18:44.679 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['.pdf', '.jpg', '.jpeg', '.png']
+2025-05-27 13:18:44 | ERROR | Unsupported contract file format: document (2).pdf. (Checked 'pdf' against ['.pdf', '.jpg', '.jpeg', '.png'])
+2025-05-27 13:18:44.679 | ERROR    | app.services.document_processor:process_contract:102 - Unsupported contract file format: document (2).pdf. (Checked 'pdf' against ['.pdf', '.jpg', '.jpeg', '.png'])
+2025-05-27 13:18:44 | ERROR | Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:18:44.679 | ERROR    | app.api.contracts:upload_contract:121 - Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:18:44 | ERROR | Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:18:44.679 | ERROR    | app.database:get_db:34 - Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:19:28 | INFO | Database tables created successfully
+2025-05-27 13:19:28 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:19:33 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:19:33.257 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:19:33 | INFO | Processing contract document: document (2).pdf
+2025-05-27 13:19:33.257 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (2).pdf
+2025-05-27 13:19:33.257 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:19:33.257 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:19:33 | INFO | Converting contract PDF to images
+2025-05-27 13:19:33.258 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:19:33 | INFO | Stitching 3 image pages.
+2025-05-27 13:19:33.592 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:19:34 | INFO | Sending contract image ('document (2).pdf') to Gemini for extraction.
+2025-05-27 13:19:34.130 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (2).pdf') to Gemini for extraction.
+2025-05-27 13:19:44 | INFO | Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:19:44.893 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:19:44 | INFO | Extracted items for DB: [{"description": "Visma contract number: 2287-3\nPeriod: 2024-12-01-2024-12-31\nMinimum fee according to agreement 3564.95:-", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS Expertanv\u00e4ndaraccess", "quantity": 4.0, "unit_price": 350.0, "total": 1400.0}, {"description": "Agda PS - F\u00f6rtroendetid/Webb", "quantity": 92.0, "unit_price": 8.91, "total": 819.72}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - L\u00f6n/Klient", "quantity": 92.0, "unit_price": 28.96, "total": 2664.32}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - L\u00f6n/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Kompetenser/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Kompetenser/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Utbildningsadm./Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Utbildningsadm./Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Drift", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Extra SFTP-konto 1GB", "quantity": 1.0, "unit_price": 540.8, "total": 540.8}, {"description": "Agda PS - Flerf\u00f6retag", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Fj\u00e4rrsupport", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda Integrationsmotor", "quantity": 1.0, "unit_price": 1687.3, "total": 1687.3}]
+2025-05-27 13:19:44.893 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "Visma contract number: 2287-3\nPeriod: 2024-12-01-2024-12-31\nMinimum fee according to agreement 3564.95:-", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS Expertanv\u00e4ndaraccess", "quantity": 4.0, "unit_price": 350.0, "total": 1400.0}, {"description": "Agda PS - F\u00f6rtroendetid/Webb", "quantity": 92.0, "unit_price": 8.91, "total": 819.72}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - L\u00f6n/Klient", "quantity": 92.0, "unit_price": 28.96, "total": 2664.32}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - L\u00f6n/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Kompetenser/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Kompetenser/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Utbildningsadm./Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Utbildningsadm./Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Drift", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Extra SFTP-konto 1GB", "quantity": 1.0, "unit_price": 540.8, "total": 540.8}, {"description": "Agda PS - Flerf\u00f6retag", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Fj\u00e4rrsupport", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda Integrationsmotor", "quantity": 1.0, "unit_price": 1687.3, "total": 1687.3}]
+2025-05-27 13:19:44 | INFO | Contract uploaded and processed: 73c86bd2-4c68-4981-a8ea-6c9281c32295
+2025-05-27 13:19:44.906 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: 73c86bd2-4c68-4981-a8ea-6c9281c32295
+2025-05-27 13:19:44 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:19:44.941 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:19:55 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:19:55.720 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:19:55 | INFO | Stitching document of type: pdf
+2025-05-27 13:19:55.721 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:19:55 | INFO | Stitching 3 image pages.
+2025-05-27 13:19:55.960 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:19:56 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:19:56.505 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:19:56.506 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:19:56.506 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'pdf', 'jpeg', 'jpg'}
+2025-05-27 13:19:56.506 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:19:56 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:19:56.506 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:20:06 | INFO | Processed invoice data saved to DB with ID: 5d96c863-e1c7-4edb-98f3-2883e5168992
+2025-05-27 13:20:06.259 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 5d96c863-e1c7-4edb-98f3-2883e5168992
+2025-05-27 13:23:13 | INFO | Database tables created successfully
+2025-05-27 13:23:13 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:23:49 | INFO | Database tables created successfully
+2025-05-27 13:23:49 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:23:57 | INFO | Database tables created successfully
+2025-05-27 13:23:57 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:24:05 | INFO | Database tables created successfully
+2025-05-27 13:24:05 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:24:07 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:24:07.937 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:24:07 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:24:07.939 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:24:09 | INFO | No file path associated with invoice ID: 5d96c863-e1c7-4edb-98f3-2883e5168992. No file to delete.
+2025-05-27 13:24:09.919 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 5d96c863-e1c7-4edb-98f3-2883e5168992. No file to delete.
+2025-05-27 13:24:12 | INFO | Deleted contract file: uploads/document (2).pdf
+2025-05-27 13:24:12.269 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (2).pdf
+2025-05-27 13:24:17 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:24:17.072 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:24:17 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:24:17.076 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:24:20 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:24:20.244 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:24:20 | INFO | Processing contract document: document (2).pdf
+2025-05-27 13:24:20.244 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (2).pdf
+2025-05-27 13:24:20.245 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:24:20.245 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:24:20 | INFO | Converting contract PDF to images
+2025-05-27 13:24:20.245 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:24:20 | INFO | Stitching 3 image pages.
+2025-05-27 13:24:20.477 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:24:21 | ERROR | Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:24:21.020 | ERROR    | app.api.contracts:upload_contract:121 - Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:24:21 | ERROR | Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:24:21.021 | ERROR    | app.database:get_db:34 - Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:24:34 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:24:34.160 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:24:34 | INFO | Processing contract document: document (2).pdf
+2025-05-27 13:24:34.160 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (2).pdf
+2025-05-27 13:24:34.160 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:24:34.160 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:24:34 | INFO | Converting contract PDF to images
+2025-05-27 13:24:34.160 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:24:34 | INFO | Stitching 3 image pages.
+2025-05-27 13:24:34.380 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:24:34 | ERROR | Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:24:34.932 | ERROR    | app.api.contracts:upload_contract:121 - Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:24:34 | ERROR | Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:24:34.933 | ERROR    | app.database:get_db:34 - Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:24:40 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:24:40.982 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:24:40 | INFO | Stitching document of type: pdf
+2025-05-27 13:24:40.982 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:24:41 | INFO | Stitching 3 image pages.
+2025-05-27 13:24:41.157 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:24:41 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:24:41.703 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:24:41.703 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:24:41.703 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'pdf', 'jpeg', 'jpg'}
+2025-05-27 13:24:41.703 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:24:41 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:24:41.703 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:24:51 | INFO | Processed invoice data saved to DB with ID: 2b905448-ac32-43e3-8e65-2482be4f0a37
+2025-05-27 13:24:51.717 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 2b905448-ac32-43e3-8e65-2482be4f0a37
+2025-05-27 13:26:53 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:26:53.700 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:26:53 | INFO | Processing contract document: document (2).pdf
+2025-05-27 13:26:53.701 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (2).pdf
+2025-05-27 13:26:53.701 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:26:53.701 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:26:53 | INFO | Converting contract PDF to images
+2025-05-27 13:26:53.701 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:26:56 | INFO | Stitching 3 image pages.
+2025-05-27 13:26:56.962 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:26:57 | ERROR | Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:26:57.499 | ERROR    | app.api.contracts:upload_contract:121 - Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:26:57 | ERROR | Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:26:57.499 | ERROR    | app.database:get_db:34 - Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:27:17 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:27:17.936 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:27:17 | INFO | Processing contract document: document (2).pdf
+2025-05-27 13:27:17.936 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (2).pdf
+2025-05-27 13:27:17.936 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:27:17.936 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:27:17 | INFO | Converting contract PDF to images
+2025-05-27 13:27:17.936 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:27:18 | INFO | Stitching 3 image pages.
+2025-05-27 13:27:18.146 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:27:18 | ERROR | Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:27:18.693 | ERROR    | app.api.contracts:upload_contract:121 - Error processing contract: Failed to extract data for document (2).pdf
+2025-05-27 13:27:18 | ERROR | Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:27:18.694 | ERROR    | app.database:get_db:34 - Database error: 400: Failed to process contract file 'document (2).pdf'. Document processing returned no data. Check logs for details.
+2025-05-27 13:28:33 | INFO | Database tables created successfully
+2025-05-27 13:28:33 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:28:38 | INFO | Database tables created successfully
+2025-05-27 13:28:38 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:28:40 | INFO | Database tables created successfully
+2025-05-27 13:28:40 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:28:50 | INFO | Database tables created successfully
+2025-05-27 13:28:50 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:29:04 | INFO | Database tables created successfully
+2025-05-27 13:29:04 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:31:09 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:31:09.630 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:31:09 | INFO | Processing contract document: document (2).pdf
+2025-05-27 13:31:09.630 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (2).pdf
+2025-05-27 13:31:09.630 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:31:09.630 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:31:09 | INFO | Converting contract PDF to images
+2025-05-27 13:31:09.630 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:31:09 | INFO | Stitching 3 image pages.
+2025-05-27 13:31:09.863 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:31:10 | INFO | Sending contract image ('document (2).pdf') to Gemini for extraction.
+2025-05-27 13:31:10.409 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (2).pdf') to Gemini for extraction.
+2025-05-27 13:31:21 | INFO | Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:31:21.158 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:31:21 | INFO | Extracted items for DB: [{"description": "Visma contract number: 2287-3/Period: 2024-12-01-2024-12-31/Minimum fee according to agreement 3564.95:-", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS Expertanv\u00e4ndaraccess", "quantity": 4.0, "unit_price": 350.0, "total": 1400.0}, {"description": "Agda PS - F\u00f6rtroendetid/Webb", "quantity": 92.0, "unit_price": 8.91, "total": 819.72}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - L\u00f6n/Klient", "quantity": 92.0, "unit_price": 28.96, "total": 2664.32}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - L\u00f6n/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Kompetenser/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Kompetenser/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Utbildningsadm./Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Utbildningsadm./Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Drift", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Extra SFTP-konto 1GB", "quantity": 1.0, "unit_price": 540.8, "total": 540.8}, {"description": "Agda PS - Flerf\u00f6retag", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Fj\u00e4rrsupport", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda Integrationsmotor", "quantity": 1.0, "unit_price": 1687.3, "total": 1687.3}]
+2025-05-27 13:31:21.159 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "Visma contract number: 2287-3/Period: 2024-12-01-2024-12-31/Minimum fee according to agreement 3564.95:-", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS Expertanv\u00e4ndaraccess", "quantity": 4.0, "unit_price": 350.0, "total": 1400.0}, {"description": "Agda PS - F\u00f6rtroendetid/Webb", "quantity": 92.0, "unit_price": 8.91, "total": 819.72}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - L\u00f6n/Klient", "quantity": 92.0, "unit_price": 28.96, "total": 2664.32}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - L\u00f6n/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Kompetenser/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Kompetenser/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Utbildningsadm./Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Utbildningsadm./Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Drift", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Extra SFTP-konto 1GB", "quantity": 1.0, "unit_price": 540.8, "total": 540.8}, {"description": "Agda PS - Flerf\u00f6retag", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS - Fj\u00e4rrsupport", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda Integrationsmotor", "quantity": 1.0, "unit_price": 1687.3, "total": 1687.3}]
+2025-05-27 13:31:21 | INFO | Contract uploaded and processed: 1613db68-4d8a-481f-9bc3-0d63b291f6f3
+2025-05-27 13:31:21.170 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: 1613db68-4d8a-481f-9bc3-0d63b291f6f3
+2025-05-27 13:31:21 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:31:21.199 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:31:39 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:31:39.127 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:31:39 | INFO | Stitching document of type: pdf
+2025-05-27 13:31:39.127 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:31:39 | INFO | Stitching 3 image pages.
+2025-05-27 13:31:39.354 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:31:39 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:31:39.904 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:31:39.905 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:31:39.905 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'jpeg', 'png', 'jpg', 'pdf'}
+2025-05-27 13:31:39.905 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:31:39 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:31:39.905 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:31:48 | INFO | Processed invoice data saved to DB with ID: 419b2f4d-9cf0-42eb-8d91-092dadc8ea93
+2025-05-27 13:31:48.175 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 419b2f4d-9cf0-42eb-8d91-092dadc8ea93
+2025-05-27 13:32:11 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:32:11.322 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:32:11 | INFO | Processing contract document: document (1).pdf
+2025-05-27 13:32:11.322 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (1).pdf
+2025-05-27 13:32:11.323 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:32:11.323 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:32:11 | INFO | Converting contract PDF to images
+2025-05-27 13:32:11.323 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:32:11 | INFO | Stitching 3 image pages.
+2025-05-27 13:32:11.535 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:32:12 | INFO | Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:32:12.078 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:32:28 | INFO | Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:32:28.930 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:32:28 | INFO | Extracted items for DB: [{"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Avgift", "quantity": 3.15, "unit_price": 1740.0, "total": 5481.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 1740.0, "total": 2523.0}, {"description": "Avgift", "quantity": 1.22, "unit_price": 1740.0, "total": 2122.8}]
+2025-05-27 13:32:28.931 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Avgift", "quantity": 3.15, "unit_price": 1740.0, "total": 5481.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 1740.0, "total": 2523.0}, {"description": "Avgift", "quantity": 1.22, "unit_price": 1740.0, "total": 2122.8}]
+2025-05-27 13:32:28 | INFO | Contract uploaded and processed: 70da1fb6-d732-4580-ae30-a7854ec443d6
+2025-05-27 13:32:28.937 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: 70da1fb6-d732-4580-ae30-a7854ec443d6
+2025-05-27 13:32:28 | INFO | Retrieved 2 contracts from database
+2025-05-27 13:32:28.982 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 2 contracts from database
+2025-05-27 13:33:49 | INFO | Retrieved 2 contracts from database
+2025-05-27 13:33:49.284 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 2 contracts from database
+2025-05-27 13:33:49 | INFO | Retrieved 2 contracts from database
+2025-05-27 13:33:49.288 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 2 contracts from database
+2025-05-27 13:33:50 | INFO | No file path associated with invoice ID: 419b2f4d-9cf0-42eb-8d91-092dadc8ea93. No file to delete.
+2025-05-27 13:33:50.548 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 419b2f4d-9cf0-42eb-8d91-092dadc8ea93. No file to delete.
+2025-05-27 13:33:51 | INFO | No file path associated with invoice ID: 2b905448-ac32-43e3-8e65-2482be4f0a37. No file to delete.
+2025-05-27 13:33:51.026 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 2b905448-ac32-43e3-8e65-2482be4f0a37. No file to delete.
+2025-05-27 13:33:53 | INFO | Deleted contract file: uploads/document (2).pdf
+2025-05-27 13:33:53.715 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (2).pdf
+2025-05-27 13:33:56 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:33:56.807 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:33:56 | INFO | Processing contract document: document (1).pdf
+2025-05-27 13:33:56.808 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (1).pdf
+2025-05-27 13:33:56.808 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:33:56.808 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:33:56 | INFO | Converting contract PDF to images
+2025-05-27 13:33:56.808 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:34:00 | INFO | Stitching 3 image pages.
+2025-05-27 13:34:00.038 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:34:00 | INFO | Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:34:00.575 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:34:04 | INFO | Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:34:04.244 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:34:04 | INFO | Extracted items for DB: [{"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 3.15, "unit_price": 1740.0, "total": 5481.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 0.0, "unit_price": 1.45, "total": 2523.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.22, "unit_price": 1740.0, "total": 2122.8}]
+2025-05-27 13:34:04.245 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 3.15, "unit_price": 1740.0, "total": 5481.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 0.0, "unit_price": 1.45, "total": 2523.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.22, "unit_price": 1740.0, "total": 2122.8}]
+2025-05-27 13:34:04 | INFO | Contract uploaded and processed: dd9e1401-7c4f-444a-b48d-7adcd2e2be46
+2025-05-27 13:34:04.248 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: dd9e1401-7c4f-444a-b48d-7adcd2e2be46
+2025-05-27 13:34:04 | INFO | Deleted contract file: uploads/document (1).pdf
+2025-05-27 13:34:04.252 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (1).pdf
+2025-05-27 13:34:04 | ERROR | Database error: 404: Contract not found
+2025-05-27 13:34:04.254 | ERROR    | app.database:get_db:34 - Database error: 404: Contract not found
+2025-05-27 13:34:04 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:34:04.271 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:34:11 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:34:11.036 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:34:11 | INFO | Processing contract document: document (1).pdf
+2025-05-27 13:34:11.036 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (1).pdf
+2025-05-27 13:34:11.036 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:34:11.036 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:34:11 | INFO | Converting contract PDF to images
+2025-05-27 13:34:11.036 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:34:11 | INFO | Stitching 3 image pages.
+2025-05-27 13:34:11.256 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:34:11 | INFO | Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:34:11.798 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:34:19 | INFO | Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:34:19.926 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:34:19 | INFO | Extracted items for DB: [{"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "O st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "O st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "2 st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 3.15, "unit_price": 1740.0, "total": 5481.0}, {"description": "6 st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.45, "unit_price": 1740.0, "total": 2523.0}, {"description": "1 st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.22, "unit_price": 1740.0, "total": 2122.8}, {"description": "5 st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}]
+2025-05-27 13:34:19.928 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "O st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "O st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "2 st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 3.15, "unit_price": 1740.0, "total": 5481.0}, {"description": "6 st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.45, "unit_price": 1740.0, "total": 2523.0}, {"description": "1 st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.22, "unit_price": 1740.0, "total": 2122.8}, {"description": "5 st \u00e4rende", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}]
+2025-05-27 13:34:19 | INFO | Contract uploaded and processed: 7ad3bf6f-be98-40e0-a124-d1892a49378a
+2025-05-27 13:34:19.934 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: 7ad3bf6f-be98-40e0-a124-d1892a49378a
+2025-05-27 13:34:19 | INFO | Retrieved 2 contracts from database
+2025-05-27 13:34:19.967 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 2 contracts from database
+2025-05-27 13:34:26 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:34:26.637 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:34:26 | INFO | Stitching document of type: pdf
+2025-05-27 13:34:26.638 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:34:26 | INFO | Stitching 3 image pages.
+2025-05-27 13:34:26.841 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:34:27 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:34:27.381 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:34:27.381 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:34:27.381 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'jpeg', 'png', 'jpg', 'pdf'}
+2025-05-27 13:34:27.381 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:34:27 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:34:27.382 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:34:31 | INFO | Processed invoice data saved to DB with ID: 8e2e0965-2a77-434d-ae47-bd458dc5ae05
+2025-05-27 13:34:31.531 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 8e2e0965-2a77-434d-ae47-bd458dc5ae05
+2025-05-27 13:34:39 | ERROR | Database error: 404: Contract not found
+2025-05-27 13:34:39.844 | ERROR    | app.database:get_db:34 - Database error: 404: Contract not found
+2025-05-27 13:34:47 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:34:47.856 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:34:47 | INFO | Stitching document of type: pdf
+2025-05-27 13:34:47.856 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:34:48 | INFO | Stitching 3 image pages.
+2025-05-27 13:34:48.060 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:34:48 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:34:48.603 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:34:48.603 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:34:48.603 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'jpeg', 'png', 'jpg', 'pdf'}
+2025-05-27 13:34:48.603 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:34:48 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:34:48.603 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:34:54 | INFO | Processed invoice data saved to DB with ID: 95418713-c33e-4f39-a6b1-db4b3f01cde8
+2025-05-27 13:34:54.640 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 95418713-c33e-4f39-a6b1-db4b3f01cde8
+2025-05-27 13:35:01 | ERROR | Database error: 404: Contract not found
+2025-05-27 13:35:01.273 | ERROR    | app.database:get_db:34 - Database error: 404: Contract not found
+2025-05-27 13:35:12 | INFO | Retrieved 2 contracts from database
+2025-05-27 13:35:12.941 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 2 contracts from database
+2025-05-27 13:35:12 | INFO | Retrieved 2 contracts from database
+2025-05-27 13:35:12.943 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 2 contracts from database
+2025-05-27 13:43:33 | INFO | Database tables created successfully
+2025-05-27 13:43:33 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:43:40 | INFO | Database tables created successfully
+2025-05-27 13:43:40 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:43:47 | INFO | Deleted contract file: uploads/document (1).pdf
+2025-05-27 13:43:47.134 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (1).pdf
+2025-05-27 13:43:47 | INFO | No file path associated with invoice ID: 95418713-c33e-4f39-a6b1-db4b3f01cde8. No file to delete.
+2025-05-27 13:43:47.951 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 95418713-c33e-4f39-a6b1-db4b3f01cde8. No file to delete.
+2025-05-27 13:43:49 | INFO | No file path associated with invoice ID: 8e2e0965-2a77-434d-ae47-bd458dc5ae05. No file to delete.
+2025-05-27 13:43:49.330 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 8e2e0965-2a77-434d-ae47-bd458dc5ae05. No file to delete.
+2025-05-27 13:43:56 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:43:56.120 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:43:56 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:43:56.126 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:44:02 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:44:02.343 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:44:02 | INFO | Processing contract document: document (1).pdf
+2025-05-27 13:44:02.344 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (1).pdf
+2025-05-27 13:44:02.344 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:44:02.344 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:44:02 | INFO | Converting contract PDF to images
+2025-05-27 13:44:02.345 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:44:02 | INFO | Stitching 3 image pages.
+2025-05-27 13:44:02.587 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:44:03 | INFO | Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:44:03.129 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:44:11 | INFO | Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:44:11.678 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:44:11 | INFO | Extracted items for DB: [{"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 1740.0, "total": 5481.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 1740.0, "total": 2523.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 1740.0, "total": 2122.8}]
+2025-05-27 13:44:11.679 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Anv\u00e4ndarst\u00f6d som ing\u00e5r - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons - Extra anv\u00e4ndarst\u00f6d - Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 1740.0, "total": 5481.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 1740.0, "total": 2523.0}, {"description": "Avgift", "quantity": 1.0, "unit_price": 1740.0, "total": 2122.8}]
+2025-05-27 13:44:11 | INFO | Contract uploaded and processed: e6bb7fcc-bf88-4589-b264-b148efe3ba54
+2025-05-27 13:44:11.682 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: e6bb7fcc-bf88-4589-b264-b148efe3ba54
+2025-05-27 13:44:11 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:44:11.702 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:44:18 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:44:18.749 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:44:18 | INFO | Stitching document of type: pdf
+2025-05-27 13:44:18.749 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:44:21 | INFO | Stitching 3 image pages.
+2025-05-27 13:44:21.973 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:44:22 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:44:22.517 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:44:22.517 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:44:22.517 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'jpg', 'jpeg', 'pdf', 'png'}
+2025-05-27 13:44:22.517 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:44:22 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:44:22.517 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:44:30 | INFO | Processed invoice data saved to DB with ID: dd3add3f-b77f-438a-810f-e563c9fefa98
+2025-05-27 13:44:30.900 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: dd3add3f-b77f-438a-810f-e563c9fefa98
+2025-05-27 13:46:12 | INFO | Database tables created successfully
+2025-05-27 13:46:12 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:46:24 | INFO | Database tables created successfully
+2025-05-27 13:46:24 | INFO | Tables in metadata: dict_keys(['contracts', 'invoices'])
+2025-05-27 13:46:27 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:46:27.596 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:46:27 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:46:27.603 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:46:32 | INFO | Deleted contract file: uploads/document (1).pdf
+2025-05-27 13:46:32.713 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (1).pdf
+2025-05-27 13:46:33 | INFO | No file path associated with invoice ID: dd3add3f-b77f-438a-810f-e563c9fefa98. No file to delete.
+2025-05-27 13:46:33.489 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: dd3add3f-b77f-438a-810f-e563c9fefa98. No file to delete.
+2025-05-27 13:46:37 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:46:37.320 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:46:37 | INFO | Processing contract document: document (1).pdf
+2025-05-27 13:46:37.320 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (1).pdf
+2025-05-27 13:46:37.320 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:46:37.321 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:46:37 | INFO | Converting contract PDF to images
+2025-05-27 13:46:37.321 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:46:37 | INFO | Stitching 3 image pages.
+2025-05-27 13:46:37.556 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:46:38 | INFO | Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:46:38.121 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (1).pdf') to Gemini for extraction.
+2025-05-27 13:46:46 | INFO | Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:46:46.401 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:46:46 | INFO | Extracted items for DB: [{"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 2.0, "unit_price": 1740.0, "total": 5481.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 6.0, "unit_price": 1740.0, "total": 2523.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.0, "unit_price": 1740.0, "total": 2122.8}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 5.0, "unit_price": 0.0, "total": 0.0}]
+2025-05-27 13:46:46.402 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Anv\u00e4ndarst\u00f6d som ing\u00e5r-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 2.0, "unit_price": 1740.0, "total": 5481.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 6.0, "unit_price": 1740.0, "total": 2523.0}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 1.0, "unit_price": 1740.0, "total": 2122.8}, {"description": "SP-Brons-Extra anv\u00e4ndarst\u00f6d-Agda", "quantity": 5.0, "unit_price": 0.0, "total": 0.0}]
+2025-05-27 13:46:46 | INFO | Contract uploaded and processed: adec9724-8cd7-4c25-b549-0bf694fd54a1
+2025-05-27 13:46:46.410 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: adec9724-8cd7-4c25-b549-0bf694fd54a1
+2025-05-27 13:46:46 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:46:46.444 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:46:47 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:46:47.696 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:46:47 | INFO | Stitching document of type: pdf
+2025-05-27 13:46:47.697 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:46:47 | INFO | Stitching 3 image pages.
+2025-05-27 13:46:47.963 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:46:48 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:46:48.506 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:46:48.506 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:46:48.506 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'jpg', 'jpeg', 'pdf'}
+2025-05-27 13:46:48.506 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:46:48 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:46:48.506 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:46:56 | INFO | Processed invoice data saved to DB with ID: 51a0a199-b942-43ce-ac8f-db969811c618
+2025-05-27 13:46:56.547 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 51a0a199-b942-43ce-ac8f-db969811c618
+2025-05-27 13:47:39 | INFO | Deleted contract file: uploads/document (1).pdf
+2025-05-27 13:47:39.582 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (1).pdf
+2025-05-27 13:47:45 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:47:45.710 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:47:45 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:47:45.717 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:47:47 | INFO | No file path associated with invoice ID: 51a0a199-b942-43ce-ac8f-db969811c618. No file to delete.
+2025-05-27 13:47:47.452 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 51a0a199-b942-43ce-ac8f-db969811c618. No file to delete.
+2025-05-27 13:47:51 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:47:51.387 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:47:51 | INFO | Processing contract document: document (2).pdf
+2025-05-27 13:47:51.388 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (2).pdf
+2025-05-27 13:47:51.388 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:47:51.388 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:47:51 | INFO | Converting contract PDF to images
+2025-05-27 13:47:51.388 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:47:51 | INFO | Stitching 3 image pages.
+2025-05-27 13:47:51.615 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:47:52 | INFO | Sending contract image ('document (2).pdf') to Gemini for extraction.
+2025-05-27 13:47:52.184 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (2).pdf') to Gemini for extraction.
+2025-05-27 13:48:01 | INFO | Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:48:01.155 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Enterprise AB
+2025-05-27 13:48:01 | INFO | Extracted items for DB: [{"description": "Visma contract number: 2287-3 Period: 2024-12-01-2024-12-31 Minimum fee according to agreement 3564.95:-", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS Expertanv\u00e4ndaraccess", "quantity": 4.0, "unit_price": 350.0, "total": 1400.0}, {"description": "Agda PS-F\u00f6rtroendetid/Webb", "quantity": 92.0, "unit_price": 8.91, "total": 819.72}, {"description": "Agda PS-L\u00f6n/Klient", "quantity": 92.0, "unit_price": 28.96, "total": 2664.32}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-L\u00f6n/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Kompetenser/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Kompetenser/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Utbildningsadm./Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Utbildningsadm./Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Drift", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Extra SFTP-konto 1GB", "quantity": 1.0, "unit_price": 540.8, "total": 540.8}, {"description": "Agda PS-Flerf\u00f6retag", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Fj\u00e4rrsupport", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda Integrationsmotor", "quantity": 1.0, "unit_price": 1687.3, "total": 1687.3}]
+2025-05-27 13:48:01.158 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "Visma contract number: 2287-3 Period: 2024-12-01-2024-12-31 Minimum fee according to agreement 3564.95:-", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS Expertanv\u00e4ndaraccess", "quantity": 4.0, "unit_price": 350.0, "total": 1400.0}, {"description": "Agda PS-F\u00f6rtroendetid/Webb", "quantity": 92.0, "unit_price": 8.91, "total": 819.72}, {"description": "Agda PS-L\u00f6n/Klient", "quantity": 92.0, "unit_price": 28.96, "total": 2664.32}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-L\u00f6n/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Kompetenser/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Kompetenser/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Samtalsverktyg/Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Utbildningsadm./Klient", "quantity": 92.0, "unit_price": 2.23, "total": 205.16}, {"description": "Ordinarie l\u00f6n: 92 st", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Utbildningsadm./Webb", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Drift", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Extra SFTP-konto 1GB", "quantity": 1.0, "unit_price": 540.8, "total": 540.8}, {"description": "Agda PS-Flerf\u00f6retag", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda PS-Fj\u00e4rrsupport", "quantity": 1.0, "unit_price": 0.0, "total": 0.0}, {"description": "Agda Integrationsmotor", "quantity": 1.0, "unit_price": 1687.3, "total": 1687.3}]
+2025-05-27 13:48:01 | INFO | Contract uploaded and processed: 6cd07aa3-3ff7-4df2-b9d6-ce9520c5d1b5
+2025-05-27 13:48:01.165 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: 6cd07aa3-3ff7-4df2-b9d6-ce9520c5d1b5
+2025-05-27 13:48:01 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:48:01.169 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:48:01 | INFO | Stitching document of type: pdf
+2025-05-27 13:48:01.169 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:48:01 | INFO | Stitching 3 image pages.
+2025-05-27 13:48:01.367 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:48:01 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:48:01.912 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:48:01.912 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:48:01.913 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'jpg', 'jpeg', 'pdf'}
+2025-05-27 13:48:01.913 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:48:01 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:48:01.913 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:48:13 | INFO | Processed invoice data saved to DB with ID: 7a0aaea6-0c81-47e0-9e13-c09e5afb0308
+2025-05-27 13:48:13.651 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 7a0aaea6-0c81-47e0-9e13-c09e5afb0308
+2025-05-27 13:48:13 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:48:13.657 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:48:31 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:48:31.476 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:48:31 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:48:31.485 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:48:33 | INFO | No file path associated with invoice ID: 7a0aaea6-0c81-47e0-9e13-c09e5afb0308. No file to delete.
+2025-05-27 13:48:33.158 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 7a0aaea6-0c81-47e0-9e13-c09e5afb0308. No file to delete.
+2025-05-27 13:48:35 | INFO | Deleted contract file: uploads/document (2).pdf
+2025-05-27 13:48:35.720 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (2).pdf
+2025-05-27 13:48:41 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:48:41.826 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:48:41 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:48:41.830 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:48:47 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:48:47.900 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:48:47 | INFO | Processing contract document: document (4).pdf
+2025-05-27 13:48:47.900 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (4).pdf
+2025-05-27 13:48:47.900 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:48:47.900 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:48:47 | INFO | Converting contract PDF to images
+2025-05-27 13:48:47.900 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:48:49 | INFO | Stitching 27 image pages.
+2025-05-27 13:48:49.318 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 27 image pages.
+2025-05-27 13:48:54 | INFO | Sending contract image ('document (4).pdf') to Gemini for extraction.
+2025-05-27 13:48:54.522 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (4).pdf') to Gemini for extraction.
+2025-05-27 13:49:11 | INFO | Using extracted supplier name: Fortnox AB
+2025-05-27 13:49:11.826 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Fortnox AB
+2025-05-27 13:49:11 | INFO | Extracted items for DB: [{"description": "Administration", "quantity": 1.0, "unit_price": 595.0, "total": 595.0}, {"description": "Ekonomi", "quantity": 1.0, "unit_price": 125.0, "total": 125.0}, {"description": "S\u00e4ljst\u00f6d", "quantity": 1.0, "unit_price": 295.0, "total": 295.0}, {"description": "Erbjudande", "quantity": 1.0, "unit_price": 125.0, "total": 125.0}, {"description": "Order/Faktura", "quantity": 1.0, "unit_price": 995.0, "total": 995.0}, {"description": "Personalliggare", "quantity": 1.0, "unit_price": 95.0, "total": 95.0}, {"description": "Tid", "quantity": 1.0, "unit_price": 295.0, "total": 295.0}, {"description": "Projekt", "quantity": 1.0, "unit_price": 545.0, "total": 545.0}, {"description": "Anl\u00e4ggningsregister", "quantity": 1.0, "unit_price": 395.0, "total": 395.0}, {"description": "L\u00f6n", "quantity": 1.0, "unit_price": 995.0, "total": 995.0}, {"description": "E-handel", "quantity": 1.0, "unit_price": 595.0, "total": 595.0}, {"description": "Lager", "quantity": 1.0, "unit_price": 595.0, "total": 595.0}, {"description": "Bokio", "quantity": 1.0, "unit_price": 125.0, "total": 125.0}, {"description": "Kvitto & Resa", "quantity": 1.0, "unit_price": 395.0, "total": 395.0}, {"description": "Offert & Order", "quantity": 1.0, "unit_price": 795.0, "total": 795.0}, {"description": "AutoInvoice", "quantity": 1.0, "unit_price": 395.0, "total": 395.0}, {"description": "Fortnox Dokumentarkiv", "quantity": 1.0, "unit_price": 395.0, "total": 395.0}, {"description": "Partner API", "quantity": 1.0, "unit_price": 995.0, "total": 995.0}, {"description": "API", "quantity": 1.0, "unit_price": 495.0, "total": 495.0}]
+2025-05-27 13:49:11.827 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "Administration", "quantity": 1.0, "unit_price": 595.0, "total": 595.0}, {"description": "Ekonomi", "quantity": 1.0, "unit_price": 125.0, "total": 125.0}, {"description": "S\u00e4ljst\u00f6d", "quantity": 1.0, "unit_price": 295.0, "total": 295.0}, {"description": "Erbjudande", "quantity": 1.0, "unit_price": 125.0, "total": 125.0}, {"description": "Order/Faktura", "quantity": 1.0, "unit_price": 995.0, "total": 995.0}, {"description": "Personalliggare", "quantity": 1.0, "unit_price": 95.0, "total": 95.0}, {"description": "Tid", "quantity": 1.0, "unit_price": 295.0, "total": 295.0}, {"description": "Projekt", "quantity": 1.0, "unit_price": 545.0, "total": 545.0}, {"description": "Anl\u00e4ggningsregister", "quantity": 1.0, "unit_price": 395.0, "total": 395.0}, {"description": "L\u00f6n", "quantity": 1.0, "unit_price": 995.0, "total": 995.0}, {"description": "E-handel", "quantity": 1.0, "unit_price": 595.0, "total": 595.0}, {"description": "Lager", "quantity": 1.0, "unit_price": 595.0, "total": 595.0}, {"description": "Bokio", "quantity": 1.0, "unit_price": 125.0, "total": 125.0}, {"description": "Kvitto & Resa", "quantity": 1.0, "unit_price": 395.0, "total": 395.0}, {"description": "Offert & Order", "quantity": 1.0, "unit_price": 795.0, "total": 795.0}, {"description": "AutoInvoice", "quantity": 1.0, "unit_price": 395.0, "total": 395.0}, {"description": "Fortnox Dokumentarkiv", "quantity": 1.0, "unit_price": 395.0, "total": 395.0}, {"description": "Partner API", "quantity": 1.0, "unit_price": 995.0, "total": 995.0}, {"description": "API", "quantity": 1.0, "unit_price": 495.0, "total": 495.0}]
+2025-05-27 13:49:11 | INFO | Contract uploaded and processed: 508d01ce-f4cb-48c8-a069-49e6429e3600
+2025-05-27 13:49:11.830 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: 508d01ce-f4cb-48c8-a069-49e6429e3600
+2025-05-27 13:49:11 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:49:11.845 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:49:11 | INFO | Stitching document of type: pdf
+2025-05-27 13:49:11.846 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:49:13 | INFO | Stitching 27 image pages.
+2025-05-27 13:49:13.238 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 27 image pages.
+2025-05-27 13:49:18 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:49:18.471 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:49:18.472 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:49:18.472 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'jpg', 'jpeg', 'pdf'}
+2025-05-27 13:49:18.472 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:49:18 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:49:18.473 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:49:31 | INFO | Processed invoice data saved to DB with ID: 8d09daff-0f6d-4634-813e-5d063feff72f
+2025-05-27 13:49:31.714 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 8d09daff-0f6d-4634-813e-5d063feff72f
+2025-05-27 13:49:31 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:49:31.744 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:50:00 | INFO | Deleted contract file: uploads/document (4).pdf
+2025-05-27 13:50:00.588 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (4).pdf
+2025-05-27 13:50:03 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:50:03.168 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:50:03 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:50:03.169 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:50:04 | INFO | No file path associated with invoice ID: 8d09daff-0f6d-4634-813e-5d063feff72f. No file to delete.
+2025-05-27 13:50:04.469 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 8d09daff-0f6d-4634-813e-5d063feff72f. No file to delete.
+2025-05-27 13:50:08 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:50:08.832 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:50:08 | INFO | Processing contract document: document.pdf
+2025-05-27 13:50:08.832 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document.pdf
+2025-05-27 13:50:08.832 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:50:08.832 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:50:08 | INFO | Converting contract PDF to images
+2025-05-27 13:50:08.833 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:50:09 | INFO | Stitching 3 image pages.
+2025-05-27 13:50:09.045 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:50:09 | INFO | Sending contract image ('document.pdf') to Gemini for extraction.
+2025-05-27 13:50:09.590 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document.pdf') to Gemini for extraction.
+2025-05-27 13:50:14 | INFO | Using extracted supplier name: Visma Software AB
+2025-05-27 13:50:14.554 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Visma Software AB
+2025-05-27 13:50:14 | INFO | Extracted items for DB: [{"description": "Visma.net Approval Bokf\u00f6ringsattest 1-5 anv", "quantity": 1.0, "unit_price": 624.0, "total": 1872.0}, {"description": "Control Edge Fritt antal enheter", "quantity": 1.0, "unit_price": 6681.0, "total": 20043.0}, {"description": "Visma Control Edge extra databas", "quantity": 1.0, "unit_price": 510.0, "total": 1530.0}, {"description": "Anv\u00e4ndare samtliga funktioner i Control Edge grundlicens", "quantity": 9.0, "unit_price": 357.0, "total": 9639.0}, {"description": "Anv\u00e4ndare elektronisk fakturahantering", "quantity": 80.0, "unit_price": 122.4, "total": 29376.0}, {"description": "Control Edge Grundlicens", "quantity": 1.0, "unit_price": 51163.83, "total": 51163.83}]
+2025-05-27 13:50:14.555 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "Visma.net Approval Bokf\u00f6ringsattest 1-5 anv", "quantity": 1.0, "unit_price": 624.0, "total": 1872.0}, {"description": "Control Edge Fritt antal enheter", "quantity": 1.0, "unit_price": 6681.0, "total": 20043.0}, {"description": "Visma Control Edge extra databas", "quantity": 1.0, "unit_price": 510.0, "total": 1530.0}, {"description": "Anv\u00e4ndare samtliga funktioner i Control Edge grundlicens", "quantity": 9.0, "unit_price": 357.0, "total": 9639.0}, {"description": "Anv\u00e4ndare elektronisk fakturahantering", "quantity": 80.0, "unit_price": 122.4, "total": 29376.0}, {"description": "Control Edge Grundlicens", "quantity": 1.0, "unit_price": 51163.83, "total": 51163.83}]
+2025-05-27 13:50:14 | INFO | Contract uploaded and processed: 1332b526-5920-46ef-9a54-d63182165038
+2025-05-27 13:50:14.560 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: 1332b526-5920-46ef-9a54-d63182165038
+2025-05-27 13:50:14 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:50:14.568 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:50:14 | INFO | Stitching document of type: pdf
+2025-05-27 13:50:14.569 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:50:14 | INFO | Stitching 3 image pages.
+2025-05-27 13:50:14.780 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 3 image pages.
+2025-05-27 13:50:15 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:50:15.302 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:50:15.302 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:50:15.302 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'jpg', 'jpeg', 'pdf'}
+2025-05-27 13:50:15.302 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:50:15 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:50:15.302 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:50:20 | INFO | Processed invoice data saved to DB with ID: 9fd1d198-d52e-49a2-a3d1-b47e502de1f8
+2025-05-27 13:50:20.220 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 9fd1d198-d52e-49a2-a3d1-b47e502de1f8
+2025-05-27 13:50:20 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:50:20.241 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:50:40 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:50:40.175 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:50:40 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:50:40.178 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:50:43 | INFO | Deleted contract file: uploads/document.pdf
+2025-05-27 13:50:43.074 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document.pdf
+2025-05-27 13:50:44 | INFO | No file path associated with invoice ID: 9fd1d198-d52e-49a2-a3d1-b47e502de1f8. No file to delete.
+2025-05-27 13:50:44.117 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 9fd1d198-d52e-49a2-a3d1-b47e502de1f8. No file to delete.
+2025-05-27 13:50:47 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:50:47.936 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:50:47 | INFO | Processing contract document: document (4).pdf
+2025-05-27 13:50:47.937 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (4).pdf
+2025-05-27 13:50:47.937 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:50:47.937 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:50:47 | INFO | Converting contract PDF to images
+2025-05-27 13:50:47.937 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:50:49 | INFO | Stitching 27 image pages.
+2025-05-27 13:50:49.440 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 27 image pages.
+2025-05-27 13:50:54 | INFO | Sending contract image ('document (4).pdf') to Gemini for extraction.
+2025-05-27 13:50:54.682 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (4).pdf') to Gemini for extraction.
+2025-05-27 13:51:05 | INFO | Using extracted supplier name: Workfront Sweden AB
+2025-05-27 13:51:05.184 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Workfront Sweden AB
+2025-05-27 13:51:05 | INFO | Extracted items for DB: [{"description": "Workfront Plan", "quantity": 1.0, "unit_price": 507.0, "total": 507.0}, {"description": "Workfront Proof", "quantity": 1.0, "unit_price": 127.0, "total": 127.0}, {"description": "Workfront Review", "quantity": 1.0, "unit_price": 204.0, "total": 204.0}, {"description": "Workfront Scenario Planning", "quantity": 1.0, "unit_price": 204.0, "total": 204.0}, {"description": "Workfront Goals", "quantity": 1.0, "unit_price": 168.0, "total": 168.0}, {"description": "Workfront Resource Management", "quantity": 1.0, "unit_price": 145.0, "total": 145.0}, {"description": "Workfront Fusion", "quantity": 1.0, "unit_price": 377.0, "total": 377.0}, {"description": "Workfront Digital Asset Management", "quantity": 1.0, "unit_price": 268.0, "total": 268.0}, {"description": "Workfront Project Management", "quantity": 1.0, "unit_price": 335.0, "total": 335.0}, {"description": "Workfront Agile", "quantity": 1.0, "unit_price": 112.0, "total": 112.0}, {"description": "Workfront Marketing Automation", "quantity": 1.0, "unit_price": 377.0, "total": 377.0}, {"description": "Workfront Core", "quantity": 1.0, "unit_price": 293.0, "total": 293.0}, {"description": "Workfront DAM", "quantity": 1.0, "unit_price": 585.0, "total": 585.0}, {"description": "Workfront Library", "quantity": 1.0, "unit_price": 78.0, "total": 78.0}, {"description": "Workfront Work Management", "quantity": 1.0, "unit_price": 462.0, "total": 462.0}, {"description": "Workfront Digital Review", "quantity": 1.0, "unit_price": 344.0, "total": 344.0}]
+2025-05-27 13:51:05.185 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "Workfront Plan", "quantity": 1.0, "unit_price": 507.0, "total": 507.0}, {"description": "Workfront Proof", "quantity": 1.0, "unit_price": 127.0, "total": 127.0}, {"description": "Workfront Review", "quantity": 1.0, "unit_price": 204.0, "total": 204.0}, {"description": "Workfront Scenario Planning", "quantity": 1.0, "unit_price": 204.0, "total": 204.0}, {"description": "Workfront Goals", "quantity": 1.0, "unit_price": 168.0, "total": 168.0}, {"description": "Workfront Resource Management", "quantity": 1.0, "unit_price": 145.0, "total": 145.0}, {"description": "Workfront Fusion", "quantity": 1.0, "unit_price": 377.0, "total": 377.0}, {"description": "Workfront Digital Asset Management", "quantity": 1.0, "unit_price": 268.0, "total": 268.0}, {"description": "Workfront Project Management", "quantity": 1.0, "unit_price": 335.0, "total": 335.0}, {"description": "Workfront Agile", "quantity": 1.0, "unit_price": 112.0, "total": 112.0}, {"description": "Workfront Marketing Automation", "quantity": 1.0, "unit_price": 377.0, "total": 377.0}, {"description": "Workfront Core", "quantity": 1.0, "unit_price": 293.0, "total": 293.0}, {"description": "Workfront DAM", "quantity": 1.0, "unit_price": 585.0, "total": 585.0}, {"description": "Workfront Library", "quantity": 1.0, "unit_price": 78.0, "total": 78.0}, {"description": "Workfront Work Management", "quantity": 1.0, "unit_price": 462.0, "total": 462.0}, {"description": "Workfront Digital Review", "quantity": 1.0, "unit_price": 344.0, "total": 344.0}]
+2025-05-27 13:51:05 | INFO | Contract uploaded and processed: c6cdbb28-3cb3-40af-8ff0-941ca6390334
+2025-05-27 13:51:05.190 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: c6cdbb28-3cb3-40af-8ff0-941ca6390334
+2025-05-27 13:51:05 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:51:05.209 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:51:05 | INFO | Stitching document of type: pdf
+2025-05-27 13:51:05.209 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 13:51:06 | INFO | Stitching 27 image pages.
+2025-05-27 13:51:06.583 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 27 image pages.
+2025-05-27 13:51:11 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:51:11.770 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 13:51:11.770 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 13:51:11.770 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'jpg', 'jpeg', 'pdf'}
+2025-05-27 13:51:11.770 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 13:51:11 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:51:11.770 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 13:51:28 | INFO | Processed invoice data saved to DB with ID: e42d0c09-95bc-4ea9-b84f-1f7e2a651550
+2025-05-27 13:51:28.421 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: e42d0c09-95bc-4ea9-b84f-1f7e2a651550
+2025-05-27 13:51:28 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:51:28.436 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:51:52 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:51:52.911 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:51:52 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:51:52.917 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:51:57 | INFO | Deleted contract file: uploads/document (4).pdf
+2025-05-27 13:51:57.120 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (4).pdf
+2025-05-27 13:51:58 | INFO | No file path associated with invoice ID: e42d0c09-95bc-4ea9-b84f-1f7e2a651550. No file to delete.
+2025-05-27 13:51:58.133 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: e42d0c09-95bc-4ea9-b84f-1f7e2a651550. No file to delete.
+2025-05-27 13:52:04 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 13:52:04.900 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 13:52:04 | INFO | Processing contract document: document (4).pdf
+2025-05-27 13:52:04.901 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: document (4).pdf
+2025-05-27 13:52:04.901 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 13:52:04.901 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 13:52:04 | INFO | Converting contract PDF to images
+2025-05-27 13:52:04.901 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 13:52:06 | INFO | Stitching 27 image pages.
+2025-05-27 13:52:06.387 | INFO     | app.services.document_processor:stitch_document_content:259 - Stitching 27 image pages.
+2025-05-27 13:52:11 | INFO | Sending contract image ('document (4).pdf') to Gemini for extraction.
+2025-05-27 13:52:11.722 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('document (4).pdf') to Gemini for extraction.
+2025-05-27 13:52:25 | INFO | Using extracted supplier name: Martin & Servera Restauranghandel AB
+2025-05-27 13:52:25.783 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Martin & Servera Restauranghandel AB
+2025-05-27 13:52:25 | INFO | Extracted items for DB: [{"description": "F\u00e4nk\u00e5lssalami Italien ca 1,3kg", "quantity": 1.0, "unit_price": 219.0, "total": 219.0}, {"description": "Grilloumi burgarehalloumi 10x100g", "quantity": 1.0, "unit_price": 209.0, "total": 209.0}, {"description": "Kycklingbr\u00f6stfil\u00e9 Sverige Fryst", "quantity": 1.0, "unit_price": 129.0, "total": 129.0}, {"description": "Oxstek Sverige", "quantity": 1.0, "unit_price": 175.0, "total": 175.0}, {"description": "Plommontomater Ask Italien Klass 1", "quantity": 1.0, "unit_price": 39.9, "total": 39.9}, {"description": "Schalottenl\u00f6k Holland Klass 1", "quantity": 1.0, "unit_price": 16.9, "total": 16.9}, {"description": "Sparris vit Spanien Klass 1", "quantity": 1.0, "unit_price": 99.0, "total": 99.0}, {"description": "Potatis delikatess Sverige", "quantity": 1.0, "unit_price": 14.9, "total": 14.9}, {"description": "Vitl\u00f6k Spanien L\u00f6s Klass 1", "quantity": 1.0, "unit_price": 14.9, "total": 14.9}, {"description": "Basilika kruka", "quantity": 1.0, "unit_price": 14.9, "total": 14.9}, {"description": "Persilja krus blad kruka", "quantity": 1.0, "unit_price": 15.9, "total": 15.9}, {"description": "Dragon kruka", "quantity": 1.0, "unit_price": 34.9, "total": 34.9}, {"description": "Salvia kruka", "quantity": 1.0, "unit_price": 29.9, "total": 29.9}, {"description": "Rosmarin kruka", "quantity": 1.0, "unit_price": 22.9, "total": 22.9}, {"description": "Timjan kruka", "quantity": 1.0, "unit_price": 29.9, "total": 29.9}, {"description": "Citroner Spanien Klass 1", "quantity": 1.0, "unit_price": 19.9, "total": 19.9}, {"description": "Apelsiner Valencia Spanien Klass 1", "quantity": 1.0, "unit_price": 14.9, "total": 14.9}, {"description": "Lime Klass 1", "quantity": 1.0, "unit_price": 39.9, "total": 39.9}, {"description": "Vitk\u00e5l Sverige Klass 1", "quantity": 1.0, "unit_price": 8.9, "total": 8.9}, {"description": "M\u00e4rg\u00e4rtor frysta", "quantity": 1.0, "unit_price": 24.9, "total": 24.9}]
+2025-05-27 13:52:25.785 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "F\u00e4nk\u00e5lssalami Italien ca 1,3kg", "quantity": 1.0, "unit_price": 219.0, "total": 219.0}, {"description": "Grilloumi burgarehalloumi 10x100g", "quantity": 1.0, "unit_price": 209.0, "total": 209.0}, {"description": "Kycklingbr\u00f6stfil\u00e9 Sverige Fryst", "quantity": 1.0, "unit_price": 129.0, "total": 129.0}, {"description": "Oxstek Sverige", "quantity": 1.0, "unit_price": 175.0, "total": 175.0}, {"description": "Plommontomater Ask Italien Klass 1", "quantity": 1.0, "unit_price": 39.9, "total": 39.9}, {"description": "Schalottenl\u00f6k Holland Klass 1", "quantity": 1.0, "unit_price": 16.9, "total": 16.9}, {"description": "Sparris vit Spanien Klass 1", "quantity": 1.0, "unit_price": 99.0, "total": 99.0}, {"description": "Potatis delikatess Sverige", "quantity": 1.0, "unit_price": 14.9, "total": 14.9}, {"description": "Vitl\u00f6k Spanien L\u00f6s Klass 1", "quantity": 1.0, "unit_price": 14.9, "total": 14.9}, {"description": "Basilika kruka", "quantity": 1.0, "unit_price": 14.9, "total": 14.9}, {"description": "Persilja krus blad kruka", "quantity": 1.0, "unit_price": 15.9, "total": 15.9}, {"description": "Dragon kruka", "quantity": 1.0, "unit_price": 34.9, "total": 34.9}, {"description": "Salvia kruka", "quantity": 1.0, "unit_price": 29.9, "total": 29.9}, {"description": "Rosmarin kruka", "quantity": 1.0, "unit_price": 22.9, "total": 22.9}, {"description": "Timjan kruka", "quantity": 1.0, "unit_price": 29.9, "total": 29.9}, {"description": "Citroner Spanien Klass 1", "quantity": 1.0, "unit_price": 19.9, "total": 19.9}, {"description": "Apelsiner Valencia Spanien Klass 1", "quantity": 1.0, "unit_price": 14.9, "total": 14.9}, {"description": "Lime Klass 1", "quantity": 1.0, "unit_price": 39.9, "total": 39.9}, {"description": "Vitk\u00e5l Sverige Klass 1", "quantity": 1.0, "unit_price": 8.9, "total": 8.9}, {"description": "M\u00e4rg\u00e4rtor frysta", "quantity": 1.0, "unit_price": 24.9, "total": 24.9}]
+2025-05-27 13:52:25 | INFO | Contract uploaded and processed: a46b8545-48b7-447e-90c3-e898732b1448
+2025-05-27 13:52:25.790 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: a46b8545-48b7-447e-90c3-e898732b1448
+2025-05-27 13:52:25 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:52:25.805 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:52:25 | INFO | Retrieved 1 contracts from database
+2025-05-27 13:52:25.814 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 13:58:20 | INFO | Deleted contract file: uploads/document (4).pdf
+2025-05-27 13:58:20.902 | INFO     | app.api.contracts:delete_contract:175 - Deleted contract file: uploads/document (4).pdf
+2025-05-27 13:58:25 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:58:25.015 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 13:58:25 | INFO | Retrieved 0 contracts from database
+2025-05-27 13:58:25.018 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 0 contracts from database
+2025-05-27 14:02:20 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 14:02:20.947 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 14:02:20 | INFO | Processing contract document: Inv 1.pdf
+2025-05-27 14:02:20.948 | INFO     | app.services.document_processor:process_contract:96 - Processing contract document: Inv 1.pdf
+2025-05-27 14:02:20.948 | DEBUG    | app.services.document_processor:process_contract:98 - [Contract] Derived file_ext: 'pdf'
+2025-05-27 14:02:20.948 | DEBUG    | app.services.document_processor:process_contract:99 - [Contract] SUPPORTED_DOCUMENT_FILE_TYPES: ['pdf', 'jpg', 'jpeg', 'png']
+2025-05-27 14:02:20 | INFO | Converting contract PDF to images
+2025-05-27 14:02:20.948 | INFO     | app.services.document_processor:process_contract:108 - Converting contract PDF to images
+2025-05-27 14:02:21 | INFO | Only one image provided, converting to PNG directly.
+2025-05-27 14:02:21.195 | INFO     | app.services.document_processor:stitch_document_content:256 - Only one image provided, converting to PNG directly.
+2025-05-27 14:02:21 | INFO | Sending contract image ('Inv 1.pdf') to Gemini for extraction.
+2025-05-27 14:02:21.389 | INFO     | app.services.document_processor:_extract_contract_data_from_image_bytes:225 - Sending contract image ('Inv 1.pdf') to Gemini for extraction.
+2025-05-27 14:02:40 | INFO | Using extracted supplier name: Advania Sverige AB
+2025-05-27 14:02:40.984 | INFO     | app.api.contracts:upload_contract:127 - Using extracted supplier name: Advania Sverige AB
+2025-05-27 14:02:40 | INFO | Extracted items for DB: [{"description": "Active Directory as a Service", "quantity": 106.0, "unit_price": 28.95, "total": 3068.7}, {"description": "Fileserver as a Service", "quantity": 106.0, "unit_price": 4.39, "total": 465.34}, {"description": "Servicedesk Komplett 101-200 anv\u00e4ndare", "quantity": 106.0, "unit_price": 258.1, "total": 27358.6}, {"description": "Hosted Antivirus", "quantity": 91.0, "unit_price": 28.95, "total": 2634.45}, {"description": "Managed Certificate", "quantity": 1.0, "unit_price": 245.87, "total": 245.87}, {"description": "Shared system documentation", "quantity": 1.0, "unit_price": 627.51, "total": 627.51}, {"description": "Gemensam katalog", "quantity": 1.0, "unit_price": 588.38, "total": 588.38}, {"description": "Central Print Queue", "quantity": 8.0, "unit_price": 68.38, "total": 547.04}, {"description": "Managed Application-Business", "quantity": 29.0, "unit_price": 267.89, "total": 7768.81}, {"description": "Managed Application-Enterprise", "quantity": 4.0, "unit_price": 537.0, "total": 2148.0}, {"description": "Virtual Server", "quantity": 12.0, "unit_price": 744.95, "total": 8939.4}, {"description": "Managed Server", "quantity": 12.0, "unit_price": 787.76, "total": 9453.12}, {"description": "VRAM", "quantity": 43.0, "unit_price": 101.65, "total": 4370.95}, {"description": "vCPU", "quantity": 17.0, "unit_price": 152.91, "total": 2599.47}, {"description": "Server Monitoring", "quantity": 12.0, "unit_price": 119.27, "total": 1431.24}, {"description": "Managed AD-Connect", "quantity": 1.0, "unit_price": 1470.32, "total": 1470.32}, {"description": "Microsoft Office 365/Azure DirSync Curre", "quantity": 1.0, "unit_price": 5318.62, "total": 5318.62}, {"description": "Managed Firewall-DC", "quantity": 1.0, "unit_price": 649.54, "total": 649.54}, {"description": "Managed Firewall Additional Server", "quantity": 12.0, "unit_price": 86.48, "total": 1037.76}, {"description": "Microsoft Windows Server Licenses f", "quantity": 12.0, "unit_price": 275.73, "total": 3308.76}, {"description": "SQL Server Standard", "quantity": 2.0, "unit_price": 2189.0, "total": 4378.0}, {"description": "TAM Junior, 5-10 \u00e5rs erfarenhet", "quantity": 1.0, "unit_price": 848.47, "total": 848.47}, {"description": "Operativa m\u00f6ten 12 g\u00e5nger per \u00e5r", "quantity": 1.0, "unit_price": 2091.51, "total": 2091.51}, {"description": "Strategiskt m\u00f6te 1 ggr/\u00e5r", "quantity": 1.0, "unit_price": 565.65, "total": 565.65}, {"description": "Tillg\u00e5ng personligt utsedd KAM", "quantity": 1.0, "unit_price": 358.47, "total": 358.47}, {"description": "Disaster Recovery per server", "quantity": 13.0, "unit_price": 43.85, "total": 570.05}, {"description": "\u00c5terl\u00e4sningstest Disaster Recovery", "quantity": 1.0, "unit_price": 1685.62, "total": 1685.62}, {"description": "Personuppgiftsbitr\u00e4de", "quantity": 1.0, "unit_price": 439.14, "total": 439.14}, {"description": "IP-Link 1000/1000 Mbit/s", "quantity": 1.0, "unit_price": 3015.98, "total": 3015.98}, {"description": "IP-Link 1000/1000 Mbit/s, Allfarv\u00e4gen. Central", "quantity": 1.0, "unit_price": 2997.2, "total": 2997.2}, {"description": "Internetaccess 1000 Mbit/s", "quantity": 1.0, "unit_price": 4053.84, "total": 4053.84}, {"description": "Managed WiFi-Guld", "quantity": 4.0, "unit_price": 253.89, "total": 1015.56}, {"description": "Managed LAN 8-portPoE+", "quantity": 1.0, "unit_price": 230.39, "total": 230.39}, {"description": "Managed LAN 24 Port PoE+", "quantity": 1.0, "unit_price": 350.51, "total": 350.51}, {"description": "SAN Storage", "quantity": 4163.0, "unit_price": 1.63, "total": 6785.69}, {"description": "Backup Office 365 r\u00f6rl anv.pris", "quantity": 103.0, "unit_price": 28.63, "total": 2948.89}, {"description": "Managed Backup Management", "quantity": 1.0, "unit_price": 1718.03, "total": 1718.03}, {"description": "Managed Backup-Premium 28 days", "quantity": 420.0, "unit_price": 1.04, "total": 436.8}, {"description": "Managed Backup-Premium 1 yr", "quantity": 2013.0, "unit_price": 1.26, "total": 2536.38}, {"description": "OVS avtal, per dator", "quantity": 70.0, "unit_price": 70.09, "total": 4906.3}, {"description": "AnyConnect", "quantity": 13.0, "unit_price": 19.58, "total": 254.54}, {"description": "Meraki AP MR36", "quantity": 3.0, "unit_price": 445.41, "total": 1336.23}, {"description": "Meraki AP MR44", "quantity": 5.0, "unit_price": 501.5, "total": 2507.5}, {"description": "Meraki 8 POE", "quantity": 1.0, "unit_price": 484.24, "total": 484.24}, {"description": "Meraki 48 Gb PoE MS120-48LP", "quantity": 1.0, "unit_price": 1405.26, "total": 1405.26}, {"description": "MS225-48FP", "quantity": 1.0, "unit_price": 1405.26, "total": 1405.26}, {"description": "Managed LAN 3 MS120-48LP-HW", "quantity": 1.0, "unit_price": 1405.26, "total": 1405.26}]
+2025-05-27 14:02:40.984 | INFO     | app.api.contracts:upload_contract:136 - Extracted items for DB: [{"description": "Active Directory as a Service", "quantity": 106.0, "unit_price": 28.95, "total": 3068.7}, {"description": "Fileserver as a Service", "quantity": 106.0, "unit_price": 4.39, "total": 465.34}, {"description": "Servicedesk Komplett 101-200 anv\u00e4ndare", "quantity": 106.0, "unit_price": 258.1, "total": 27358.6}, {"description": "Hosted Antivirus", "quantity": 91.0, "unit_price": 28.95, "total": 2634.45}, {"description": "Managed Certificate", "quantity": 1.0, "unit_price": 245.87, "total": 245.87}, {"description": "Shared system documentation", "quantity": 1.0, "unit_price": 627.51, "total": 627.51}, {"description": "Gemensam katalog", "quantity": 1.0, "unit_price": 588.38, "total": 588.38}, {"description": "Central Print Queue", "quantity": 8.0, "unit_price": 68.38, "total": 547.04}, {"description": "Managed Application-Business", "quantity": 29.0, "unit_price": 267.89, "total": 7768.81}, {"description": "Managed Application-Enterprise", "quantity": 4.0, "unit_price": 537.0, "total": 2148.0}, {"description": "Virtual Server", "quantity": 12.0, "unit_price": 744.95, "total": 8939.4}, {"description": "Managed Server", "quantity": 12.0, "unit_price": 787.76, "total": 9453.12}, {"description": "VRAM", "quantity": 43.0, "unit_price": 101.65, "total": 4370.95}, {"description": "vCPU", "quantity": 17.0, "unit_price": 152.91, "total": 2599.47}, {"description": "Server Monitoring", "quantity": 12.0, "unit_price": 119.27, "total": 1431.24}, {"description": "Managed AD-Connect", "quantity": 1.0, "unit_price": 1470.32, "total": 1470.32}, {"description": "Microsoft Office 365/Azure DirSync Curre", "quantity": 1.0, "unit_price": 5318.62, "total": 5318.62}, {"description": "Managed Firewall-DC", "quantity": 1.0, "unit_price": 649.54, "total": 649.54}, {"description": "Managed Firewall Additional Server", "quantity": 12.0, "unit_price": 86.48, "total": 1037.76}, {"description": "Microsoft Windows Server Licenses f", "quantity": 12.0, "unit_price": 275.73, "total": 3308.76}, {"description": "SQL Server Standard", "quantity": 2.0, "unit_price": 2189.0, "total": 4378.0}, {"description": "TAM Junior, 5-10 \u00e5rs erfarenhet", "quantity": 1.0, "unit_price": 848.47, "total": 848.47}, {"description": "Operativa m\u00f6ten 12 g\u00e5nger per \u00e5r", "quantity": 1.0, "unit_price": 2091.51, "total": 2091.51}, {"description": "Strategiskt m\u00f6te 1 ggr/\u00e5r", "quantity": 1.0, "unit_price": 565.65, "total": 565.65}, {"description": "Tillg\u00e5ng personligt utsedd KAM", "quantity": 1.0, "unit_price": 358.47, "total": 358.47}, {"description": "Disaster Recovery per server", "quantity": 13.0, "unit_price": 43.85, "total": 570.05}, {"description": "\u00c5terl\u00e4sningstest Disaster Recovery", "quantity": 1.0, "unit_price": 1685.62, "total": 1685.62}, {"description": "Personuppgiftsbitr\u00e4de", "quantity": 1.0, "unit_price": 439.14, "total": 439.14}, {"description": "IP-Link 1000/1000 Mbit/s", "quantity": 1.0, "unit_price": 3015.98, "total": 3015.98}, {"description": "IP-Link 1000/1000 Mbit/s, Allfarv\u00e4gen. Central", "quantity": 1.0, "unit_price": 2997.2, "total": 2997.2}, {"description": "Internetaccess 1000 Mbit/s", "quantity": 1.0, "unit_price": 4053.84, "total": 4053.84}, {"description": "Managed WiFi-Guld", "quantity": 4.0, "unit_price": 253.89, "total": 1015.56}, {"description": "Managed LAN 8-portPoE+", "quantity": 1.0, "unit_price": 230.39, "total": 230.39}, {"description": "Managed LAN 24 Port PoE+", "quantity": 1.0, "unit_price": 350.51, "total": 350.51}, {"description": "SAN Storage", "quantity": 4163.0, "unit_price": 1.63, "total": 6785.69}, {"description": "Backup Office 365 r\u00f6rl anv.pris", "quantity": 103.0, "unit_price": 28.63, "total": 2948.89}, {"description": "Managed Backup Management", "quantity": 1.0, "unit_price": 1718.03, "total": 1718.03}, {"description": "Managed Backup-Premium 28 days", "quantity": 420.0, "unit_price": 1.04, "total": 436.8}, {"description": "Managed Backup-Premium 1 yr", "quantity": 2013.0, "unit_price": 1.26, "total": 2536.38}, {"description": "OVS avtal, per dator", "quantity": 70.0, "unit_price": 70.09, "total": 4906.3}, {"description": "AnyConnect", "quantity": 13.0, "unit_price": 19.58, "total": 254.54}, {"description": "Meraki AP MR36", "quantity": 3.0, "unit_price": 445.41, "total": 1336.23}, {"description": "Meraki AP MR44", "quantity": 5.0, "unit_price": 501.5, "total": 2507.5}, {"description": "Meraki 8 POE", "quantity": 1.0, "unit_price": 484.24, "total": 484.24}, {"description": "Meraki 48 Gb PoE MS120-48LP", "quantity": 1.0, "unit_price": 1405.26, "total": 1405.26}, {"description": "MS225-48FP", "quantity": 1.0, "unit_price": 1405.26, "total": 1405.26}, {"description": "Managed LAN 3 MS120-48LP-HW", "quantity": 1.0, "unit_price": 1405.26, "total": 1405.26}]
+2025-05-27 14:02:40 | INFO | Contract uploaded and processed: 3c65d5f0-33c9-4a5b-9205-ee7bad5a4c99
+2025-05-27 14:02:40.989 | INFO     | app.api.contracts:upload_contract:153 - Contract uploaded and processed: 3c65d5f0-33c9-4a5b-9205-ee7bad5a4c99
+2025-05-27 14:02:40 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 14:02:40.992 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 14:02:40 | INFO | Stitching document of type: pdf
+2025-05-27 14:02:40.992 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 14:02:41 | INFO | Only one image provided, converting to PNG directly.
+2025-05-27 14:02:41.229 | INFO     | app.services.document_processor:stitch_document_content:256 - Only one image provided, converting to PNG directly.
+2025-05-27 14:02:41 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 14:02:41.423 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 14:02:41.423 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 14:02:41.423 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'jpg', 'jpeg', 'pdf'}
+2025-05-27 14:02:41.423 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 14:02:41 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 14:02:41.423 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 14:02:58 | INFO | Processed invoice data saved to DB with ID: abcf78ec-920d-43bd-9d2c-6188c42016b1
+2025-05-27 14:02:58.603 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: abcf78ec-920d-43bd-9d2c-6188c42016b1
+2025-05-27 14:02:58 | INFO | Retrieved 1 contracts from database
+2025-05-27 14:02:58.613 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 14:03:01 | INFO | Retrieved 1 contracts from database
+2025-05-27 14:03:01.928 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 14:03:01 | INFO | Retrieved 1 contracts from database
+2025-05-27 14:03:01.931 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 14:03:36 | INFO | No file path associated with invoice ID: abcf78ec-920d-43bd-9d2c-6188c42016b1. No file to delete.
+2025-05-27 14:03:36.949 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: abcf78ec-920d-43bd-9d2c-6188c42016b1. No file to delete.
+2025-05-27 14:03:46 | INFO | DocumentProcessor initialized with Gemini model
+2025-05-27 14:03:46.174 | INFO     | app.services.document_processor:__init__:32 - DocumentProcessor initialized with Gemini model
+2025-05-27 14:03:46 | INFO | Stitching document of type: pdf
+2025-05-27 14:03:46.174 | INFO     | app.services.document_processor:stitch_document:295 - Stitching document of type: pdf
+2025-05-27 14:03:46 | INFO | Only one image provided, converting to PNG directly.
+2025-05-27 14:03:46.427 | INFO     | app.services.document_processor:stitch_document_content:256 - Only one image provided, converting to PNG directly.
+2025-05-27 14:03:46 | INFO | Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 14:03:46.617 | INFO     | app.services.document_processor:process_invoice_async:330 - Async processing invoice file 'unknown_invoice_async' of type: png
+2025-05-27 14:03:46.618 | DEBUG    | app.services.document_processor:process_invoice_async:336 - [Async Invoice] Normalized file_type_lower: 'png'
+2025-05-27 14:03:46.618 | DEBUG    | app.services.document_processor:process_invoice_async:337 - [Async Invoice] SUPPORTED_INVOICE_FILE_TYPES: {'png', 'jpg', 'jpeg', 'pdf'}
+2025-05-27 14:03:46.618 | DEBUG    | app.services.document_processor:process_invoice_async:338 - [Async Invoice] skip_type_check: True
+2025-05-27 14:03:46 | INFO | Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 14:03:46.618 | INFO     | app.services.document_processor:_extract_invoice_data_from_image_bytes:193 - Sending invoice image ('unknown_invoice_async') to Gemini for extraction.
+2025-05-27 14:04:04 | INFO | Processed invoice data saved to DB with ID: 23c251af-10b8-4f67-b32a-6ed0a6ff61f7
+2025-05-27 14:04:04.893 | INFO     | app.api.invoices:process_invoice:88 - Processed invoice data saved to DB with ID: 23c251af-10b8-4f67-b32a-6ed0a6ff61f7
+2025-05-27 14:05:55 | INFO | Retrieved 1 contracts from database
+2025-05-27 14:05:55.357 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 14:05:55 | INFO | Retrieved 1 contracts from database
+2025-05-27 14:05:55.360 | INFO     | app.api.contracts:get_contracts:47 - Retrieved 1 contracts from database
+2025-05-27 14:06:13 | INFO | No file path associated with invoice ID: 23c251af-10b8-4f67-b32a-6ed0a6ff61f7. No file to delete.
+2025-05-27 14:06:13.094 | INFO     | app.api.invoices:delete_invoice:215 - No file path associated with invoice ID: 23c251af-10b8-4f67-b32a-6ed0a6ff61f7. No file to delete.

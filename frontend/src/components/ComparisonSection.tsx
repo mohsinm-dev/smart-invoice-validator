@@ -3,7 +3,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Check, X, AlertTriangle } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { api, Contract, InvoiceData, ComparisonResult, PriceComparisonDetail, Item as ContractItem, InvoiceItem } from '@/services/api'
+import { api, Contract, InvoiceData, ComparisonResult, PriceComparisonDetail, Item as ContractItemBase, InvoiceItem as InvoiceItemBase } from '@/services/api'
+
+// Patch types to include 'total'
+export type ContractItem = ContractItemBase & { total: number };
+export type InvoiceItem = InvoiceItemBase & { total: number };
 
 interface ComparisonSectionProps {
   allInvoices: InvoiceData[];
@@ -144,12 +148,12 @@ export function ComparisonSection({ allInvoices = [], contracts, onContractsChan
           (iItem: InvoiceItem) => normalize(iItem.description) === contractItemName
         );
 
-        let invoicePrice = 0;
+              let invoicePrice = 0;
         let itemMatch = false;
         let note: string | undefined;
 
         if (matchingInvoiceItem) {
-          invoicePrice = matchingInvoiceItem.unit_price || matchingInvoiceItem.total_price || 0;
+          invoicePrice = matchingInvoiceItem.unit_price || matchingInvoiceItem.total || 0;
           // Compare unit prices with a small tolerance for floating point issues
           itemMatch = Math.abs(cItem.unit_price - invoicePrice) < 0.01;
           if (!itemMatch) {
@@ -195,19 +199,19 @@ export function ComparisonSection({ allInvoices = [], contracts, onContractsChan
             type: 'service_not_in_contract',
             service_name: iItem.description,
             contract_value: 'N/A',
-            invoice_value: iItem.unit_price || iItem.total_price || 0,
+            invoice_value: iItem.unit_price || iItem.total || 0,
           });
            // Add to price comparison details as an extra item from invoice
            priceComparisonDetails.push({
             service_name: iItem.description,
             contract_price: null, // Not in contract
-            invoice_price: iItem.unit_price || iItem.total_price || 0,
+            invoice_price: iItem.unit_price || iItem.total || 0,
             match: false,
             note: "Service not found in contract",
+              });
+            }
           });
-        }
-      });
-      
+          
       matches.prices_match = pricesMatchOverall;
       matches.all_services_in_contract = allContractItemsFoundInInvoice; // If all contract services are in invoice.
                                                                      // Could also be interpreted as if all invoice services are in contract.
@@ -300,7 +304,7 @@ export function ComparisonSection({ allInvoices = [], contracts, onContractsChan
             <option value="">Choose an invoice...</option>
             {allInvoices.map((invoice) => (
               <option key={invoice.id} value={invoice.id}>
-                #{invoice.invoice_number} - {invoice.supplier_name} (Total: {invoice.total.toFixed(2)})
+                ID: {invoice.id} - {invoice.supplier_name}
               </option>
             ))}
           </select>
@@ -315,7 +319,7 @@ export function ComparisonSection({ allInvoices = [], contracts, onContractsChan
       <div className="mb-6">
         <p className="text-sm text-gray-700 mb-3">
           {currentInvoiceData 
-            ? `Invoice #${currentInvoiceData.invoice_number} from ${currentInvoiceData.supplier_name} is ready for comparison` 
+            ? `Invoice (ID: ${currentInvoiceData.id}) from ${currentInvoiceData.supplier_name} is ready for comparison` 
             : "Select an invoice to compare"}
         </p>
       </div>
@@ -421,7 +425,7 @@ export function ComparisonSection({ allInvoices = [], contracts, onContractsChan
                                   ? <span className="text-amber-500 italic">Not in invoice</span>
                                   : isExtraInvoiceItem 
                                     ? <span className="text-amber-500 italic">Not in contract (Invoice: {invoicePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })})</span>
-                                    : invoicePrice.toLocaleString('en-US', {
+                                  : invoicePrice.toLocaleString('en-US', {
                                       style: 'currency',
                                       currency: 'USD',
                                       minimumFractionDigits: 2

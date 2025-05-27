@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     
     # Gemini AI settings
     GEMINI_API_KEY: str
-    GEMINI_MODEL: str = "gemini-2.0-flash"
+    GEMINI_MODEL: str = "gemini-2.5-flash"
     CONFIDENCE_THRESHOLD: float = 0.7
     
     # Logging settings
@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     # File upload settings
     UPLOAD_DIR: str = "uploads"
     MAX_FILE_SIZE: int = 10 * 1024 * 1024  # 10MB
-    ALLOWED_EXTENSIONS: set = {".pdf", ".doc", ".docx"}
+    ALLOWED_EXTENSIONS: set = {"pdf", "doc", "docx"}
     
     class Config:
         env_file = ".env"

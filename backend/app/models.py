@@ -8,7 +8,7 @@ class Contract(Base):
 
     id = Column(String(36), primary_key=True, index=True)
     supplier_name = Column(String(255), nullable=False)
-    services = Column(JSON, nullable=False)  # Store services as JSON array
+    items = Column(JSON, nullable=False)  # Renamed from services
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), nullable=True, onupdate=func.now())
     
@@ -19,14 +19,8 @@ class Invoice(Base):
 
     id = Column(String(36), primary_key=True, index=True)
     contract_id = Column(String(36), ForeignKey("contracts.id", ondelete="CASCADE"), nullable=True)
-    invoice_number = Column(String(255), nullable=False)
     supplier_name = Column(String(255), nullable=False)
-    issue_date = Column(DateTime(timezone=True), nullable=False)
-    due_date = Column(DateTime(timezone=True), nullable=True)
     items = Column(JSON, nullable=False)  # Store items as JSON array
-    subtotal = Column(Float, nullable=True)
-    tax = Column(Float, nullable=True)
-    total = Column(Float, nullable=False)
     raw_text = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), nullable=True, onupdate=func.now())

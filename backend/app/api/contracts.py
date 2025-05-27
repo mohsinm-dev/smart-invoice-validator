@@ -19,18 +19,22 @@ class ItemResponse(BaseModel):
     description: str
     quantity: float
     unit_price: float
-    total_price: Optional[float] = None
+    total: float
 
 class ContractCreate(BaseModel):
     supplier_name: str
     items: List[ItemResponse]
+    document_path: Optional[str] = None
+    is_manual: Optional[bool] = False
 
 class ContractResponse(BaseModel):
     id: str
     supplier_name: str
     items: List[ItemResponse]
+    document_path: Optional[str] = None
+    is_manual: Optional[bool] = False
     created_at: datetime
-    updated_at: datetime | None
+    updated_at: datetime
 
     class Config:
         from_attributes = True
@@ -61,10 +65,17 @@ async def create_contract(
 ):
     """Create a new contract."""
     try:
+        # Convert Pydantic items to dict for JSON storage
+        items_for_db = [item.model_dump() for item in contract_data.items]
+
         contract = Contract(
             id=str(uuid.uuid4()),
             supplier_name=contract_data.supplier_name,
-            items=[item.dict() for item in contract_data.items]
+            items=items_for_db, # Store as list of dicts
+            document_path=contract_data.document_path,
+            is_manual=contract_data.is_manual,
+            created_at=datetime.utcnow(),
+            updated_at=datetime.utcnow()
         )
         
         db.add(contract)
@@ -84,54 +95,55 @@ async def upload_contract(
 ):
     """Upload a contract file and process it."""
     try:
-        # Save the file
-        file_ext = os.path.splitext(file.filename)[1].lower()
-        if file_ext not in settings.ALLOWED_EXTENSIONS:
+        # Normalize file extension check (remove dot, lowercase)
+        original_file_name = file.filename
+        file_ext_from_upload = os.path.splitext(original_file_name)[1].lower().lstrip('.')
+        
+        # Use settings.ALLOWED_EXTENSIONS which should be a list of strings without dots
+        # Example: ALLOWED_EXTENSIONS = ['pdf', 'png', 'jpg', 'jpeg'] in config.py
+        if file_ext_from_upload not in settings.ALLOWED_EXTENSIONS:
             raise HTTPException(
                 status_code=400, 
-                detail=f"File type not allowed. Allowed types: {', '.join(settings.ALLOWED_EXTENSIONS)}"
+                detail=f"File type '{file_ext_from_upload}' not allowed. Allowed types: {', '.join(settings.ALLOWED_EXTENSIONS)}"
             )
         
-        file_path = os.path.join(settings.UPLOAD_DIR, file.filename)
+        file_path = os.path.join(settings.UPLOAD_DIR, original_file_name)
         content = await file.read()
         with open(file_path, "wb") as f:
             f.write(content)
         
-        # Process the contract file using DocumentProcessor
         processor = DocumentProcessor()
-        extracted_data_model = processor.process_contract(content, file.filename)
+        # Pass original_file_name for DocumentProcessor to derive extension again, or pass normalized file_ext_from_upload
+        # DocumentProcessor internally normalizes from filename, so original_file_name is fine.
+        extracted_data_model = processor.process_contract(content, original_file_name)
         
         if extracted_data_model is None:
-            logger.error(f"Error processing contract: Failed to extract data for {file.filename}")
-            raise HTTPException(status_code=400, detail="Failed to process contract file and extract data.")
+            logger.error(f"Error processing contract: Failed to extract data for {original_file_name}")
+            # This detail should reflect the error from DocumentProcessor if possible, 
+            # or a generic one if DocumentProcessor returned None without specific error.
+            raise HTTPException(status_code=400, detail=f"Failed to process contract file '{original_file_name}'. Document processing returned no data. Check logs for details.")
         
-        # Use the supplier name extracted by the model
         supplier_name = extracted_data_model.supplier_name or "Unknown Supplier"
         logger.info(f"Using extracted supplier name: {supplier_name}")
         
-        # Use extracted items (List[InvoiceItemModel])
         extracted_items = extracted_data_model.items
-        
-        # Convert List[InvoiceItemModel] to List[dict] for DB storage / response model
+        # Convert List[InvoiceItemModel from Pydantic model] to List[dict for DB]
         items_for_db = [item.model_dump() for item in extracted_items]
 
         if not items_for_db:
-            logger.warning(f"No items extracted from contract {file.filename}, using defaults if applicable or empty list")
-            # Default items logic might need review based on requirements.
-            # For now, if no items, it will be an empty list.
-            # items_for_db = [
-            #     ItemResponse(description="Default Service", quantity=1.0, unit_price=0.0, total_price=0.0).model_dump()
-            # ]
-
-        # Log the extracted items for debugging
-        logger.info(f"Extracted items: {json.dumps(items_for_db)}")
+            logger.warning(f"No items extracted from contract {original_file_name}, using empty list")
         
-        # Create a contract in the database
+        logger.info(f"Extracted items for DB: {json.dumps(items_for_db)}")
+        
         contract_id_val = str(uuid.uuid4())
         db_contract = Contract(
             id=contract_id_val,
             supplier_name=supplier_name,
-            items=items_for_db
+            items=items_for_db,
+            document_path=file_path, # Save the path where the file is stored
+            is_manual=False, # This contract is from an upload
+            created_at=datetime.utcnow(),
+            updated_at=datetime.utcnow()
         )
         
         db.add(db_contract)
@@ -142,9 +154,10 @@ async def upload_contract(
         return db_contract
         
     except HTTPException as http_exc:
+        # Re-raise HTTPException to ensure FastAPI handles it correctly
         raise http_exc
     except Exception as e:
-        logger.error(f"Error uploading contract: {str(e)}")
+        logger.error(f"Error uploading contract '{file.filename if file else 'nofile'}': {str(e)}")
         raise HTTPException(status_code=500, detail=f"Internal server error during contract upload: {str(e)}")
 
 @router.delete("/{contract_id}")
@@ -155,11 +168,20 @@ async def delete_contract(contract_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Contract not found")
     
     try:
+        # Optionally, delete the associated file if it exists
+        if contract.document_path and os.path.exists(contract.document_path):
+            try:
+                os.remove(contract.document_path)
+                logger.info(f"Deleted contract file: {contract.document_path}")
+            except Exception as e_file_delete:
+                logger.error(f"Error deleting contract file {contract.document_path}: {e_file_delete}")
+                # Decide if this should prevent contract deletion or just log
+
         db.delete(contract)
         db.commit()
         return {"message": "Contract deleted successfully"}
     except Exception as e:
-        logger.error(f"Error deleting contract: {str(e)}")
+        logger.error(f"Error deleting contract ID {contract_id}: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.put("/{contract_id}", response_model=ContractResponse)
@@ -175,7 +197,9 @@ async def update_contract(
     
     try:
         contract.supplier_name = contract_data.supplier_name
-        contract.items = [item.dict() for item in contract_data.items]
+        contract.items = [item.model_dump() for item in contract_data.items] # Ensure items are dicts for JSON
+        contract.document_path = contract_data.document_path # Allow updating path
+        contract.is_manual = contract_data.is_manual # Allow updating manual flag
         contract.updated_at = datetime.utcnow()
         
         db.commit()
@@ -183,5 +207,5 @@ async def update_contract(
         
         return contract
     except Exception as e:
-        logger.error(f"Error updating contract: {str(e)}")
+        logger.error(f"Error updating contract {contract_id}: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e)) 

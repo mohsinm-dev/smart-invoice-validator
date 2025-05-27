@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Upload, Plus, X, Trash2, Edit2 } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { api, Contract, Item as ApiItem } from '@/services/api'
+import { api, Contract, Item as ApiItemBase } from '@/services/api'
+
+// Patch ApiItem type to include 'total'
+export type ApiItem = ApiItemBase & { total: number };
 
 interface ContractSectionProps {
   onContractCreated?: () => void;
@@ -89,7 +92,7 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
       ...newContract,
       items: [
         ...newContract.items,
-        { description: '', quantity: 1, unit_price: 0, total_price: 0 }
+        { description: '', quantity: 1, unit_price: 0, total: 0 }
       ]
     })
   }
@@ -105,11 +108,9 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
     setNewContract(prev => {
       const updatedItems = [...prev.items]
       const itemToUpdate = { ...updatedItems[index] } as any;
-      itemToUpdate[field] = typeof value === 'string' && (field === 'quantity' || field === 'unit_price' || field === 'total_price') ? parseFloat(value) || 0 : value;
-      
-      // Recalculate total_price if quantity or unit_price changes for this item
+      itemToUpdate[field] = typeof value === 'string' && (field === 'quantity' || field === 'unit_price' || field === 'total') ? parseFloat(value) || 0 : value;
       if (field === 'quantity' || field === 'unit_price') {
-        itemToUpdate.total_price = itemToUpdate.quantity * itemToUpdate.unit_price;
+        itemToUpdate.total = itemToUpdate.quantity * itemToUpdate.unit_price;
       }
       updatedItems[index] = itemToUpdate as ApiItem;
       return { ...prev, items: updatedItems };
@@ -390,9 +391,9 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
                       <span className={`sm:col-span-2 text-gray-800 text-right sm:text-left ${item.unit_price < 0 ? 'text-red-600' : ''}`}>
                         @ ${item.unit_price !== undefined ? Math.abs(item.unit_price).toFixed(2) : 'N/A'}
                       </span>
-                      <span className={`sm:col-span-3 text-gray-900 font-medium text-right ${item.total_price && item.total_price < 0 ? 'text-red-600' : ''}`}>
-                        Total: ${item.total_price !== undefined ? Math.abs(item.total_price).toFixed(2) : (item.quantity * item.unit_price) ? (item.quantity * item.unit_price).toFixed(2) : 'N/A'}
-                        {item.total_price && item.total_price < 0 ? ' (neg)' : ''}
+                      <span className={`sm:col-span-3 text-gray-900 font-medium text-right ${item.total && item.total < 0 ? 'text-red-600' : ''}`}>
+                        Total: ${item.total !== undefined ? Math.abs(item.total).toFixed(2) : (item.quantity * item.unit_price) ? (item.quantity * item.unit_price).toFixed(2) : 'N/A'}
+                        {item.total && item.total < 0 ? ' (neg)' : ''}
                       </span>
                     </div>
                   ))}

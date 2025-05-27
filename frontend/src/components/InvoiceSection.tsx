@@ -6,6 +6,14 @@ import { Upload, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { api, InvoiceData } from '@/services/api'
 
+// Add InvoiceItem type override to include 'total'
+export interface InvoiceItem {
+  description: string;
+  quantity: number;
+  unit_price: number;
+  total: number;
+}
+
 interface InvoiceSectionProps {
   onInvoiceProcessed?: (invoiceData: InvoiceData) => void;
   onRefreshInvoices?: () => Promise<void>;
@@ -136,21 +144,15 @@ const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed, onR
                   {processedInvoice.supplier_name}
                 </h4>
                 <p className="text-sm text-gray-600">
-                  Invoice #{processedInvoice.invoice_number}
+                  Invoice ID: {processedInvoice.id}
                 </p>
               </div>
               <div className="text-right">
                 <p className="text-sm text-gray-600">
-                  Issue Date: {new Date(processedInvoice.issue_date).toLocaleDateString()}
+                  Processed: {new Date(processedInvoice.created_at).toLocaleDateString()}
                 </p>
-                {processedInvoice.due_date && (
-                  <p className="text-sm text-gray-600">
-                    Due Date: {new Date(processedInvoice.due_date).toLocaleDateString()}
-                  </p>
-                )}
               </div>
             </div>
-
             <div className="border-t border-gray-200 pt-4">
               <div className="space-y-2">
                 {processedInvoice.items.map((item, index) => (
@@ -165,35 +167,10 @@ const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed, onR
                       </p>
                     </div>
                     <p className="text-gray-900">
-                      ${formatCurrency(item.total_price || (item.quantity * item.unit_price))}
+                      ${formatCurrency(item.total)}
                     </p>
                   </div>
                 ))}
-              </div>
-
-              <div className="border-t border-gray-200 mt-4 pt-4">
-                {processedInvoice.subtotal && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Subtotal</span>
-                    <span className="text-gray-900">
-                      ${formatCurrency(processedInvoice.subtotal)}
-                    </span>
-                  </div>
-                )}
-                {processedInvoice.tax && (
-                  <div className="flex justify-between text-sm mt-2">
-                    <span className="text-gray-600">Tax</span>
-                    <span className="text-gray-900">
-                      ${formatCurrency(processedInvoice.tax)}
-                    </span>
-                  </div>
-                )}
-                <div className="flex justify-between font-medium mt-2">
-                  <span className="text-gray-900">Total</span>
-                  <span className="text-gray-900">
-                    ${formatCurrency(processedInvoice.total)}
-                  </span>
-                </div>
               </div>
             </div>
           </div>
@@ -212,11 +189,11 @@ const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed, onR
                 className="border border-gray-200 rounded-md p-4 flex justify-between items-center"
               >
                 <div className="flex-1">
-                  <p className="font-medium">{invoice.supplier_name} - INV# {invoice.invoice_number}</p>
-                  <p className="text-sm text-gray-600">
-                    Processed: {new Date(invoice.created_at).toLocaleDateString()} - Total: ${invoice.total.toFixed(2)}
-                  </p>
-                </div>
+                  <p className="font-medium">{invoice.supplier_name} - ID: {invoice.id}</p>
+                    <p className="text-sm text-gray-600">
+                    Processed: {new Date(invoice.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
                 <button
                   onClick={() => handleDeleteInvoice(invoice.id)}
                   disabled={isDeleting === invoice.id || isLoading}

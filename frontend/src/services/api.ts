@@ -7,6 +7,7 @@ export interface Item {
   description: string;
   quantity: number;
   unit_price: number;
+  total: number;
   total_price?: number;
 }
 
@@ -27,6 +28,7 @@ export interface InvoiceItem {
   description: string;
   quantity: number;
   unit_price: number;
+  total: number;
   total_price?: number;
 }
 
@@ -243,7 +245,7 @@ export const api = {
         throw new Error('Failed to process invoice');
       }
     },
-
+    
     deleteById: async (id: string): Promise<void> => {
       try {
         const response = await debugFetch(`${API_V1}/invoices/${id}`, {
