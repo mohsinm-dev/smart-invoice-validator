@@ -2,7 +2,8 @@ import os
 import json
 from typing import Dict, Optional, List, Tuple, Any
 from datetime import date, datetime
-import google.generativeai as genai
+import google.genai as genai
+from google.genai import types
 from pdf2image import convert_from_bytes
 from PIL import Image
 from pathlib import Path
@@ -19,10 +20,17 @@ from .constants import (
     SUPPORTED_DOCUMENT_FILE_TYPES,
     SUPPORTED_INVOICE_FILE_TYPES
 )
+from ..utils.hyphen_normalizer import normalize_hyphens
 
 # Configure Gemini
-genai.configure(api_key=settings.GEMINI_API_KEY)
-model = genai.GenerativeModel(settings.GEMINI_MODEL)
+client = genai.Client(
+        api_key=settings.GEMINI_API_KEY,
+    )
+model = settings.GEMINI_MODEL
+generate_content_config = types.GenerateContentConfig(
+        temperature=0.3,
+        response_mime_type="text/plain",
+    )
 
 class DocumentProcessor:
     """Process and extract data from invoice and contract documents."""
@@ -191,12 +199,26 @@ class DocumentProcessor:
         """Extract invoice data from image bytes using Gemini and parse with Pydantic."""
         try:
             logger.info(f"Sending invoice image ('{original_filename}') to Gemini for extraction.")
-            response = self.model.generate_content(
-                [
-                    UNIVERSAL_SUPPLIER_ITEM_EXTRACTION_PROMPT,
-                    {"mime_type": "image/png", "data": image_bytes}
-                ]
+            
+            contents = [
+                types.Content(
+                    role="user",
+                    parts=[
+                        types.Part.from_bytes(
+                            mime_type="image/png",
+                            data=image_bytes
+                        ),
+                        types.Part.from_text(text=UNIVERSAL_SUPPLIER_ITEM_EXTRACTION_PROMPT),
+                    ],
+                ),
+            ]
+
+            response = client.models.generate_content(
+                model=self.model,
+                contents=contents,
+                config=generate_content_config
             )
+            
             raw_data = self._parse_gemini_json_response(response.text)
             if raw_data and isinstance(raw_data, dict):
                 if "raw_text" not in raw_data:
@@ -206,6 +228,11 @@ class DocumentProcessor:
                     raw_data["items"] = []
                 if "supplier_name" not in raw_data:
                     raw_data["supplier_name"] = "Unknown Supplier"
+
+                # Normalize hyphens in all item descriptions
+                for item in raw_data["items"]:
+                    if isinstance(item, dict) and "description" in item and isinstance(item["description"], str):
+                        item["description"] = normalize_hyphens(item["description"])
 
                 return ExtractedInvoiceModel.model_validate(raw_data)
             else:
@@ -223,17 +250,34 @@ class DocumentProcessor:
         """Extract contract data from image bytes using Gemini, returns Pydantic model."""
         try:
             logger.info(f"Sending contract image ('{original_filename}') to Gemini for extraction.")
-            response = self.model.generate_content(
-                [
-                    UNIVERSAL_SUPPLIER_ITEM_EXTRACTION_PROMPT,
-                    {"mime_type": "image/png", "data": image_bytes}
-                ]
+            
+            contents = [
+                types.Content(
+                    role="user",
+                    parts=[
+                        types.Part.from_bytes(
+                            mime_type="image/png",
+                            data=image_bytes
+                        ),
+                        types.Part.from_text(text=UNIVERSAL_SUPPLIER_ITEM_EXTRACTION_PROMPT),
+                    ],
+                ),
+            ]
+
+            response = client.models.generate_content(
+                model=self.model,
+                contents=contents,
+                config=generate_content_config
             )
             
             raw_data = self._parse_gemini_json_response(response.text)
             if raw_data and isinstance(raw_data, dict):
                 if "items" not in raw_data or not isinstance(raw_data.get("items"), list):
                     raw_data["items"] = []
+                # Normalize hyphens in all item descriptions
+                for item in raw_data["items"]:
+                    if isinstance(item, dict) and "description" in item and isinstance(item["description"], str):
+                        item["description"] = normalize_hyphens(item["description"])
                 return ExtractedContractModel.model_validate(raw_data)
             else:
                 logger.warning(f"Could not parse valid dict for contract from Gemini ('{original_filename}'). Raw: {response.text[:500]}")
