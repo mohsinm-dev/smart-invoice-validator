@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useDropzone } from 'react-dropzone'
-import { Upload, Plus, X, Trash2, Edit2 } from 'lucide-react'
+import { Upload, Plus, X, Trash2, Edit2, FileText, Calendar, DollarSign } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { api, Contract, Item as ApiItemBase } from '@/services/api'
 
@@ -188,224 +189,331 @@ export function ContractSection({ onContractCreated }: ContractSectionProps) {
     }
   };
 
+  const totalValue = newContract.items.reduce((sum, item) => sum + (item.total || 0), 0);
+
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-6">Contracts</h2>
-      
-      <div className="flex items-center space-x-4 mb-6">
-        <button
-          onClick={() => { setIsManualMode(false); setEditingContract(null); setNewContract({ supplier_name: '', items: [] }); }}
-          className={`px-4 py-2 rounded-md transition-colors ${
-            !isManualMode
-              ? 'bg-indigo-600 text-white'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-          }`}
-        >
-          Upload
-        </button>
-        <button
-          onClick={() => { setIsManualMode(true); setEditingContract(null); setNewContract({ supplier_name: '', items: [] }); }}
-          className={`px-4 py-2 rounded-md transition-colors ${
-            isManualMode
-              ? 'bg-indigo-600 text-white'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-          }`}
-        >
-          Manual Input
-        </button>
-      </div>
-
-      {!isManualMode ? (
-        <div
-          {...getRootProps()}
-          className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-            (isLoading || isUploading) ? 'opacity-50 pointer-events-none' : ''
-          } ${
-            isDragActive
-              ? 'border-indigo-600 bg-indigo-50'
-              : 'border-gray-300 hover:border-indigo-600 hover:bg-gray-50'
-          }`}
-        >
-          <input {...getInputProps()} />
-          <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600">
-            {isDragActive
-              ? 'Drop the file here'
-              : (isLoading || isUploading)
-              ? 'Processing...'
-              : 'Drag & drop a contract file, or click to select'}
-          </p>
-          <p className="text-sm text-gray-500 mt-2">
-            Supported formats: PDF, JPEG, PNG
-          </p>
+    <motion.div 
+      className="card-elevated"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+    >
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center space-x-3">
+          <div className="p-2 bg-gradient-to-r from-primary-100 to-primary-200 rounded-xl">
+            <FileText className="h-6 w-6 text-primary-600" />
+          </div>
+          <div>
+            <h2 className="heading-md text-secondary-900">Contracts</h2>
+            <p className="text-sm text-secondary-600">Manage your contract documents</p>
+          </div>
         </div>
-      ) : (
-        <form onSubmit={editingContract ? handleUpdate : handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Supplier Name
-            </label>
-            <input
-              type="text"
-              value={newContract.supplier_name}
-              onChange={(e) =>
-                setNewContract({ ...newContract, supplier_name: e.target.value })
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-              placeholder="Enter supplier name"
-              required
-            />
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">
-                Items
-              </label>
-              <button
-                type="button"
-                onClick={addItem}
-                className="flex items-center text-sm text-indigo-600 hover:text-indigo-700"
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Add Item
-              </button>
-            </div>
-
-            <div className="space-y-4">
-              {newContract.items.map((item, index) => (
-                <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                  <input
-                    type="text"
-                    value={item.description}
-                    onChange={(e) => {
-                      const updatedItems = [...newContract.items]
-                      updatedItems[index].description = e.target.value
-                      setNewContract({
-                        ...newContract,
-                        items: updatedItems
-                      })
-                    }}
-                    placeholder="Item description"
-                    className="md:col-span-6 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-                    required
-                  />
-                  <input
-                    type="number"
-                    value={item.quantity === 0 ? '' : item.quantity}
-                    onChange={(e) => {
-                      const updatedItems = [...newContract.items]
-                      updatedItems[index].quantity = parseFloat(e.target.value) || 0
-                      setNewContract({ ...newContract, items: updatedItems })
-                    }}
-                    placeholder="Quantity"
-                    className="md:col-span-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-                    required
-                    step="0.01"
-                  />
-                  <input
-                    type="number"
-                    value={item.unit_price === 0 ? '' : item.unit_price}
-                    onChange={(e) => {
-                      const updatedItems = [...newContract.items]
-                      updatedItems[index].unit_price = parseFloat(e.target.value) || 0
-                      setNewContract({
-                        ...newContract,
-                        items: updatedItems
-                      })
-                    }}
-                    placeholder="Unit price"
-                    className="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-                    required
-                    step="0.01"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeItem(index)}
-                    className="md:col-span-1 text-gray-400 hover:text-red-500 flex justify-center"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-
+        
+        <div className="flex items-center space-x-2 bg-secondary-100 rounded-xl p-1">
           <button
-            type="submit"
-            disabled={isLoading}
-            className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md transition-colors ${
-              isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-indigo-700'
+            onClick={() => { setIsManualMode(false); setEditingContract(null); setNewContract({ supplier_name: '', items: [] }); }}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              !isManualMode
+                ? 'bg-white text-primary-600 shadow-soft'
+                : 'text-secondary-600 hover:text-secondary-900'
             }`}
           >
-            {isLoading ? 'Saving...' : editingContract ? 'Update Contract' : 'Create Contract'}
+            Upload
           </button>
-        </form>
-      )}
+          <button
+            onClick={() => { setIsManualMode(true); setEditingContract(null); setNewContract({ supplier_name: '', items: [] }); }}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              isManualMode
+                ? 'bg-white text-primary-600 shadow-soft'
+                : 'text-secondary-600 hover:text-secondary-900'
+            }`}
+          >
+            Manual Input
+          </button>
+        </div>
+      </div>
 
-      {contracts.length > 0 && (
-        <div className="mt-8">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
-            Your Contracts
-          </h3>
-          <div className="space-y-4">
-            {contracts.map((contract) => (
-              <div
-                key={contract.id}
-                className="border border-gray-200 rounded-md p-4"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h4 className="font-medium text-gray-900">
-                      {contract.supplier_name}
-                    </h4>
-                    <p className="text-sm text-gray-500">
-                      Created: {new Date(contract.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => handleEdit(contract)}
-                      className="text-gray-400 hover:text-indigo-600"
-                      title="Edit contract"
-                    >
-                      <Edit2 className="h-5 w-5" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(contract.id)}
-                      className="text-gray-400 hover:text-red-600"
-                      title="Delete contract"
-                    >
-                      <Trash2 className="h-5 w-5" />
-                    </button>
-                  </div>
+      <AnimatePresence mode="wait">
+        {!isManualMode ? (
+          <motion.div
+            key="upload"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div
+              {...getRootProps()}
+              className={`dropzone ${isDragActive ? 'dropzone-active' : 'dropzone-inactive'} ${
+                (isLoading || isUploading) ? 'opacity-50 pointer-events-none' : ''
+              }`}
+            >
+              <input {...getInputProps()} />
+              <div className="space-y-4">
+                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary-100 to-primary-200 rounded-2xl flex items-center justify-center">
+                  <Upload className="h-8 w-8 text-primary-600" />
                 </div>
-                <div className="space-y-2">
-                  {contract.items && contract.items.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="grid grid-cols-12 gap-x-4 text-sm"
-                    >
-                      <span className="col-span-6 text-gray-700 truncate" title={item.description}>{item.description}</span>
-                      <span className={`sm:col-span-2 text-gray-600 text-right sm:text-left`}>Qty: {item.quantity?.toFixed(2) || 'N/A'}</span>
-                      <span className={`sm:col-span-2 text-gray-800 text-right sm:text-left ${item.unit_price < 0 ? 'text-red-600' : ''}`}>
-                        @ ${item.unit_price !== undefined ? Math.abs(item.unit_price).toFixed(2) : 'N/A'}
-                      </span>
-                      <span className={`sm:col-span-3 text-gray-900 font-medium text-right ${item.total && item.total < 0 ? 'text-red-600' : ''}`}>
-                        Total: ${item.total !== undefined ? Math.abs(item.total).toFixed(2) : (item.quantity * item.unit_price) ? (item.quantity * item.unit_price).toFixed(2) : 'N/A'}
-                        {item.total && item.total < 0 ? ' (neg)' : ''}
-                      </span>
-                    </div>
-                  ))}
-                  {(!contract.items || contract.items.length === 0) && (
-                     <p className="text-sm text-gray-500">No items listed for this contract.</p>
-                  )}
+                <div className="text-center">
+                  <p className="text-lg font-medium text-secondary-900 mb-2">
+                    {isDragActive
+                      ? 'Drop the file here'
+                      : (isLoading || isUploading)
+                      ? 'Processing...'
+                      : 'Drag & drop a contract file'}
+                  </p>
+                  <p className="text-secondary-600">
+                    or click to select • PDF, JPEG, PNG supported
+                  </p>
                 </div>
               </div>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="manual"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <form onSubmit={editingContract ? handleUpdate : handleSubmit} className="space-y-6">
+              <div>
+                <label className="text-label">Supplier Name</label>
+                <input
+                  type="text"
+                  value={newContract.supplier_name}
+                  onChange={(e) =>
+                    setNewContract({ ...newContract, supplier_name: e.target.value })
+                  }
+                  className="input-field"
+                  placeholder="Enter supplier name"
+                  required
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <label className="text-label mb-0">Contract Items</label>
+                  <motion.button
+                    type="button"
+                    onClick={addItem}
+                    className="btn btn-secondary text-sm"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Item
+                  </motion.button>
+                </div>
+
+                <div className="space-y-4">
+                  <AnimatePresence>
+                    {newContract.items.map((item, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 bg-secondary-50 rounded-xl"
+                      >
+                        <input
+                          type="text"
+                          value={item.description}
+                          onChange={(e) => {
+                            const updatedItems = [...newContract.items]
+                            updatedItems[index].description = e.target.value
+                            setNewContract({
+                              ...newContract,
+                              items: updatedItems
+                            })
+                          }}
+                          placeholder="Item description"
+                          className="md:col-span-6 input-field"
+                          required
+                        />
+                        <input
+                          type="number"
+                          value={item.quantity === 0 ? '' : item.quantity}
+                          onChange={(e) => {
+                            const updatedItems = [...newContract.items]
+                            updatedItems[index].quantity = parseFloat(e.target.value) || 0
+                            updatedItems[index].total = updatedItems[index].quantity * updatedItems[index].unit_price
+                            setNewContract({ ...newContract, items: updatedItems })
+                          }}
+                          placeholder="Qty"
+                          className="md:col-span-2 input-field"
+                          required
+                          step="0.01"
+                        />
+                        <input
+                          type="number"
+                          value={item.unit_price === 0 ? '' : item.unit_price}
+                          onChange={(e) => {
+                            const updatedItems = [...newContract.items]
+                            updatedItems[index].unit_price = parseFloat(e.target.value) || 0
+                            updatedItems[index].total = updatedItems[index].quantity * updatedItems[index].unit_price
+                            setNewContract({
+                              ...newContract,
+                              items: updatedItems
+                            })
+                          }}
+                          placeholder="Unit price"
+                          className="md:col-span-3 input-field"
+                          required
+                          step="0.01"
+                        />
+                        <motion.button
+                          type="button"
+                          onClick={() => removeItem(index)}
+                          className="md:col-span-1 p-2 text-secondary-400 hover:text-error-500 hover:bg-error-50 rounded-lg transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <X className="h-5 w-5" />
+                        </motion.button>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+
+                {newContract.items.length > 0 && (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-primary-900">Total Contract Value</span>
+                      <span className="text-xl font-bold text-primary-700">
+                        ${totalValue.toFixed(2)}
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+
+              <motion.button
+                type="submit"
+                disabled={isLoading}
+                className="btn btn-primary w-full"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {isLoading ? (
+                  <div className="flex items-center space-x-2">
+                    <div className="loading-spinner w-4 h-4"></div>
+                    <span>Saving...</span>
+                  </div>
+                ) : (
+                  editingContract ? 'Update Contract' : 'Create Contract'
+                )}
+              </motion.button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {contracts.length > 0 && (
+        <motion.div 
+          className="mt-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h3 className="heading-sm text-secondary-900 mb-6">
+            Your Contracts ({contracts.length})
+          </h3>
+          <div className="space-y-4">
+            {contracts.map((contract, index) => (
+              <motion.div
+                key={contract.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="glass rounded-2xl p-6 hover:shadow-medium transition-all duration-300"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-secondary-900 text-lg mb-1">
+                      {contract.supplier_name}
+                    </h4>
+                    <div className="flex items-center space-x-4 text-sm text-secondary-600">
+                      <div className="flex items-center space-x-1">
+                        <Calendar className="h-4 w-4" />
+                        <span>Created {new Date(contract.created_at).toLocaleDateString()}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <DollarSign className="h-4 w-4" />
+                        <span>
+                          ${contract.items?.reduce((sum, item) => sum + (item.total || 0), 0).toFixed(2) || '0.00'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex space-x-2">
+                    <motion.button
+                      onClick={() => handleEdit(contract)}
+                      className="p-2 text-secondary-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      title="Edit contract"
+                    >
+                      <Edit2 className="h-4 w-4" />
+                    </motion.button>
+                    <motion.button
+                      onClick={() => handleDelete(contract.id)}
+                      className="p-2 text-secondary-400 hover:text-error-600 hover:bg-error-50 rounded-lg transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      title="Delete contract"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </motion.button>
+                  </div>
+                </div>
+                
+                {contract.items && contract.items.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium text-secondary-700 mb-3">
+                      Contract Items ({contract.items.length})
+                    </p>
+                    <div className="grid gap-2">
+                      {contract.items.slice(0, 3).map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="grid grid-cols-12 gap-x-4 text-sm py-2 px-3 bg-white/50 rounded-lg"
+                        >
+                          <span className="col-span-6 text-secondary-700 truncate font-medium" title={item.description}>
+                            {item.description}
+                          </span>
+                          <span className="col-span-2 text-secondary-600 text-right">
+                            {item.quantity?.toFixed(2) || 'N/A'}
+                          </span>
+                          <span className="col-span-2 text-secondary-800 text-right font-medium">
+                            ${item.unit_price !== undefined ? Math.abs(item.unit_price).toFixed(2) : 'N/A'}
+                          </span>
+                          <span className="col-span-2 text-secondary-900 font-semibold text-right">
+                            ${item.total !== undefined ? Math.abs(item.total).toFixed(2) : (item.quantity * item.unit_price) ? (item.quantity * item.unit_price).toFixed(2) : 'N/A'}
+                          </span>
+                        </div>
+                      ))}
+                      {contract.items.length > 3 && (
+                        <p className="text-xs text-secondary-500 text-center py-2">
+                          +{contract.items.length - 3} more items
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+                
+                {(!contract.items || contract.items.length === 0) && (
+                  <p className="text-sm text-secondary-500 italic">No items listed for this contract.</p>
+                )}
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   )
-} 
+}

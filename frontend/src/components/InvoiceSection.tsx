@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useDropzone, DropzoneOptions } from 'react-dropzone'
-import { Upload, Trash2 } from 'lucide-react'
+import { Upload, Trash2, Receipt, Calendar, DollarSign, FileText, CheckCircle, Clock } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { api, InvoiceData } from '@/services/api'
 
@@ -105,114 +106,200 @@ const InvoiceSection: React.FC<InvoiceSectionProps> = ({ onInvoiceProcessed, onR
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-6">Invoices</h2>
-
-      <div
-        {...getRootProps()}
-        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-          isLoading ? 'opacity-50 pointer-events-none' : ''
-        } ${
-          isDragActive
-            ? 'border-indigo-600 bg-indigo-50'
-            : 'border-gray-300 hover:border-indigo-600 hover:bg-gray-50'
-        }`}
-      >
-        <input {...getInputProps()} />
-        <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-600">
-          {isDragActive
-            ? 'Drop the file here'
-            : isLoading
-            ? 'Processing...'
-            : 'Drag & drop an invoice file, or click to select'}
-        </p>
-        <p className="text-sm text-gray-500 mt-2">
-          Supported formats: PDF, JPEG, PNG
-        </p>
+    <motion.div 
+      className="card-elevated"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+    >
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center space-x-3">
+          <div className="p-2 bg-gradient-to-r from-accent-100 to-accent-200 rounded-xl">
+            <Receipt className="h-6 w-6 text-accent-600" />
+          </div>
+          <div>
+            <h2 className="heading-md text-secondary-900">Invoices</h2>
+            <p className="text-sm text-secondary-600">Process and validate invoice documents</p>
+          </div>
+        </div>
+        
+        <div className="flex items-center space-x-2">
+          <div className="status-badge status-info">
+            <FileText className="h-3 w-3 mr-1" />
+            {invoices.length} processed
+          </div>
+        </div>
       </div>
 
-      {processedInvoice && (
-        <div className="mt-8">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
-            Processed Invoice
-          </h3>
-          <div className="border border-gray-200 rounded-md p-4">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h4 className="font-medium text-gray-900">
-                  {processedInvoice.supplier_name}
-                </h4>
-                <p className="text-sm text-gray-600">
-                  Invoice ID: {processedInvoice.id}
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-sm text-gray-600">
-                  Processed: {new Date(processedInvoice.created_at).toLocaleDateString()}
-                </p>
-              </div>
-            </div>
-            <div className="border-t border-gray-200 pt-4">
-              <div className="space-y-2">
-                {processedInvoice.items.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between text-sm"
-                  >
-                    <div className="flex-1">
-                      <p className="text-gray-900">{item.description}</p>
-                      <p className="text-gray-600">
-                        {item.quantity} x ${formatCurrency(item.unit_price)}
-                      </p>
-                    </div>
-                    <p className="text-gray-900">
-                      ${formatCurrency(item.total)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <motion.div
+        {...getRootProps()}
+        className={`dropzone ${isDragActive ? 'dropzone-active' : 'dropzone-inactive'} ${
+          isLoading ? 'opacity-50 pointer-events-none' : ''
+        }`}
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+      >
+        <input {...getInputProps()} />
+        <div className="space-y-4">
+          <div className="mx-auto w-16 h-16 bg-gradient-to-br from-accent-100 to-accent-200 rounded-2xl flex items-center justify-center">
+            {isLoading ? (
+              <div className="loading-spinner w-8 h-8"></div>
+            ) : (
+              <Upload className="h-8 w-8 text-accent-600" />
+            )}
+          </div>
+          <div className="text-center">
+            <p className="text-lg font-medium text-secondary-900 mb-2">
+              {isDragActive
+                ? 'Drop the invoice here'
+                : isLoading
+                ? 'Processing invoice...'
+                : 'Drag & drop an invoice file'}
+            </p>
+            <p className="text-secondary-600">
+              or click to select • PDF, JPEG, PNG supported
+            </p>
           </div>
         </div>
-      )}
+      </motion.div>
+
+      <AnimatePresence>
+        {processedInvoice && (
+          <motion.div 
+            className="mt-8"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="heading-sm text-secondary-900">Latest Processed Invoice</h3>
+              <div className="status-badge status-success">
+                <CheckCircle className="h-3 w-3 mr-1" />
+                Processed
+              </div>
+            </div>
+            
+            <div className="glass rounded-2xl p-6">
+              <div className="flex justify-between items-start mb-6">
+                <div className="flex-1">
+                  <h4 className="font-semibold text-secondary-900 text-lg mb-1">
+                    {processedInvoice.supplier_name}
+                  </h4>
+                  <div className="flex items-center space-x-4 text-sm text-secondary-600">
+                    <div className="flex items-center space-x-1">
+                      <FileText className="h-4 w-4" />
+                      <span>ID: {processedInvoice.id}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="h-4 w-4" />
+                      <span>Processed: {new Date(processedInvoice.created_at).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold text-secondary-900">
+                    ${processedInvoice.total?.toFixed(2) || '0.00'}
+                  </p>
+                  <p className="text-sm text-secondary-600">Total Amount</p>
+                </div>
+              </div>
+              
+              <div className="border-t border-secondary-200 pt-6">
+                <h5 className="font-medium text-secondary-900 mb-4">Line Items</h5>
+                <div className="space-y-3">
+                  {processedInvoice.items.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex justify-between items-center py-3 px-4 bg-white/50 rounded-xl"
+                    >
+                      <div className="flex-1">
+                        <p className="font-medium text-secondary-900">{item.description}</p>
+                        <p className="text-sm text-secondary-600">
+                          {item.quantity} × ${formatCurrency(item.unit_price)}
+                        </p>
+                      </div>
+                      <p className="font-semibold text-secondary-900">
+                        ${formatCurrency(item.total)}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {invoices.length > 0 && !processedInvoice && (
-        <div className="mt-8">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
-            Saved Invoices
+        <motion.div 
+          className="mt-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <h3 className="heading-sm text-secondary-900 mb-6">
+            Saved Invoices ({invoices.length})
           </h3>
           <div className="space-y-4">
-            {invoices.map((invoice) => (
-              <div
+            {invoices.map((invoice, index) => (
+              <motion.div
                 key={invoice.id}
-                className="border border-gray-200 rounded-md p-4 flex justify-between items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="glass rounded-2xl p-4 flex justify-between items-center hover:shadow-medium transition-all duration-300"
               >
-                <div className="flex-1">
-                  <p className="font-medium">{invoice.supplier_name} - ID: {invoice.id}</p>
-                    <p className="text-sm text-gray-600">
-                    Processed: {new Date(invoice.created_at).toLocaleDateString()}
-                    </p>
+                <div className="flex items-center space-x-4">
+                  <div className="p-2 bg-gradient-to-r from-primary-100 to-primary-200 rounded-xl">
+                    <Receipt className="h-5 w-5 text-primary-600" />
                   </div>
-                <button
-                  onClick={() => handleDeleteInvoice(invoice.id)}
-                  disabled={isDeleting === invoice.id || isLoading}
-                  className="p-2 text-red-500 hover:text-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Delete this invoice"
-                >
-                  {isDeleting === invoice.id ? (
-                    <span className="text-sm italic">Deleting...</span>
-                  ) : (
-                    <Trash2 size={18} />
-                  )}
-                </button>
-              </div>
+                  <div>
+                    <p className="font-medium text-secondary-900">
+                      {invoice.supplier_name}
+                    </p>
+                    <div className="flex items-center space-x-3 text-sm text-secondary-600">
+                      <span>ID: {invoice.id}</span>
+                      <div className="flex items-center space-x-1">
+                        <Clock className="h-3 w-3" />
+                        <span>Processed: {new Date(invoice.created_at).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="text-right">
+                    <p className="font-semibold text-secondary-900">
+                      ${invoice.total?.toFixed(2) || '0.00'}
+                    </p>
+                    <p className="text-xs text-secondary-600">Total</p>
+                  </div>
+                  <motion.button
+                    onClick={() => handleDeleteInvoice(invoice.id)}
+                    disabled={isDeleting === invoice.id || isLoading}
+                    className="p-2 text-secondary-400 hover:text-error-600 hover:bg-error-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    title="Delete this invoice"
+                  >
+                    {isDeleting === invoice.id ? (
+                      <div className="loading-spinner w-4 h-4"></div>
+                    ) : (
+                      <Trash2 className="h-4 w-4" />
+                    )}
+                  </motion.button>
+                </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }
 
-export default InvoiceSection 
+export default InvoiceSection
