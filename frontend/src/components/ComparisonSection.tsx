@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Check, X, AlertTriangle } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Check, X, AlertTriangle, BarChart3, TrendingUp, TrendingDown, Minus } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { api, Contract, InvoiceData, ComparisonResult, PriceComparisonDetail, Item as ContractItemBase, InvoiceItem as InvoiceItemBase } from '@/services/api'
 
@@ -253,52 +254,67 @@ export function ComparisonSection({ allInvoices = [], contracts, onContractsChan
 
   const renderMatchIcon = (isMatch: boolean) => {
     if (isMatch) {
-      return <Check className="h-5 w-5 text-green-500" />
+      return <Check className="h-5 w-5 text-success-500" />
     }
-    return <X className="h-5 w-5 text-red-500" />
+    return <X className="h-5 w-5 text-error-500" />
+  }
+
+  const getPriceChangeIcon = (difference: number) => {
+    if (Math.abs(difference) < 0.01) return <Minus className="h-4 w-4 text-secondary-400" />
+    if (difference > 0) return <TrendingUp className="h-4 w-4 text-error-500" />
+    return <TrendingDown className="h-4 w-4 text-success-500" />
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-        Document Comparison
-      </h2>
-
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Select Contract
-        </label>
-        <select
-          value={selectedContractId}
-          onChange={(e) => setSelectedContractId(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-        >
-          <option value="">Choose a contract...</option>
-          {contracts.map((contract) => (
-            <option key={contract.id} value={contract.id}>
-              {contract.supplier_name} (ID: {contract.id})
-            </option>
-          ))}
-        </select>
-        {contracts.length === 0 && (
-          <p className="mt-2 text-sm text-gray-500">
-            No contracts available. Please upload a contract first.
-          </p>
-        )}
+    <motion.div 
+      className="card-elevated"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+    >
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center space-x-3">
+          <div className="p-2 bg-gradient-to-r from-success-100 to-success-200 rounded-xl">
+            <BarChart3 className="h-6 w-6 text-success-600" />
+          </div>
+          <div>
+            <h2 className="heading-md text-secondary-900">Document Comparison</h2>
+            <p className="text-sm text-secondary-600">Compare invoices against contracts</p>
+          </div>
+        </div>
       </div>
 
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Select Invoice
-        </label>
-        <div className="flex items-center space-x-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div>
+          <label className="text-label">Select Contract</label>
+          <select
+            value={selectedContractId}
+            onChange={(e) => setSelectedContractId(e.target.value)}
+            className="input-field"
+          >
+            <option value="">Choose a contract...</option>
+            {contracts.map((contract) => (
+              <option key={contract.id} value={contract.id}>
+                {contract.supplier_name} (ID: {contract.id})
+              </option>
+            ))}
+          </select>
+          {contracts.length === 0 && (
+            <p className="mt-2 text-sm text-secondary-500">
+              No contracts available. Please upload a contract first.
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label className="text-label">Select Invoice</label>
           <select
             value={selectedInvoiceId}
             onChange={(e) => {
               console.log('Invoice dropdown onChange. New value:', e.target.value);
               setSelectedInvoiceId(e.target.value);
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent disabled:bg-gray-100"
+            className="input-field"
             disabled={allInvoices.length === 0 || isLoading}
           >
             <option value="">Choose an invoice...</option>
@@ -308,213 +324,304 @@ export function ComparisonSection({ allInvoices = [], contracts, onContractsChan
               </option>
             ))}
           </select>
+          {allInvoices.length === 0 && (
+            <p className="mt-2 text-sm text-secondary-500">
+              No invoices available. Please process an invoice first.
+            </p>
+          )}
         </div>
-        {allInvoices.length === 0 && (
-          <p className="mt-2 text-sm text-gray-500">
-            No invoices available. Please process an invoice first.
+      </div>
+
+      {currentInvoiceData && (
+        <motion.div 
+          className="glass rounded-2xl p-4 mb-6"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <p className="text-sm text-secondary-700">
+            <span className="font-medium">Ready for comparison:</span> Invoice (ID: {currentInvoiceData.id}) from {currentInvoiceData.supplier_name}
           </p>
-        )}
-      </div>
+        </motion.div>
+      )}
 
-      <div className="mb-6">
-        <p className="text-sm text-gray-700 mb-3">
-          {currentInvoiceData 
-            ? `Invoice (ID: ${currentInvoiceData.id}) from ${currentInvoiceData.supplier_name} is ready for comparison` 
-            : "Select an invoice to compare"}
-        </p>
-      </div>
-
-      <button
+      <motion.button
         onClick={handleCompare}
         disabled={!selectedContractId || !currentInvoiceData || isLoading}
-        className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md transition-colors ${
-          (!selectedContractId || !currentInvoiceData || isLoading)
-            ? 'opacity-50 cursor-not-allowed'
-            : 'hover:bg-indigo-700'
-        }`}
+        className="btn btn-primary w-full mb-8"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
       >
-        {isLoading ? 'Comparing...' : 'Compare Documents'}
-      </button>
+        {isLoading ? (
+          <div className="flex items-center space-x-2">
+            <div className="loading-spinner w-4 h-4"></div>
+            <span>Comparing documents...</span>
+          </div>
+        ) : (
+          'Compare Documents'
+        )}
+      </motion.button>
 
-      {comparisonResult && (
-        <div className="mt-8">
-          <div className="bg-gray-50 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900">
-                Comparison Results
-              </h3>
-              <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-600">Overall Match:</span>
-                {comparisonResult.overall_match ? (
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    Match
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                    Mismatch
-                  </span>
-                )}
+      <AnimatePresence>
+        {comparisonResult && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="space-y-6"
+          >
+            {/* Overall Status */}
+            <div className="glass rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="heading-sm text-secondary-900">Comparison Results</h3>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                >
+                  {comparisonResult.overall_match ? (
+                    <div className="status-badge status-success">
+                      <Check className="h-4 w-4 mr-1" />
+                      Perfect Match
+                    </div>
+                  ) : (
+                    <div className="status-badge status-error">
+                      <X className="h-4 w-4 mr-1" />
+                      Issues Found
+                    </div>
+                  )}
+                </motion.div>
               </div>
-            </div>
 
-            <div className="space-y-4">
-              {/* Price comparison table */}
-              <div className="flex flex-col p-4 bg-white rounded-md">
-                <span className="text-gray-900 font-medium mb-2">Price Comparison</span>
-                {priceDetails.length > 0 ? (
+              {/* Match Summary Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <motion.div 
+                  className={`p-4 rounded-xl border-2 ${
+                    comparisonResult.matches.prices_match 
+                      ? 'bg-success-50 border-success-200' 
+                      : 'bg-error-50 border-error-200'
+                  }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-secondary-900">Price Validation</p>
+                      <p className="text-sm text-secondary-600">
+                        {comparisonResult.matches.prices_match ? 'All prices match' : 'Price discrepancies found'}
+                      </p>
+                    </div>
+                    {renderMatchIcon(comparisonResult.matches.prices_match)}
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  className={`p-4 rounded-xl border-2 ${
+                    comparisonResult.matches.all_services_in_contract 
+                      ? 'bg-success-50 border-success-200' 
+                      : 'bg-error-50 border-error-200'
+                  }`}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-secondary-900">Service Coverage</p>
+                      <p className="text-sm text-secondary-600">
+                        {comparisonResult.matches.all_services_in_contract ? 'All services covered' : 'Missing services detected'}
+                      </p>
+                    </div>
+                    {renderMatchIcon(comparisonResult.matches.all_services_in_contract)}
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Price Comparison Table */}
+              {priceDetails.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <h4 className="font-semibold text-secondary-900 mb-4">Detailed Price Analysis</h4>
                   <div className="overflow-x-auto">
-                    <table className="min-w-full text-sm border border-gray-200 rounded-md">
-                      <thead>
-                        <tr className="bg-gray-100">
-                          <th className="px-4 py-2 text-left font-semibold text-gray-700">Service</th>
-                          <th className="px-4 py-2 text-left font-semibold text-gray-700">Contract Price</th>
-                          <th className="px-4 py-2 text-left font-semibold text-gray-700">Invoice Price</th>
-                          <th className="px-4 py-2 text-left font-semibold text-gray-700">Difference</th>
-                          <th className="px-4 py-2 text-center font-semibold text-gray-700">Match</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                    <div className="min-w-full bg-white rounded-xl border border-secondary-200 overflow-hidden">
+                      <div className="bg-secondary-50 px-6 py-3 border-b border-secondary-200">
+                        <div className="grid grid-cols-12 gap-4 text-sm font-medium text-secondary-700">
+                          <div className="col-span-4">Service</div>
+                          <div className="col-span-2 text-right">Contract Price</div>
+                          <div className="col-span-2 text-right">Invoice Price</div>
+                          <div className="col-span-3 text-right">Difference</div>
+                          <div className="col-span-1 text-center">Status</div>
+                        </div>
+                      </div>
+                      <div className="divide-y divide-secondary-100">
                         {priceDetails.map((detail, idx) => {
                           const contractPrice = detail.contract_price !== null ? detail.contract_price : 0;
                           const invoicePrice = detail.invoice_price;
                           const difference = invoicePrice - contractPrice;
                           
-                          // Handle missing price with a special message
                           const hasMissingPrice = detail.invoice_price === 0 && detail.contract_price !== null && detail.note === "Service not found in invoice";
                           const isExtraInvoiceItem = detail.contract_price === null && detail.note === "Service not found in contract";
                           
-                          // Use our own comparison with tolerance instead of backend's flag
-                          // For missing prices, they should never match
                           let pricesMatch = false;
                           if (isExtraInvoiceItem) {
-                            pricesMatch = false; // Cannot match if not in contract
+                            pricesMatch = false;
                           } else if (hasMissingPrice) {
-                            pricesMatch = false; // Cannot match if missing in invoice
+                            pricesMatch = false;
                           } else {
                             pricesMatch = Math.abs(difference) < 0.01;
                           }
                           
-                          const formattedDiff = Math.abs(difference).toLocaleString('en-US', {
-                            style: 'currency',
-                            currency: 'USD',
-                            minimumFractionDigits: 2
-                          });
-                          
-                          // Determine row styling - highlight price mismatches in red, missing prices in yellow
-                          const rowStyle = pricesMatch 
-                            ? "border-b border-gray-200" 
-                            : (hasMissingPrice || isExtraInvoiceItem ? "bg-yellow-50 border-b border-gray-200" : "bg-red-50 border-b border-gray-200");
-                          
                           return (
-                            <tr
+                            <motion.div
                               key={idx}
-                              className={rowStyle}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.6 + idx * 0.1 }}
+                              className={`px-6 py-4 hover:bg-secondary-25 transition-colors ${
+                                !pricesMatch ? 'bg-error-25' : ''
+                              }`}
                             >
-                              <td className="px-4 py-3 text-gray-900 font-medium">{detail.service_name}</td>
-                              <td className="px-4 py-3 text-gray-900">
-                                {detail.contract_price !== null 
-                                  ? detail.contract_price.toLocaleString('en-US', {
-                                      style: 'currency',
-                                      currency: 'USD',
-                                      minimumFractionDigits: 2
-                                    }) 
-                                  : <span className="text-gray-400 italic">N/A</span>}
-                              </td>
-                              <td className="px-4 py-3 text-gray-900">
-                                {hasMissingPrice 
-                                  ? <span className="text-amber-500 italic">Not in invoice</span>
-                                  : isExtraInvoiceItem 
-                                    ? <span className="text-amber-500 italic">Not in contract (Invoice: {invoicePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })})</span>
-                                  : invoicePrice.toLocaleString('en-US', {
-                                      style: 'currency',
-                                      currency: 'USD',
-                                      minimumFractionDigits: 2
-                                    })}
-                              </td>
-                              <td className={`px-4 py-3 font-medium ${!pricesMatch ? (hasMissingPrice || isExtraInvoiceItem ? "text-amber-500" : (difference > 0 ? "text-red-600" : "text-blue-600")) : "text-gray-400"}`}>
-                                {!pricesMatch ? (
-                                  hasMissingPrice ? (
-                                    <span className="text-amber-500">Not in invoice</span>
-                                  ) : isExtraInvoiceItem ? (
-                                    <span className="text-amber-500">Not in contract</span>
+                              <div className="grid grid-cols-12 gap-4 items-center text-sm">
+                                <div className="col-span-4">
+                                  <p className="font-medium text-secondary-900 truncate" title={detail.service_name}>
+                                    {detail.service_name}
+                                  </p>
+                                </div>
+                                <div className="col-span-2 text-right">
+                                  {detail.contract_price !== null ? (
+                                    <span className="font-medium text-secondary-900">
+                                      ${detail.contract_price.toFixed(2)}
+                                    </span>
                                   ) : (
-                                    <>
-                                      {difference > 0 ? '+' : '-'} {formattedDiff}
-                                      <span className="text-xs ml-1">
-                                        ({Math.abs(difference) > 0 && contractPrice > 0 
-                                          ? Math.round(Math.abs(difference) / contractPrice * 100) 
-                                          : 100}%)
-                                      </span>
-                                    </>
-                                  )
-                                ) : (
-                                  "—"
-                                )}
-                              </td>
-                              <td className="px-4 py-3 text-center">
-                                {renderMatchIcon(pricesMatch)}
-                              </td>
-                            </tr>
+                                    <span className="text-secondary-400 italic">N/A</span>
+                                  )}
+                                </div>
+                                <div className="col-span-2 text-right">
+                                  {hasMissingPrice ? (
+                                    <span className="text-warning-600 italic text-xs">Not in invoice</span>
+                                  ) : isExtraInvoiceItem ? (
+                                    <span className="font-medium text-secondary-900">
+                                      ${invoicePrice.toFixed(2)}
+                                    </span>
+                                  ) : (
+                                    <span className="font-medium text-secondary-900">
+                                      ${invoicePrice.toFixed(2)}
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="col-span-3 text-right">
+                                  <div className="flex items-center justify-end space-x-2">
+                                    {getPriceChangeIcon(difference)}
+                                    <div>
+                                      {!pricesMatch ? (
+                                        hasMissingPrice ? (
+                                          <span className="text-warning-600 text-xs">Missing</span>
+                                        ) : isExtraInvoiceItem ? (
+                                          <span className="text-warning-600 text-xs">Extra</span>
+                                        ) : (
+                                          <div className="text-right">
+                                            <div className={`font-medium ${difference > 0 ? 'text-error-600' : 'text-success-600'}`}>
+                                              {difference > 0 ? '+' : ''}${Math.abs(difference).toFixed(2)}
+                                            </div>
+                                            {contractPrice > 0 && (
+                                              <div className="text-xs text-secondary-500">
+                                                ({Math.round(Math.abs(difference) / contractPrice * 100)}%)
+                                              </div>
+                                            )}
+                                          </div>
+                                        )
+                                      ) : (
+                                        <span className="text-secondary-400">—</span>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="col-span-1 text-center">
+                                  {renderMatchIcon(pricesMatch)}
+                                </div>
+                              </div>
+                            </motion.div>
                           );
                         })}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : (
-                  <div className="text-gray-500 text-sm">No price details to compare.</div>
-                )}
-              </div>
-
-              <div className="flex items-center justify-between p-4 bg-white rounded-md">
-                <span className="text-gray-900">All Services in Contract</span>
-                {renderMatchIcon(comparisonResult.matches.all_services_in_contract)}
-              </div>
-            </div>
-
-            {comparisonResult.issues && comparisonResult.issues.length > 0 && (
-              <div className="mt-6">
-                <h4 className="text-sm font-medium text-gray-900 mb-3">Issues</h4>
-                <div className="space-y-2">
-                  {comparisonResult.issues?.map((issue: ComparisonResult['issues'][0], index: number) => (
-                    <div
-                      key={index}
-                      className="flex items-start space-x-3 text-sm text-gray-600 bg-white p-3 rounded-md"
-                    >
-                      <AlertTriangle className="h-5 w-5 text-amber-500 flex-shrink-0" />
-                      <div>
-                        {issue.type === 'service_not_in_contract' && (
-                          <p>
-                            Service &quot;{issue.service_name}&quot; from invoice not found in contract. Invoice Price: ${typeof issue.invoice_value === 'number' ? issue.invoice_value.toFixed(2) : issue.invoice_value}
-                          </p>
-                        )}
-                        {issue.type === 'price_mismatch' && (
-                          <p>
-                            Price mismatch for &quot;{issue.service_name}&quot;:
-                            Contract: ${typeof issue.contract_value === 'number' ? issue.contract_value.toFixed(2) : issue.contract_value}, Invoice: $
-                            {typeof issue.invoice_value === 'number' ? issue.invoice_value.toFixed(2) : issue.invoice_value}
-                          </p>
-                        )}
-                        {issue.type === 'supplier_mismatch' && (
-                          <p>
-                            Supplier name mismatch: Contract: &quot;
-                            {issue.contract_value}&quot;, Invoice: &quot;
-                            {issue.invoice_value}&quot;
-                          </p>
-                        )}
-                        {issue.type === 'service_not_in_invoice' && (
-                          <p>
-                            Service &quot;{issue.service_name}&quot; from contract not found in invoice. Contract Price: ${typeof issue.contract_value === 'number' ? issue.contract_value.toFixed(2) : issue.contract_value}
-                          </p>
-                        )}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Issues Section */}
+              {comparisonResult.issues && comparisonResult.issues.length > 0 && (
+                <motion.div 
+                  className="mt-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                >
+                  <h4 className="font-semibold text-secondary-900 mb-4 flex items-center">
+                    <AlertTriangle className="h-5 w-5 text-warning-500 mr-2" />
+                    Issues Detected ({comparisonResult.issues.length})
+                  </h4>
+                  <div className="space-y-3">
+                    {comparisonResult.issues?.map((issue: ComparisonResult['issues'][0], index: number) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.8 + index * 0.1 }}
+                        className="flex items-start space-x-3 p-4 bg-warning-50 border border-warning-200 rounded-xl"
+                      >
+                        <AlertTriangle className="h-5 w-5 text-warning-500 flex-shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          {issue.type === 'service_not_in_contract' && (
+                            <div>
+                              <p className="font-medium text-warning-900">Service not in contract</p>
+                              <p className="text-sm text-warning-700">
+                                "{issue.service_name}" from invoice (${typeof issue.invoice_value === 'number' ? issue.invoice_value.toFixed(2) : issue.invoice_value}) 
+                                is not covered by the contract
+                              </p>
+                            </div>
+                          )}
+                          {issue.type === 'price_mismatch' && (
+                            <div>
+                              <p className="font-medium text-warning-900">Price mismatch detected</p>
+                              <p className="text-sm text-warning-700">
+                                "{issue.service_name}": Contract price ${typeof issue.contract_value === 'number' ? issue.contract_value.toFixed(2) : issue.contract_value} 
+                                vs Invoice price ${typeof issue.invoice_value === 'number' ? issue.invoice_value.toFixed(2) : issue.invoice_value}
+                              </p>
+                            </div>
+                          )}
+                          {issue.type === 'supplier_mismatch' && (
+                            <div>
+                              <p className="font-medium text-warning-900">Supplier name mismatch</p>
+                              <p className="text-sm text-warning-700">
+                                Contract: "{issue.contract_value}" vs Invoice: "{issue.invoice_value}"
+                              </p>
+                            </div>
+                          )}
+                          {issue.type === 'service_not_in_invoice' && (
+                            <div>
+                              <p className="font-medium text-warning-900">Missing service in invoice</p>
+                              <p className="text-sm text-warning-700">
+                                "{issue.service_name}" from contract (${typeof issue.contract_value === 'number' ? issue.contract_value.toFixed(2) : issue.contract_value}) 
+                                is not found in the invoice
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   )
-} 
+}
